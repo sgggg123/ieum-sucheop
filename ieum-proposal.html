@@ -190,7 +190,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
         <p>치매 어머니를 돌보던 딸이 갑자기 쓰러져 입원합니다.</p></div>
       <div class="cut"><span class="n">2</span>
         <svg viewBox="0 0 160 86"><rect x="34" y="6" width="40" height="76" rx="2"/><circle cx="66" cy="46" r="2.5"/><circle cx="108" cy="26" r="9"/><path d="M92 82V56a16 16 0 0132 0v26"/><rect x="124" y="58" width="14" height="18" rx="2"/></svg>
-        <p>긴급돌봄을 신청해 돌봄 인력이 집에 도착합니다.</p></div>
+        <p>이웃이 동주민센터에 돌봄SOS를 신청해 제공기관의 돌봄 인력이 집에 옵니다.</p></div>
       <div class="cut"><span class="n">3</span>
         <svg viewBox="0 0 160 86"><rect x="16" y="36" width="44" height="20" rx="10" transform="rotate(-30 38 46)"/><path d="M30 52l16-10" /><circle cx="86" cy="44" r="20"/><path d="M86 32v12l9 6"/><path d="M124 30a10 10 0 1115 9c-4 2-5 4-5 9M134 62v1" stroke="#256EF4"/></svg>
         <p>약을 언제 드리는지, 불안해하실 때 무엇을 해야 하는지 알 수 없습니다.</p></div>
@@ -304,11 +304,11 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
     <div class="safe">
       <table class="tbl">
         <tbody>
-          <tr><td class="k">AI 원칙</td><td>정리만 하고 의료 판단은 하지 않습니다. 원문 인용 위치가 없는 항목은 버리고, 보호자가 확인한 뒤에만 저장합니다.</td></tr>
-          <tr><td class="k">개인정보</td><td>국외 이전 동의를 받고, AI에는 이름·연락처를 가린 글과 이름을 가린 사진만 보냅니다. 건강정보는 열람자 유형·항목·기간을 정해 동의받고, 성인 당사자는 본인(어렵다면 후견인)이 동의합니다.</td></tr>
-          <tr><td class="k">승인자</td><td>가족·지인, 없으면 동주민센터 담당자를 두는 방안입니다. 근무시간 밖에는 10분 뒤 긴급 요약만 열립니다.</td></tr>
+          <tr><td class="k">AI 원칙</td><td>정리만 하고 증상 해석·복약 조언 같은 의료 판단은 하지 않습니다. 원문 인용 위치가 없는 항목은 버리고, AI가 정리한 내용임을 표시해 보호자가 확인한 뒤에만 저장합니다.</td></tr>
+          <tr><td class="k">개인정보</td><td>음성(OpenAI)과 이름·연락처를 가린 글, 이름을 가린 사진(Anthropic)은 한국 밖에서 처리되므로 국외 이전 동의를 받습니다. 두 API 모두 입력을 학습에 쓰지 않습니다. 건강정보는 열람 범위 동의와 AI 처리 동의를 따로 받고, 성인 당사자는 본인(어렵다면 후견인)이 동의합니다.</td></tr>
+          <tr><td class="k">승인자</td><td>가족·지인, 없으면 동주민센터 돌봄매니저를 두는 방안입니다(서울시·자치구와 협의 필요). 근무시간 밖에는 10분 뒤 긴급 요약만 열립니다.</td></tr>
           <tr><td class="k">분실·오남용</td><td>링크 만료, 모든 열람 기록, 보호자가 알림에서 열람 차단·QR 재발급</td></tr>
-          <tr><td class="k">보관 기간</td><td>음성 30일, 이전 약 사진 90일, 대화 원문·열람 로그 1년, 탈퇴 시 즉시 파기</td></tr>
+          <tr><td class="k">보관 기간</td><td>음성 30일, 이전 약 사진 90일, 대화 원문·열람 로그 1년, 탈퇴 시 즉시 파기. AI 업체 쪽은 기본 최대 30일 보관이며 무보존(ZDR)을 신청합니다.</td></tr>
         </tbody>
       </table>
     </div>
@@ -365,8 +365,8 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <h2 class="hl">보호자가 쓰러져도 돌봄이 끊기지 않도록, <em>공통 돌봄 인수인계 표준</em>으로 넓힙니다</h2>
   <div class="p9">
     <div class="box"><h3>기대효과</h3><ul class="d"><li>보호자가 갑자기 쓰러져도 돌봄이 끊기지 않습니다.</li><li>처음 온 돌봄 인력도, 활동지원사·요양보호사가 바뀔 때도 같은 문서로 인수인계합니다.</li></ul></div>
-    <div class="box"><h3>확장</h3><ul class="d"><li>돌봄SOS센터가 긴급돌봄 접수 때 보호자 동의를 받아 미리 열람</li><li>동주민센터가 돌봄 가구에 QR 스티커 배부</li></ul></div>
-    <div class="box"><h3>운영</h3><ul class="d"><li>운영은 시가 맡고 보호자는 무료로 씁니다.</li><li>승인·1회용 코드 발급은 담당자 콘솔에서 처리합니다 (확장 설계).</li></ul></div>
+    <div class="box"><h3>확장</h3><ul class="d"><li>돌봄SOS를 접수하는 동주민센터 돌봄매니저가 보호자가 미리 동의한 범위에서 먼저 열람</li><li>동주민센터가 돌봄 가구에 QR 스티커 배부</li></ul></div>
+    <div class="box"><h3>운영</h3><ul class="d"><li>운영은 시가 맡고 보호자는 무료로 씁니다.</li><li>승인·1회용 코드 발급은 돌봄매니저가 담당자 콘솔에서 처리합니다 (서울시·자치구와 협의가 필요한 확장 설계).</li></ul></div>
   </div>
   <div class="p9b">
     <div class="cost">
@@ -380,7 +380,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
       </table>
       <p class="src" style="margin-top:8px">가구당 월 AI·음성 인식 약 $0.09(1달러 1,400원 가정) + 승인 문자 20원. Claude Haiku 5.5·Opus 5.5·Whisper API 단가와 가구당 월 사용량 가정으로 계산했습니다.</p>
     </div>
-    <figure><div class="console"><img src="captures/D1.png" alt="담당자 콘솔 승인 요청 화면"></div><p class="cap">담당자 콘솔 (확장 설계, 목업): 동주민센터 담당자의 승인 요청 처리 화면</p></figure>
+    <figure><div class="console"><img src="captures/D1.png" alt="담당자 콘솔 승인 요청 화면"></div><p class="cap">담당자 콘솔 (확장 설계, 목업): 동주민센터 돌봄매니저의 승인 요청 처리 화면</p></figure>
   </div>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>9 / 9</span></footer>
 </section>

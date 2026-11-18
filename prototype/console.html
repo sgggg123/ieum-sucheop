@@ -127,7 +127,7 @@ tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
 
 <header class="top">
   <span class="brand"><svg><use href="#logo"/></svg>이음수첩<span>담당자 콘솔</span></span>
-  <span class="user"><span id="org">○○동 주민센터</span><b id="who">최○○ 주무관</b><a href="#/D1">로그아웃</a></span>
+  <span class="user"><span id="org">○○동 주민센터</span><b id="who">최○○ 돌봄매니저</b><a href="#/D1">로그아웃</a></span>
 </header>
 <div class="wrap">
 <nav class="side" aria-label="메뉴">
@@ -141,9 +141,9 @@ tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
 <main>
 
 <!-- D1 승인 요청 -->
-<section class="page" id="D1" data-org="○○동 주민센터" data-who="최○○ 주무관">
+<section class="page" id="D1" data-org="○○동 주민센터" data-who="최○○ 돌봄매니저">
   <p class="crumb">홈 › 승인 요청</p>
-  <div class="ph"><div><h1>승인 요청</h1><p>가족·지인 승인자가 없는 대상자의 전체 보기 요청을 처리합니다.</p></div><span class="crumb">2026.11.18 (수) 15:13 기준</span></div>
+  <div class="ph"><div><h1>승인 요청</h1><p>가족·지인 승인자가 없는 대상자의 전체 보기 요청을 돌봄매니저가 처리합니다.</p></div><span class="crumb">2026.11.18 (수) 15:13 기준</span></div>
   <div class="kpi">
     <div class="hot"><span>승인 대기</span><b>2<small>건</small></b><p>가장 빠른 마감 1분 15초</p></div>
     <div><span>오늘 처리</span><b>3<small>건</small></b><p>승인 2 · 거절 1</p></div>
@@ -170,7 +170,7 @@ tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
       <div class="det">
         <dl><dt>대상자</dt><dd>오○례 (79세)</dd><dt>요청자</dt><dd class="num">010-****-7314</dd><dt>인증</dt><dd>문자 인증 완료</dd><dt>사유</dt><dd>돌봄 공백</dd><dt>접수</dt><dd class="num">2026.11.18 15:12</dd><dt>QR 위치</dt><dd>현관문 안쪽</dd></dl>
         <div class="timer"><b>08:42</b><p>10분 안에 응답이 없으면 긴급 요약만 열립니다.</p></div>
-        <p class="hint">승인하면 요청자에게 2단계 전체가 만료 링크로 열립니다. 담당자 화면에는 대상자의 건강정보가 보이지 않습니다.</p>
+        <p class="hint">승인하면 요청자에게 2단계 전체가 만료 링크로 열립니다. 승인 화면에는 대상자의 건강정보가 보이지 않습니다.</p>
         <div class="btns"><a class="btn btn-p" href="#/D1"><svg class="ic"><use href="#i-check"/></svg>승인</a><a class="btn btn-t" href="#/D1"><svg class="ic"><use href="#i-x"/></svg>거절</a></div>
         <p class="small">승인 전 담당자 문자 인증을 한 번 더 진행합니다.</p>
         <div class="sep"></div>
@@ -181,31 +181,31 @@ tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
 </section>
 
 <!-- D2 1회용 코드 발급 -->
-<section class="page" id="D2" data-org="○○구 돌봄SOS센터" data-who="정○○ 담당">
+<section class="page" id="D2" data-org="○○동 주민센터" data-who="최○○ 돌봄매니저">
   <p class="crumb">홈 › 1회용 코드 발급</p>
-  <div class="ph"><div><h1>1회용 코드 발급</h1><p>돌봄SOS 인력을 배정할 때 대상자 가구 전용 1회용 코드를 발급합니다. 코드는 한 번 쓰면 사라집니다.</p></div></div>
+  <div class="ph"><div><h1>1회용 코드 발급</h1><p>돌봄SOS를 제공기관에 의뢰할 때 대상자 가구 전용 1회용 코드를 발급해 보냅니다. 파견된 돌봄 인력이 이 코드로 전체 보기를 엽니다. 코드는 한 번 쓰면 사라집니다.</p></div></div>
   <div class="cols d2">
     <div class="box">
       <h2>코드 발급</h2>
       <div class="form">
         <div class="fld"><label>대상자</label><span class="inp"><svg class="ic"><use href="#i-search"/></svg>한○민 (41세) · ○○동</span></div>
-        <div class="fld"><label>배정 인력</label><span class="inp sel">서○○ · 요양보호사<svg class="ic"><use href="#i-down"/></svg></span></div>
+        <div class="fld"><label>의뢰 제공기관</label><span class="inp sel">○○종합재가센터<svg class="ic"><use href="#i-down"/></svg></span></div>
         <div class="fld"><label>유효 기간</label><div class="seg"><span>12시간</span><span class="on">24시간</span><span>3일</span></div></div>
         <a class="btn btn-p" href="#/D2">코드 발급</a>
         <div class="code"><span>발급된 코드</span><b>4827-1953</b><p>2026.11.19 15:20까지 · 1회 사용</p></div>
-        <div class="btns" style="margin-top:0"><a class="btn btn-t" href="#/D2">배정 인력에게 문자 보내기</a></div>
+        <div class="btns" style="margin-top:0"><a class="btn btn-t" href="#/D2">제공기관에 코드 보내기</a></div>
       </div>
     </div>
     <div class="box">
       <h2>발급 내역<small>최근 7일 · 5건</small></h2>
       <table>
-        <thead><tr><th>발급 일시</th><th>대상자</th><th>배정 인력</th><th>만료</th><th>상태</th></tr></thead>
+        <thead><tr><th>발급 일시</th><th>대상자</th><th>제공기관 · 파견 인력</th><th>만료</th><th>상태</th></tr></thead>
         <tbody>
-          <tr class="sel"><td class="num">11.18 15:20</td><td>한○민 (41세)</td><td>서○○ 요양보호사</td><td class="num">11.19 15:20</td><td><span class="bdg b-blue">미사용</span></td></tr>
-          <tr><td class="num">11.18 08:40</td><td>윤○희 (76세)</td><td>이○○ 요양보호사</td><td class="num">11.19 08:40</td><td><span class="bdg b-ok">사용됨</span></td></tr>
-          <tr><td class="num">11.17 16:42</td><td>강○석 (69세)</td><td>최○○ 활동지원사</td><td class="num">11.18 16:42</td><td><span class="bdg b-ok">사용됨</span></td></tr>
-          <tr><td class="num">11.16 09:30</td><td>박○례 (79세)</td><td>김○○ 요양보호사</td><td class="num">11.17 09:30</td><td><span class="bdg b-sum">만료</span></td></tr>
-          <tr><td class="num">11.14 14:12</td><td>조○연 (23세)</td><td>한○○ 활동지원사</td><td class="num">11.15 14:12</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+          <tr class="sel"><td class="num">11.18 15:20</td><td>한○민 (41세)</td><td>○○종합재가센터 · 파견 전</td><td class="num">11.19 15:20</td><td><span class="bdg b-blue">미사용</span></td></tr>
+          <tr><td class="num">11.18 08:40</td><td>윤○희 (76세)</td><td>○○방문요양 · 이○○</td><td class="num">11.19 08:40</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+          <tr><td class="num">11.17 16:42</td><td>강○석 (69세)</td><td>○○활동지원기관 · 최○○</td><td class="num">11.18 16:42</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+          <tr><td class="num">11.16 09:30</td><td>박○례 (79세)</td><td>○○방문요양 · 김○○</td><td class="num">11.17 09:30</td><td><span class="bdg b-sum">만료</span></td></tr>
+          <tr><td class="num">11.14 14:12</td><td>조○연 (23세)</td><td>○○활동지원기관 · 한○○</td><td class="num">11.15 14:12</td><td><span class="bdg b-ok">사용됨</span></td></tr>
         </tbody>
       </table>
       <p class="bar info" style="margin:16px 20px 20px"><svg class="ic"><use href="#i-info"/></svg>코드는 대상자 가구에서만 쓸 수 있고, 다른 가구 QR에는 통하지 않습니다.</p>
@@ -214,7 +214,7 @@ tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
 </section>
 
 <!-- D3 열람 기록 -->
-<section class="page" id="D3" data-org="○○동 주민센터" data-who="최○○ 주무관">
+<section class="page" id="D3" data-org="○○동 주민센터" data-who="최○○ 돌봄매니저">
   <p class="crumb">홈 › 열람 기록</p>
   <div class="ph"><div><h1>열람 기록</h1><p>QR과 링크로 열린 모든 기록입니다. 1년간 보관한 뒤 자동으로 파기합니다.</p></div></div>
   <div class="box">

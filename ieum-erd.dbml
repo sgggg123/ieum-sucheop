@@ -143,7 +143,7 @@ Table qr_codes [headercolor: #D9730D] {
 Table institution_codes [headercolor: #D9730D] {
   id uuid [pk]
   recipient_id uuid [not null, ref: > care_recipients.id]
-  code_hash varchar [not null, unique, note: '돌봄SOS 배정 시 발급, 가구 전용·1회용 (시연은 모의 코드)']
+  code_hash varchar [not null, unique, note: '돌봄SOS를 제공기관에 의뢰할 때 발급, 가구 전용·1회용 (시연은 모의 코드)']
   expires_at timestamp [not null]
   used_at timestamp
 }
