@@ -21,6 +21,7 @@ Enum item_category {
 Enum viewer_role {
   paramedic
   caregiver
+  care_manager [note: '동주민센터 돌봄매니저 (돌봄SOS 접수 때 동의 범위 안에서 미리 열람)']
   other
   unverified
 }
@@ -73,6 +74,8 @@ Table care_recipients [headercolor: #256EF4] {
   guardian_id uuid [not null, ref: > guardians.id]
   name_enc bytea [not null]
   care_type care_type [not null]
+  ai_consent_by consent_by [not null, note: 'AI 처리·국외 이전 동의 (성인 당사자 본인 또는 후견인)']
+  ai_consent_at timestamp [not null]
 }
 
 Table sharing_consents [headercolor: #1E7B34] {
