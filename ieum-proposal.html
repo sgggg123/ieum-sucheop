@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>이음수첩 기획서</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
+<style>
+@page{size:1280px 720px;margin:0}
+:root{
+  --font:"Pretendard GOV Variable","Pretendard GOV",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --p:#256EF4;--p-d:#0B50D0;--p-t:#ECF2FE;--p-ink:#0B3D99;--navy:#13294B;
+  --t1:#1E2124;--t2:#464C53;--t3:#6D7882;--bd:#CDD1D5;--dv:#E6E8EA;--bg:#F4F5F6;--red:#C8281E;--red-t:#FDEEEC;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--t1);background:#DDE1E6;font-size:16px;line-height:1.5;word-break:keep-all;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,p,ul,ol,table,figure{margin:0}
+.page{width:1280px;height:720px;background:#fff;position:relative;overflow:hidden;margin:0 auto 24px;padding:36px 56px 0;break-after:page}
+@media print{body{background:#fff}.page{margin:0}}
+.ph{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:9px}
+.ph .mark{display:flex;align-items:center;gap:6px;color:var(--t2);font-weight:700}
+.ph .mark svg{width:18px;height:18px}
+.hl{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.35;margin:20px 0 22px}
+.hl em{font-style:normal;color:var(--p-d)}
+.pf{position:absolute;left:56px;right:56px;bottom:20px;display:flex;justify-content:space-between;font-size:12px;color:var(--t3);border-top:1px solid var(--dv);padding-top:8px}
+.src{font-size:12px;color:var(--t3);line-height:1.5}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:10px 14px}
+.tbl td{border-bottom:1px solid var(--dv);padding:11px 14px;vertical-align:top}
+.tbl tr.me td{background:var(--p-t);font-weight:700;color:var(--p-ink);border-bottom:2px solid var(--p)}
+.tbl .k{font-weight:700;white-space:nowrap}
+.box{border:1px solid var(--bd);border-radius:6px;padding:16px 18px}
+.key{background:var(--navy);color:#fff;border-radius:6px;padding:16px 22px;font-size:18px;font-weight:700}
+.dev{border:6px solid #1E2124;border-radius:26px;overflow:hidden;background:#1E2124}
+.dev img{display:block;width:100%}
+ul.d{list-style:none;padding:0}
+ul.d li{position:relative;padding-left:14px;margin-top:5px}
+ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height:5px;background:var(--t2)}
+
+/* 1쪽 표지 */
+.cover{padding:0;display:grid;grid-template-columns:690px 1fr}
+.cv-l{padding:84px 0 0 72px;position:relative}
+.cv-top{font-size:16px;font-weight:700;color:var(--p-d)}
+.cover h1{font-size:76px;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-top:18px}
+.cv-sub{font-size:26px;font-weight:700;color:var(--t2);margin-top:12px}
+.cv-line{font-size:22px;font-weight:600;margin-top:44px;padding-top:22px;border-top:2px solid var(--navy);width:470px;line-height:1.55}
+.cv-info{position:absolute;left:72px;bottom:64px;border-collapse:collapse;font-size:16px}
+.cv-info th{text-align:left;color:var(--t3);font-weight:600;padding:4px 24px 4px 0}
+.cv-info td{font-weight:700;padding:4px 0}
+.cv-r{background:var(--navy);position:relative}
+.sticker{position:absolute;left:64px;top:112px;width:300px;background:#fff;border-radius:14px;padding:24px 24px 20px;box-shadow:0 18px 40px rgba(0,0,0,.35);text-align:center}
+.sticker b{display:block;font-size:22px;line-height:1.35}
+.sticker svg.qr{width:180px;height:180px;margin:16px auto 10px;display:block}
+.sticker p{font-size:14px;color:var(--t2)}
+.sticker .by{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-weight:800;font-size:15px}
+.sticker .by svg{width:20px;height:20px}
+.sticker .ex{position:absolute;top:10px;right:12px;font-size:11px;color:var(--t3)}
+.cv-phone{position:absolute;left:330px;top:150px;width:214px;box-shadow:0 18px 40px rgba(0,0,0,.4);border-radius:26px}
+.cv-cap{position:absolute;left:64px;bottom:40px;color:#C9D3E3;font-size:13px}
+
+/* 2쪽 문제 */
+.p2{display:grid;grid-template-columns:640px 1fr;gap:28px}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative}
+.story .tagx{position:absolute;right:0;top:-30px;font-size:12px;font-weight:700;color:var(--t3);border:1px solid var(--bd);border-radius:4px;padding:1px 8px}
+.cut{border:1px solid var(--bd);border-radius:6px;padding:14px 16px;height:200px;display:flex;flex-direction:column}
+.cut .n{font-size:13px;font-weight:800;color:#fff;background:var(--navy);width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+.cut svg{height:86px;width:100%;margin:6px 0 8px;fill:none;stroke:var(--navy);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cut p{font-size:15px;line-height:1.45}
+.stat{border-top:2px solid var(--navy);padding:12px 0 14px}
+.stat+.stat{margin-top:4px}
+.stat b{display:block;font-size:34px;font-weight:900;color:var(--p-d);line-height:1.2;letter-spacing:-.02em}
+.stat p{font-size:15px;margin-top:2px}
+.stat .src{margin-top:4px}
+
+/* 4쪽 이용자 */
+.users{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.user{border:1px solid var(--bd);border-radius:6px;overflow:hidden;height:470px;display:flex;flex-direction:column}
+.user h3{background:var(--navy);color:#fff;font-size:19px;font-weight:800;padding:12px 18px}
+.user h3 small{display:block;font-size:13px;font-weight:500;opacity:.85}
+.user .in{display:grid;grid-template-columns:1fr 176px;gap:14px;padding:16px 18px;flex:1}
+.user dt{font-size:13px;font-weight:800;color:var(--p-d);margin-top:4px}
+.user dd{margin:2px 0 12px;font-size:15px;line-height:1.5}
+.user .dev{border-width:5px;border-radius:20px;align-self:start}
+
+/* 5쪽 흐름 */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-bottom:22px}
+.flow div{position:relative;background:#EEF1F5;height:96px;padding:12px 18px 0 30px;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,18px 50%)}
+.flow div:first-child{clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%);padding-left:20px}
+.flow div.hot{background:var(--red);color:#fff}
+.flow div.hot p{color:#fff}
+.flow b{display:block;font-size:18px;font-weight:800}
+.flow p{font-size:13.5px;color:var(--t2);line-height:1.4;margin-top:2px}
+.p5{display:grid;grid-template-columns:1fr 190px;gap:18px;align-items:start}
+.p5n{font-size:15px;line-height:1.5}
+.p5n b{display:block;font-size:16px;color:var(--red);margin-bottom:4px}
+.p5n .src{margin-top:12px}
+.uf{border:1px solid var(--bd)}
+.uf img{display:block;width:100%}
+.cap{font-size:13px;color:var(--t3);margin-top:8px}
+
+/* 6쪽 화면 */
+.shots{display:grid;grid-template-columns:repeat(6,1fr);gap:26px}
+.shots figcaption{margin-top:10px}
+.shots .t{font-size:15px;font-weight:800}
+.shots .t b{color:var(--p-d);margin-right:4px}
+.shots .d{font-size:13.5px;color:var(--t2);line-height:1.45}
+.crit{position:absolute;left:56px;right:56px;bottom:64px;display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:600;color:var(--t2)}
+.crit b{color:var(--navy);margin-right:6px}
+.crit span{border:1px solid var(--bd);border-radius:4px;padding:3px 10px;background:#fff}
+
+/* 7쪽 안전장치 */
+.p7{display:grid;grid-template-columns:520px 1fr;gap:28px}
+.qr2 .s1{border:2px solid var(--navy);border-radius:6px;padding:12px 16px}
+.qr2 .s1 h4,.qr2 .br h4{margin:0;font-size:16px;font-weight:800}
+.qr2 .s1 h4 span{font-size:13px;font-weight:600;color:var(--t3);margin-left:6px}
+.qr2 .s1 ul{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font-size:14px}
+.qr2 .arr{text-align:center;font-size:14px;font-weight:700;color:var(--t2);margin:6px 0;display:flex;flex-direction:column;align-items:center}
+.qr2 .arr::after{content:"";width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--t2);margin-top:4px}
+.qr2 .brs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qr2 .br{border:1px solid var(--bd);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.45;display:flex;flex-direction:column;gap:6px}
+.qr2 .br .to{margin-top:auto;border-radius:4px;padding:6px 8px;font-weight:800;text-align:center}
+.to.full{background:var(--p);color:#fff}
+.to.sum{background:#FFF5D6;color:#8A5A00;border:1px solid #E9A800}
+.qr2 .no{font-size:13px;color:var(--t2);margin-top:8px}
+.qr2 .demo{font-size:13px;color:var(--t3);margin-top:12px;border-top:1px solid var(--dv);padding-top:8px}
+.safe .tbl{font-size:14px}
+.safe .tbl td{padding:9px 12px;line-height:1.5}
+.safe .tbl td.k{width:96px;background:#EEF1F5;color:var(--navy)}
+
+/* 8쪽 시연·측정 */
+.p8{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.p8 h3{font-size:17px;font-weight:800;margin-bottom:10px}
+.p8 .tbl{font-size:14.5px}
+.p8 .tbl td{padding:10px 12px}
+.note{background:var(--bg);border-radius:6px;padding:12px 14px;font-size:14px;margin-top:12px;line-height:1.5}
+
+/* 9쪽 기대효과 */
+.p9{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.p9 .box h3{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.p9 .box{font-size:15px;height:140px}
+.order{position:absolute;left:56px;right:56px;bottom:64px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.order span{border:1px solid var(--bd);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.4;background:#fff}
+.order b{display:block;color:var(--navy);font-size:15px}
+.p9b{display:grid;grid-template-columns:1fr 470px;gap:24px}
+.cost .tbl td{padding:9px 12px;font-size:14.5px}
+.cost .num{font-size:17px;font-weight:800;color:var(--p-d);white-space:nowrap}
+.console{border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.console img{display:block;width:100%;height:296px;object-fit:cover;object-position:top left}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#256EF4"/><path d="M8 14a4 4 0 014-4h2M20 14a4 4 0 01-4 4h-2M11 14h6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- 1쪽 표지 -->
+<section class="page cover">
+  <div class="cv-l">
+    <p class="cv-top">청년 AI 해커톤 · 사전제출 기획서</p>
+    <h1>이음수첩</h1>
+    <p class="cv-sub">돌봄 노하우를 잇는 AI 돌봄 인수인계서</p>
+    <p class="cv-line">보호자가 갑자기 쓰러져도,<br>돌보는 방법은 함께 남습니다.</p>
+    <table class="cv-info">
+      <tr><th>팀명</th><td>○○○</td></tr><!-- 팀명을 적어 주세요 -->
+      <tr><th>트랙</th><td>1. 복지·돌봄 사각지대 해결</td></tr>
+      <tr><th>제출</th><td>2026년 11월</td></tr>
+    </table>
+  </div>
+  <div class="cv-r">
+    <div class="sticker">
+      <span class="ex">예시</span>
+      <b>돌봄이 필요한<br>가족이 있어요</b>
+      <svg class="qr" id="qr" viewBox="0 0 29 29" aria-hidden="true"></svg>
+      <p>QR을 찍으면<br>돌보는 방법을 볼 수 있어요</p>
+      <p class="by"><svg><use href="#logo"/></svg>이음수첩</p>
+    </div>
+    <div class="dev cv-phone"><img src="captures/Q1.png" alt="QR 1단계 화면"></div>
+    <p class="cv-cap">현관문 안쪽·지갑에 붙이는 QR과 QR 1단계 화면</p>
+  </div>
+</section>
+
+<!-- 2쪽 문제 -->
+<section class="page">
+  <header class="ph"><span>1. 문제</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">돌봄 인력은 와도, <em>돌보는 방법</em>은 오지 않습니다</h2>
+  <div class="p2">
+    <div class="story">
+      <span class="tagx">가상 사례</span>
+      <div class="cut"><span class="n">1</span>
+        <svg viewBox="0 0 160 86"><rect x="22" y="48" width="112" height="14" rx="3"/><path d="M26 62v16M130 62v16M22 48V30"/><circle cx="42" cy="40" r="8"/><path d="M54 42h58a8 8 0 018 8"/><path d="M128 10v18M119 19h18" stroke="#C8281E"/></svg>
+        <p>치매 어머니를 돌보던 딸이 갑자기 쓰러져 입원합니다.</p></div>
+      <div class="cut"><span class="n">2</span>
+        <svg viewBox="0 0 160 86"><rect x="34" y="6" width="40" height="76" rx="2"/><circle cx="66" cy="46" r="2.5"/><circle cx="108" cy="26" r="9"/><path d="M92 82V56a16 16 0 0132 0v26"/><rect x="124" y="58" width="14" height="18" rx="2"/></svg>
+        <p>긴급돌봄을 신청해 돌봄 인력이 집에 도착합니다.</p></div>
+      <div class="cut"><span class="n">3</span>
+        <svg viewBox="0 0 160 86"><rect x="16" y="36" width="44" height="20" rx="10" transform="rotate(-30 38 46)"/><path d="M30 52l16-10" /><circle cx="86" cy="44" r="20"/><path d="M86 32v12l9 6"/><path d="M124 30a10 10 0 1115 9c-4 2-5 4-5 9M134 62v1" stroke="#256EF4"/></svg>
+        <p>약을 언제 드리는지, 불안해하실 때 무엇을 해야 하는지 알 수 없습니다.</p></div>
+      <div class="cut"><span class="n">4</span>
+        <svg viewBox="0 0 160 86"><path d="M138 8a14 14 0 1012 20 12 12 0 01-12-20z"/><rect x="74" y="8" width="40" height="76" rx="2"/><path d="M74 8l-12 7v69l12-6"/><circle cx="34" cy="24" r="8"/><path d="M34 32v22l-10 24M34 54l10 24M24 42l20-6"/></svg>
+        <p>밤이 되자 어머니가 혼자 밖으로 나가려 합니다.</p></div>
+    </div>
+    <div>
+      <div class="stat"><b>16만여 명 · 약 28만 건</b><p>서울시 돌봄SOS가 2019년 7월 시작 후 5년간 돌봄을 제공한 규모</p><p class="src">서울시 보도자료 (2026.2.19)</p></div>
+      <div class="stat"><b>40%</b><p>40세 이상 성인 중 긴급할 때 가족 외에는 도움을 청할 사람이 없다는 응답</p><p class="src">재단법인 돌봄과 미래 국민인식조사 (2025.4, 1,000명)</p></div>
+      <div class="stat"><b>64%</b><p>노인·장애인 돌봄 수준이 충분하지 않다는 응답</p><p class="src">같은 조사</p></div>
+    </div>
+  </div>
+  <!-- 팀 인터뷰 결과가 생기면 여기에 한 줄: "저희가 만난 ○명 중 ○명이 …" (실제 결과만) -->
+  <p class="key" style="margin-top:16px">돌봄 노하우는 보호자의 머릿속에만 있다가, 보호자가 쓰러지는 순간 함께 사라집니다.</p>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>2 / 9</span></footer>
+</section>
+
+<!-- 3쪽 기존 제도 -->
+<section class="page">
+  <header class="ph"><span>2. 기존 제도의 빈틈</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">119안심콜이 '무슨 병인지'를 전한다면,<br>이음수첩은 <em>'어떻게 돌보는지'</em>를 전합니다</h2>
+  <table class="tbl" style="font-size:16px">
+    <thead><tr><th style="width:42%">제도</th><th style="width:29%">전하는 것</th><th>빠진 것</th></tr></thead>
+    <tbody>
+      <tr><td class="k">119안심콜</td><td>병력</td><td>돌보는 방법</td></tr>
+      <tr><td class="k">응급안전안심서비스</td><td>위급 신호</td><td>돌보는 방법</td></tr>
+      <tr><td><b>관악구 현관문 긴급정보 홀더</b><br><span class="src">2026.8 관악소방서·보라매병원 협약</span></td><td>질환·복용약·연락처</td><td>의사소통·진정 방법</td></tr>
+      <tr class="me"><td>이음수첩</td><td colspan="2">돌보는 방법 + 위의 응급 정보</td></tr>
+    </tbody>
+  </table>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px">
+    <div class="box"><p style="font-weight:800;color:var(--navy);margin-bottom:4px">경쟁이 아니라 연계</p><p>이음수첩 QR을 이런 홀더에 함께 넣으면 응급 정보에 돌봄 방법까지 이어집니다.</p></div>
+    <div class="box"><p style="font-weight:800;color:var(--navy);margin-bottom:4px">빈칸 서식과 다른 점</p><p>보호자가 말과 사진으로 남기면 AI가 정리하고, 빠진 항목은 먼저 묻습니다. 위기 때는 필요한 사람에게만 열립니다.</p></div>
+  </div>
+  <p class="src" style="margin-top:14px">출처: 서울신문 (2026.8.14) 관악구 현관문 긴급정보 홀더 보도</p>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>3 / 9</span></footer>
+</section>
+
+<!-- 4쪽 이용자 -->
+<section class="page">
+  <header class="ph"><span>3. 이용자</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">보호자는 말로 남기고, 긴급 돌봄자는 바로 보고, 당사자는 안심합니다</h2>
+  <div class="users">
+    <div class="user"><h3>보호자<small>40~50대 가족 보호자</small></h3>
+      <div class="in"><dl><dt>상황</dt><dd>매일 돌봄에 지쳐 긴 서식을 쓰기 어렵습니다.</dd><dt>이음수첩이 하는 일</dt><dd>말과 사진으로 기록하고, 빠진 것은 AI가 먼저 묻습니다.</dd></dl>
+        <div class="dev"><img src="captures/A3.png" alt="음성 기록 화면"></div></div></div>
+    <div class="user"><h3>긴급 돌봄자<small>돌봄SOS 인력·활동지원사·구급대원</small></h3>
+      <div class="in"><dl><dt>상황</dt><dd>처음 보는 대상자를 정보 없이 맡습니다.</dd><dt>이음수첩이 하는 일</dt><dd>QR로 설치·가입 없이 위험 정보부터 바로 확인합니다.</dd></dl>
+        <div class="dev"><img src="captures/B1.png" alt="긴급 요약 화면"></div></div></div>
+    <div class="user"><h3>당사자<small>치매 어르신·발달장애인</small></h3>
+      <div class="in"><dl><dt>상황</dt><dd>자기 상태를 설명하기 어렵습니다.</dd><dt>이음수첩이 하는 일</dt><dd>안심 카드와 쉬운 일과표로 지금 상황을 알려 줍니다.</dd></dl>
+        <div class="dev"><img src="captures/C2.png" alt="안심 카드 화면"></div></div></div>
+  </div>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>4 / 9</span></footer>
+</section>
+
+<!-- 5쪽 핵심 흐름 -->
+<section class="page">
+  <header class="ph"><span>4. 핵심 흐름</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">평소에 쌓아 둔 기록이, 보호자가 쓰러진 순간 QR로 이어집니다</h2>
+  <div class="flow">
+    <div><b>평소 기록</b><p>말과 사진으로 쌓고<br>보호자가 확인</p></div>
+    <div class="hot"><b>보호자 쓰러짐</b><p>자리비움 버튼을<br>누를 사람이 없음</p></div>
+    <div><b>2단계 QR 열람</b><p>붙여 둔 QR로 1단계,<br>인증·승인 후 2단계</p></div>
+    <div><b>돌봄</b><p>위험 정보부터 보고<br>식사·복약 체크</p></div>
+    <div><b>복귀 반영</b><p>돌봄 기록을<br>인수인계서에 반영</p></div>
+  </div>
+  <div class="p5">
+    <div class="uf"><img src="captures/userflow-key.png" alt="유저 플로우 중 ③ 보호자가 갑자기 쓰러졌을 때 구간"></div>
+    <div class="p5n"><b>③ 보호자가 갑자기<br>쓰러졌을 때</b>
+      <ul class="d"><li>기관 인증이면 바로 2단계</li><li>문자 인증이면 승인자가 허락해야 2단계</li><li>10분 무응답이면 긴급 요약만</li><li>거절하면 열리지 않음</li></ul>
+      <p class="src">레인 5개 × 단계 5개 전체 그림은 08번 유저 플로우에 있습니다.</p></div>
+  </div>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>5 / 9</span></footer>
+</section>
+
+<!-- 6쪽 주요 화면 -->
+<section class="page">
+  <header class="ph"><span>5. 주요 화면</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">보호자는 찍고 말하기만, 긴급 돌봄자는 위험 정보부터 봅니다</h2>
+  <div class="shots">
+    <figure><div class="dev"><img src="captures/A1.png" alt="A1 홈"></div><figcaption><p class="t"><b>A1</b>홈</p><p class="d">큰 버튼 두 개와 완성도</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/A2.png" alt="A2 복약안내문 촬영"></div><figcaption><p class="t"><b>A2</b>복약안내문 촬영</p><p class="d">읽은 내용을 보호자가 확인하고 저장</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/A3.png" alt="A3 음성 기록"></div><figcaption><p class="t"><b>A3</b>음성 기록</p><p class="d">말하면 AI가 정리하고 빠진 건 되묻기</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/Q1.png" alt="Q1 QR 1단계"></div><figcaption><p class="t"><b>Q1</b>QR 1단계</p><p class="d">누구나 보는 최소 정보</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/B1.png" alt="B1 긴급 요약"></div><figcaption><p class="t"><b>B1</b>긴급 요약</p><p class="d">위험 정보부터</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/C2.png" alt="C2 안심 카드"></div><figcaption><p class="t"><b>C2</b>안심 카드</p><p class="d">쉬운 말과 그림</p></figcaption></figure>
+  </div>
+  <p class="crit"><b>설계 기준</b><span>본문 17px 이상</span><span>버튼 높이 60px 이상</span><span>한 화면에 한 가지 일</span><span>상태는 색과 글자로 함께 표시</span><span>고대비 모드·스크린리더 레이블</span><span>KWCAG 2.2 AA</span><span>KRDS 색·글꼴 참고</span></p>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>6 / 9</span></footer>
+</section>
+
+<!-- 7쪽 안전장치 -->
+<section class="page">
+  <header class="ph"><span>6. 안전장치와 개인정보</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">2단계 QR: <em>쓰러져도 열리고, 아무나 다 보지는 못하게</em></h2>
+  <div class="p7">
+    <div class="qr2">
+      <div class="s1"><h4>1단계<span>QR을 찍은 누구나</span></h4>
+        <ul class="d"><li>알레르기</li><li>주의가 필요한 약 종류</li><li>번호를 가린 전화 버튼</li><li>보호자가 고른 '꼭 알아야 해요'</li></ul></div>
+      <p class="arr">전체 보기 요청</p>
+      <div class="brs">
+        <div class="br"><h4>기관 인증</h4><span>돌봄SOS 1회용 코드<br>구급대원 업무용 번호</span><span class="to full">바로 2단계</span></div>
+        <div class="br"><h4>문자 인증 + 사유</h4><span>승인자에게 알림<br>승인자도 문자 인증</span><span class="to full">승인하면 2단계</span></div>
+        <div class="br"><h4>10분 무응답</h4><span>승인자가 응답하지<br>않으면</span><span class="to sum">긴급 요약까지만</span></div>
+      </div>
+      <p class="no">거절하면 열리지 않습니다. 2단계 링크는 시간이 지나면 만료됩니다.</p>
+      <p class="demo">해커톤 시연에서는 문자 인증·승인·기관 인증을 모의로 처리합니다.</p>
+    </div>
+    <div class="safe">
+      <table class="tbl">
+        <tbody>
+          <tr><td class="k">AI 원칙</td><td>정리만 하고 의료 판단은 하지 않습니다. 원문 인용 위치가 없는 항목은 버리고, 보호자가 확인한 뒤에만 저장합니다.</td></tr>
+          <tr><td class="k">개인정보</td><td>국외 이전 동의를 받고, AI에는 이름·연락처를 가린 글과 이름을 가린 사진만 보냅니다. 건강정보는 열람자 유형·항목·기간을 정해 동의받고, 성인 당사자는 본인(어렵다면 후견인)이 동의합니다.</td></tr>
+          <tr><td class="k">승인자</td><td>가족·지인, 없으면 동주민센터 담당자를 두는 방안입니다. 근무시간 밖에는 10분 뒤 긴급 요약만 열립니다.</td></tr>
+          <tr><td class="k">분실·오남용</td><td>링크 만료, 모든 열람 기록, 보호자가 알림에서 열람 차단·QR 재발급</td></tr>
+          <tr><td class="k">보관 기간</td><td>음성 30일, 이전 약 사진 90일, 대화 원문·열람 로그 1년, 탈퇴 시 즉시 파기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="key" style="position:absolute;left:56px;right:56px;bottom:64px">AI는 정리만 하고, 원문에 근거가 없는 내용은 버리고, 모든 내용은 보호자가 확인한 뒤에만 저장합니다.</p>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>7 / 9</span></footer>
+</section>
+
+<!-- 8쪽 시연과 측정 -->
+<section class="page">
+  <header class="ph"><span>7. 해커톤 시연과 측정</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">3분 동안 기록·인식·QR 열람을 직접 보여 주고, 정확도는 숫자로 발표합니다</h2>
+  <div class="p8">
+    <div>
+      <h3>시연 3분</h3>
+      <table class="tbl">
+        <thead><tr><th>단계</th><th style="width:70px">시간</th><th>막히면 대체 화면</th></tr></thead>
+        <tbody>
+          <tr><td class="k">음성 기록·되묻기</td><td>40초</td><td>녹화 영상</td></tr>
+          <tr><td class="k">복약안내문 인식</td><td>40초</td><td>미리 찍어 둔 사진</td></tr>
+          <tr><td class="k">QR 1단계</td><td>30초</td><td>정적 화면</td></tr>
+          <tr><td class="k">승인 → 2단계 요약</td><td>40초</td><td>승인 완료 상태 화면</td></tr>
+          <tr><td class="k">측정 결과</td><td>30초</td><td>슬라이드</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><b>모의 처리</b> 문자 인증·승인·기관 인증은 모의로 처리하고, 10분 대기는 '시간 경과' 버튼으로 넘깁니다. 음성 인식이 실패하면 글 입력으로 대신합니다.</p>
+    </div>
+    <div>
+      <h3>측정</h3>
+      <table class="tbl">
+        <thead><tr><th>항목</th><th>방법</th><th>지표</th></tr></thead>
+        <tbody>
+          <tr><td class="k">작성 효율</td><td>팀원 4명 · 가상 보호자 사례 2개로 서식 직접 작성과 비교</td><td>빠진 항목 수, 작성 시간</td></tr>
+          <tr><td class="k">AI 정리</td><td>정답 세트 30건 (가상 발화 20 + 복약안내문 사진 10)</td><td>필드별 정확도, 지어낸 항목 수 (목표 0건)</td></tr>
+          <tr><td class="k">복약안내문 인식</td><td>복약안내문 10장</td><td>인식 정확도</td></tr>
+        </tbody>
+      </table>
+      <p class="note">측정 결과는 해커톤 현장에서 실제로 잰 값만 발표합니다.</p>
+    </div>
+  </div>
+  <p class="order" aria-label="시연 순서">
+    <span><b>① 말로 기록</b>A3 · 되묻기까지</span>
+    <span><b>② 복약안내문</b>A2 · 이름 가림, 확인 필요 표시</span>
+    <span><b>③ QR 1단계</b>Q1 · 누구나 보는 최소 정보</span>
+    <span><b>④ 승인 요청</b>B0 → B0w → A8</span>
+    <span><b>⑤ 2단계 요약</b>B1 · 위험 정보부터</span>
+  </p>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>8 / 9</span></footer>
+</section>
+
+<!-- 9쪽 기대효과와 확장 -->
+<section class="page">
+  <header class="ph"><span>8. 기대효과와 확장</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
+  <h2 class="hl">보호자가 쓰러져도 돌봄이 끊기지 않도록, <em>공통 돌봄 인수인계 표준</em>으로 넓힙니다</h2>
+  <div class="p9">
+    <div class="box"><h3>기대효과</h3><ul class="d"><li>보호자가 갑자기 쓰러져도 돌봄이 끊기지 않습니다.</li><li>처음 온 돌봄 인력도, 활동지원사·요양보호사가 바뀔 때도 같은 문서로 인수인계합니다.</li></ul></div>
+    <div class="box"><h3>확장</h3><ul class="d"><li>돌봄SOS센터가 긴급돌봄 접수 때 보호자 동의를 받아 미리 열람</li><li>동주민센터가 돌봄 가구에 QR 스티커 배부</li></ul></div>
+    <div class="box"><h3>운영</h3><ul class="d"><li>운영은 시가 맡고 보호자는 무료로 씁니다.</li><li>승인·1회용 코드 발급은 담당자 콘솔에서 처리합니다 (확장 설계).</li></ul></div>
+  </div>
+  <div class="p9b">
+    <div class="cost">
+      <table class="tbl">
+        <thead><tr><th colspan="2">규모와 비용 (가정치)</th></tr></thead>
+        <tbody>
+          <tr><td class="k">대상</td><td><span class="num">최대 약 54만 명</span><br><span class="src">등록장애인 약 38만 5천 명(2025.2) + 65세 이상 추정 치매환자 16만여 명(2023, 중앙치매센터), 중복 포함</span></td></tr>
+          <tr><td class="k">시범 1만 가구</td><td><span class="num">월 약 146만 원</span></td></tr>
+          <tr><td class="k">확장 10만 가구</td><td><span class="num">월 약 1,460만 원</span></td></tr>
+        </tbody>
+      </table>
+      <p class="src" style="margin-top:8px">가구당 월 AI·음성 인식 약 $0.09(1달러 1,400원 가정) + 승인 문자 20원. Claude Haiku 5.5·Opus 5.5·Whisper API 단가와 가구당 월 사용량 가정으로 계산했습니다.</p>
+    </div>
+    <figure><div class="console"><img src="captures/D1.png" alt="담당자 콘솔 승인 요청 화면"></div><p class="cap">담당자 콘솔 (확장 설계, 목업): 동주민센터 담당자의 승인 요청 처리 화면</p></figure>
+  </div>
+  <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>9 / 9</span></footer>
+</section>
+
+<script>
+// 표지의 예시 QR 무늬 (실제로 찍히는 코드는 아님)
+(() => {
+  const g = document.getElementById('qr'), n = 29, q = 2, m = 25;
+  let s = 20261118; const rnd = () => (s = (s * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const finder = (x, y) => x < 8 && y < 8 || x >= m - 8 && y < 8 || x < 8 && y >= m - 8;
+  let d = '';
+  for (let y = 0; y < m; y++) for (let x = 0; x < m; x++) if (!finder(x, y) && rnd() > .5) d += `M${x + q} ${y + q}h1v1h-1z`;
+  const eye = (x, y) => `<rect x="${x + q}" y="${y + q}" width="7" height="7"/><rect x="${x + q + 1}" y="${y + q + 1}" width="5" height="5" fill="#fff"/><rect x="${x + q + 2}" y="${y + q + 2}" width="3" height="3"/>`;
+  g.innerHTML = `<rect width="${n}" height="${n}" fill="#fff"/><g fill="#13294B">${eye(0, 0)}${eye(m - 7, 0)}${eye(0, m - 7)}<path d="${d}"/></g>`;
+})();
+</script>
+</body>
+</html>

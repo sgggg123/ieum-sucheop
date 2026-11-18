@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음수첩 프로토타입</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
+<style>
+:root{
+  --font:"Pretendard GOV Variable","Pretendard GOV",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --p:#256EF4;--p-d:#0B50D0;--p-t:#ECF2FE;--p-ink:#0B3D99;
+  --t1:#1E2124;--t2:#464C53;--t3:#6D7882;--bd:#CDD1D5;--dv:#E6E8EA;--bg:#F4F5F6;
+  --red:#C8281E;--red-t:#FDEEEC;--amb:#8A5A00;--amb-t:#FFF5D6;--amb-b:#E9A800;--grn:#1E7B34;--grn-t:#E8F5EB;
+}
+html.hc{--p:#0039A6;--p-d:#002A7A;--p-t:#E3ECFD;--p-ink:#001F5C;--t1:#000;--t2:#1E2124;--t3:#33383E;--bd:#1E2124;--dv:#6D7882;--bg:#EEF0F2;--red:#A3170E;--amb:#5C3C00;--amb-b:#8A5A00;--grn:#0D5A20}
+html.hc .device *{border-width:2px}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:var(--font);color:var(--t1);background:#E9ECEF;font-size:17px;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+a{color:inherit;text-decoration:none}
+.ic{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 데스크톱에서 보는 틀 */
+.shell{display:flex;gap:40px;justify-content:center;align-items:flex-start;padding:32px 24px}
+.nav{width:280px;background:#fff;border:1px solid var(--dv);border-radius:8px;padding:8px 0 16px;position:sticky;top:32px;max-height:calc(100vh - 64px);overflow:auto;font-size:15px}
+.nav .nh{padding:14px 20px 6px;font-weight:700;color:var(--t2);border-top:1px solid var(--dv);margin-top:8px}
+.nav a{display:flex;align-items:center;gap:8px;padding:7px 20px}
+.nav a b{width:38px;flex:none;color:var(--p-d)}
+.nav a i{font-style:normal;font-size:12px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:auto}
+.nav a i.d{background:var(--p-t);color:var(--p-ink)}
+.nav a i.m{background:var(--bg);color:var(--t2)}
+.nav a[aria-current]{background:var(--p-t);font-weight:700}
+.nav .top{padding:12px 20px 4px;font-size:17px;font-weight:800}
+.nav .top a{display:block;padding:0;margin-top:6px;font-size:14px;font-weight:600;color:var(--p-d)}
+.nav .top button{margin-top:10px;min-height:44px;width:100%;border:1px solid var(--bd);border-radius:6px;background:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.device{width:375px;height:812px;flex:none;background:#fff;border:10px solid #1E2124;border-radius:48px;box-sizing:content-box;overflow:hidden;position:relative;box-shadow:0 24px 60px rgba(16,24,40,.18)}
+html.capture body{background:#fff}
+html.capture .shell{display:block;padding:0}
+html.capture .nav{display:none}
+html.capture .device{width:100vw;height:100vh;border:0;border-radius:0;box-shadow:none}
+
+/* 상태 표시줄 */
+.sbar{position:absolute;top:0;left:0;right:0;height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 26px 0 32px;font-size:15px;font-weight:700;z-index:5}
+.sbar svg{width:66px;height:12px}
+.sbar.dark{color:#fff}
+
+/* 화면 */
+.scr{position:absolute;inset:44px 0 0;display:none;flex-direction:column;background:#fff}
+.scr.on{display:flex}
+.ab{height:56px;flex:none;display:grid;grid-template-columns:56px 1fr 56px;align-items:center;border-bottom:1px solid var(--dv)}
+.ab h1{font-size:18px;font-weight:700;text-align:center}
+.ab .l{height:56px;display:grid;place-items:center}
+.ab .r{font-size:15px;color:var(--t2);text-align:center;font-weight:600}
+.ab.home{grid-template-columns:1fr auto;padding:0 16px 0 20px}
+.logo{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.logo svg{width:28px;height:28px}
+.who{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:600;color:var(--t2);min-height:48px}
+.ct{flex:1;min-height:0;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.ct>*{flex-shrink:0}
+.ct.tight{gap:12px}
+.ct.mid{justify-content:center;align-items:center;text-align:center}
+.bt{flex:none;padding:12px 20px 30px;border-top:1px solid var(--dv);display:flex;gap:8px;background:#fff}
+.bt.col{flex-direction:column}
+.bt.slim{padding-bottom:12px}
+.tb{flex:none;height:78px;border-top:1px solid var(--dv);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:18px;background:#fff}
+.tb a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;font-weight:600;color:var(--t3)}
+.tb a.on{color:var(--p-d)}
+.tb .ic{width:26px;height:26px}
+
+/* 글자 */
+.h1{font-size:24px;font-weight:800;line-height:1.4;letter-spacing:-.01em}
+.h2{font-size:20px;font-weight:800;line-height:1.4}
+.lbl{font-size:17px;font-weight:700}
+.cap{font-size:17px;color:var(--t3)}
+
+/* 버튼·입력 */
+.btn{flex-shrink:0;min-height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:700;padding:0 20px;border:1px solid transparent;white-space:nowrap;text-align:center;line-height:1.3}
+.btn-p{background:var(--p);color:#fff}
+.btn-s{background:#fff;color:var(--p-d);border-color:var(--p)}
+.btn-t{background:#fff;color:var(--t1);border-color:var(--bd)}
+.btn-d{background:#fff;color:var(--red);border-color:var(--red)}
+.btn-x{background:#fff;color:#5B3FB3;border:2px dashed #7C63C9;flex-direction:column;gap:0}
+.btn-x small{font-size:15px;font-weight:600}
+.full{width:100%}
+.grow{flex:1 1 0;min-width:0}
+.row{display:flex;gap:8px;align-items:center}
+.fld{display:flex;flex-direction:column;gap:8px}
+.inp{min-height:60px;border:1px solid var(--bd);border-radius:8px;padding:0 16px;display:flex;align-items:center;gap:8px;font-size:17px;background:#fff}
+.inp.area{min-height:92px;align-items:flex-start;padding:14px 16px;line-height:1.5}
+.inp.ok{border:2px solid var(--grn)}
+.inp .ok{margin-left:auto;color:var(--grn);font-weight:700;font-size:16px;display:flex;align-items:center;gap:4px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts.one{grid-template-columns:1fr}
+.opts.three{grid-template-columns:repeat(3,1fr)}
+.opt{min-height:60px;border:1px solid var(--bd);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600;background:#fff}
+.opts.one .opt{justify-content:flex-start;padding:0 16px}
+.opt.on{border:2px solid var(--p);background:var(--p-t);color:var(--p-ink);font-weight:700}
+.opt .ic{width:20px;height:20px;stroke-width:2.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;list-style:none;padding:0}
+.steps li{border-top:4px solid var(--dv);padding-top:8px;font-size:15px;color:var(--t3);font-weight:600}
+.steps li.on{border-color:var(--p);color:var(--p-d);font-weight:700}
+.steps li.done{border-color:var(--p);color:var(--t2)}
+
+/* 카드·목록·상태 */
+.card{border:1px solid var(--dv);border-radius:12px;padding:18px}
+.kv{display:flex;justify-content:space-between;align-items:center;min-height:68px;gap:12px;border-bottom:1px solid var(--dv)}
+.kv:last-child{border-bottom:0}
+.kv>div>span{display:block;font-size:16px;color:var(--t2)}
+.kv b{font-size:17px}
+.link{color:var(--p-d);font-weight:700;font-size:17px;display:inline-flex;align-items:center;white-space:nowrap;min-height:48px;padding:0 4px}
+.link .ic{width:20px;height:20px}
+.bdg{display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 9px;border-radius:4px;font-size:15px;font-weight:700;white-space:nowrap}
+.bdg .ic{width:16px;height:16px;stroke-width:2.8}
+.bdg-ok{background:var(--grn-t);color:var(--grn)}
+.bdg-warn{background:var(--amb-t);color:var(--amb)}
+.bdg-red{background:var(--red-t);color:var(--red)}
+.bdg-gray{background:var(--bg);color:var(--t2)}
+.must{border:1px solid #F1B5AE;background:var(--red-t);border-radius:12px;padding:14px 18px}
+.must h3{color:var(--red);font-size:17px;font-weight:800;display:flex;align-items:center;gap:6px}
+.must h3 .ic{width:22px;height:22px}
+.must ul{margin-top:4px;padding-left:20px}
+.note{display:flex;gap:10px;background:var(--bg);border-radius:8px;padding:14px 16px;font-size:17px;text-align:left}
+.note .ic{color:var(--p-d);width:22px;height:22px;margin-top:2px}
+.meter{height:10px;border-radius:5px;background:var(--dv);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--p)}
+.li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;border-bottom:1px solid var(--dv)}
+.li b{display:block;font-size:17px}
+.li>div>span{font-size:16px;color:var(--t3)}
+.tg{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;border-bottom:1px solid var(--dv)}
+.tg small{display:block;font-size:16px;color:var(--t3)}
+.sw{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:var(--t3);white-space:nowrap}
+.sw i{width:52px;height:30px;border-radius:15px;background:#B1B8BE;position:relative}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff}
+.sw.on{color:var(--p-d)}
+.sw.on i{background:var(--p)}
+.sw.on i::after{left:25px}
+.mockarea{border:1px dashed #9AA3AD;border-radius:8px;background:repeating-linear-gradient(135deg,#FAFAFB 0 8px,#F1F2F4 8px 16px)}
+.scope{display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700;color:var(--t2)}
+.scope .ic{width:20px;height:20px}
+
+/* 화면별 */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{min-height:136px;border-radius:12px;background:var(--p);color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:space-between}
+.tile .ic{width:34px;height:34px;stroke-width:1.8}
+.tile b{font-size:20px;line-height:1.3}
+.tile span span{font-size:15px;opacity:.92}
+.tile.s2{background:var(--p-d)}
+.pct{font-size:28px;font-weight:800;color:var(--p-d)}
+.miss{background:var(--bg);border-radius:8px;padding:12px 14px;font-size:17px;display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.photo{height:196px;border-radius:12px;background:#2A2F36;position:relative;overflow:hidden}
+.paper{position:absolute;left:60px;top:20px;width:236px;height:196px;background:#fff;transform:rotate(-2.5deg);padding:12px 14px;font-size:11px;color:#333;border-radius:2px}
+.paper .t{font-size:14px;font-weight:800;text-align:center;border-bottom:1px solid #999;padding-bottom:4px;margin-bottom:6px}
+.paper .ln{height:6px;background:#D9DDE3;margin:7px 0;border-radius:1px}
+.paper .dr{display:flex;align-items:center;gap:6px}
+.paper .dr i{width:18px;height:11px;border-radius:6px;background:#E2C29E;flex:none}
+.mask{position:absolute;left:112px;top:52px;width:110px;height:26px;background:#111;color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;transform:rotate(-2.5deg);outline:2px solid #fff}
+.mask::before,.mask::after{content:"";position:absolute;width:8px;height:8px;background:#fff}
+.mask::before{left:-5px;top:-5px}
+.mask::after{right:-5px;bottom:-5px}
+.ph{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.72);color:#fff;font-size:16px;font-weight:600;padding:8px 12px;display:flex;align-items:center;gap:6px}
+.ph .ic{width:18px;height:18px}
+.med{border:1px solid var(--dv);border-radius:12px;padding:12px 16px}
+.med b{font-size:18px}
+.med .d{font-size:17px;color:var(--t2)}
+.med.chk{border:2px solid var(--amb-b);background:var(--amb-t)}
+.fx{display:inline-block;border:2px solid var(--amb-b);background:#fff;border-radius:4px;padding:0 6px;font-weight:800;color:var(--amb)}
+.bub{max-width:84%;padding:12px 15px;border-radius:12px;font-size:17px}
+.bub.me{align-self:flex-end;background:var(--p-t)}
+.bub.ai{align-self:flex-start;background:var(--bg)}
+.bub small{display:block;font-size:15px;font-weight:700;color:var(--t2);margin-bottom:2px}
+mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underline-offset:3px}
+.aic{border:1px solid var(--p);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.aic .q{background:var(--bg);border-radius:8px;padding:8px 10px;font-size:17px;color:var(--t2)}
+.aic .q b{color:var(--t1)}
+.dim{position:absolute;inset:0;background:rgba(17,24,39,.5)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:16px 16px 0 0;padding:10px 20px 30px;display:flex;flex-direction:column;gap:14px}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--bd);align-self:center}
+.chk-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.chk-list li{display:flex;gap:8px}
+.chk-list .ic{color:var(--grn);width:22px;height:22px;stroke-width:2.6;margin-top:1px}
+.away{display:flex;align-items:center;gap:10px;background:#FFF1E0;border:1px solid #F0B46A;border-radius:8px;padding:12px 16px;font-weight:700}
+.away i{width:10px;height:10px;border-radius:50%;background:#D9730D;flex:none}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stats div{border:1px solid var(--dv);border-radius:12px;padding:10px 16px}
+.stats b{display:block;font-size:24px;font-weight:800}
+.stats span{font-size:16px;color:var(--t2)}
+.req dl{display:grid;grid-template-columns:96px 1fr;row-gap:6px;margin-top:10px}
+.req dt{color:var(--t2);font-size:17px}
+.req dd{font-weight:600}
+.timer{display:flex;align-items:center;gap:14px;background:var(--amb-t);border:1px solid var(--amb-b);border-radius:8px;padding:12px 16px}
+.timer b{font-size:28px;font-weight:800;color:var(--amb);font-variant-numeric:tabular-nums;white-space:nowrap}
+.timer p{font-size:17px}
+.qhead{flex:none;background:#0B50D0;color:#fff;padding:16px 20px 20px}
+.qhead p{font-size:15px;font-weight:600;opacity:.92;display:flex;align-items:center;gap:6px}
+.qhead p .ic{width:18px;height:18px}
+.qhead h1{font-size:26px;font-weight:800;line-height:1.35;margin-top:4px}
+.info{border:1px solid var(--dv);border-radius:12px;padding:12px 16px}
+.info span{font-size:17px;color:var(--t2);font-weight:600}
+.info b{display:block;font-size:19px}
+.btn.call{flex-direction:column;gap:0;min-height:72px}
+.btn.call small{font-size:17px;font-weight:500;color:var(--t2)}
+.div{display:flex;align-items:center;gap:10px;color:var(--t3);font-size:16px;font-weight:600}
+.div::before,.div::after{content:"";height:1px;background:var(--dv);flex:1}
+.ring{position:relative;width:176px;height:176px}
+.ring svg{width:176px;height:176px;transform:rotate(-90deg)}
+.ring div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring b{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.ring span{font-size:16px;color:var(--t2);font-weight:600}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.seg span{min-height:52px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:700;color:var(--t2)}
+.seg span.on{background:var(--p);color:#fff}
+.seg .ic{width:18px;height:18px;stroke-width:2.8}
+.blk{border-top:1px solid var(--dv);padding-top:10px}
+.blk span{font-size:16px;color:var(--t2);font-weight:600}
+.blk b{display:block;font-size:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs span{min-height:48px;padding:0 15px;border:1px solid var(--bd);border-radius:24px;display:flex;align-items:center;gap:4px;font-size:16px;font-weight:600;white-space:nowrap}
+.tabs span.on{background:var(--t1);border-color:var(--t1);color:#fff}
+.tabs .ic{width:16px;height:16px;stroke-width:3}
+.slot{border:1px solid var(--dv);border-radius:12px;overflow:hidden}
+.slot p{background:var(--bg);padding:8px 16px;font-weight:700;font-size:17px;display:flex;align-items:center;gap:6px}
+.slot p .ic{width:18px;height:18px}
+.slot div{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 16px;border-top:1px solid var(--dv);font-weight:700}
+.slot div span{font-weight:500;color:var(--t2)}
+.ck{flex:1;min-height:64px;border:1px solid var(--bd);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:18px;font-weight:700}
+.ck.on{border:2px solid var(--grn);background:var(--grn-t);color:var(--grn)}
+.ck .ic{stroke-width:2.8}
+.pic{border:1px dashed #9AA3AD;border-radius:12px;background:#F7F8F9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--t2);font-size:14px;font-weight:600;text-align:center;flex:none;line-height:1.3}
+.pic .ic{width:26px;height:26px;stroke-width:1.6}
+.step{display:flex;align-items:center;gap:14px;border:1px solid var(--dv);border-radius:12px;padding:8px}
+.step .pic{width:64px;height:64px}
+.step b{font-size:20px}
+.step.now{border:3px solid var(--p);background:var(--p-t);padding:12px}
+.step.now .pic{width:92px;height:92px}
+.step.now b{font-size:25px}
+.step.done{opacity:.72}
+.when{font-size:16px;font-weight:800;color:var(--t2);display:flex;align-items:center;gap:6px}
+.when.now{color:var(--p-d)}
+.one{font-size:34px;font-weight:800;line-height:1.35;letter-spacing:-.02em}
+.avatar{width:176px;height:176px;border-radius:50%;border:2px dashed #9AA3AD;background:#F7F8F9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--t2);font-weight:600;font-size:16px}
+.avatar .ic{width:54px;height:54px;stroke-width:1.4}
+.easy{display:flex;align-items:center;gap:14px;width:100%;text-align:left}
+.easy span{width:56px;height:56px;border-radius:12px;background:var(--p-t);color:var(--p-d);display:grid;place-items:center;flex:none}
+.easy .ic{width:30px;height:30px}
+.easy p{font-size:20px;font-weight:700}
+.prev{border:1px solid var(--bd);border-radius:12px;overflow:hidden;font-size:16px}
+.prev p:first-child{background:#0B50D0;color:#fff;font-weight:700;padding:8px 14px}
+.prev p+p{padding:10px 14px;line-height:1.5}
+#A4 .ct{gap:6px}
+#A4 .li{min-height:56px;padding:4px 0}
+#A6 .ct{gap:10px}
+#A4 .must{padding:10px 16px}
+#B1 .ct,#B1s .ct{gap:8px}
+#B1 .info,#B1s .info{padding:8px 14px}
+@media (max-width:760px){.shell{display:block;padding:16px}.nav{position:static;width:auto;max-height:none;margin-bottom:16px}.device{margin:0 auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 01-14 0v-1M12 18v4M8 22h8"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="M10.5 20.5l10-10a4.95 4.95 0 10-7-7l-10 10a4.95 4.95 0 107 7z"/><path d="M8.5 8.5l7 7"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 00-4 0v5M14 10V4a2 2 0 00-4 0v6M10 10.5V6a2 2 0 00-4 0v8a8 8 0 0016 0v-3a2 2 0 00-4 0"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-away" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v10a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+  <symbol id="i-set" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></symbol>
+  <symbol id="i-sb" viewBox="0 0 66 12"><g fill="currentColor" stroke="none"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="6" width="3" height="6" rx=".6"/><rect x="10" y="3" width="3" height="9" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/><path d="M29 3.6a9 9 0 0112 0l-1.4 1.5a7 7 0 00-9.2 0zM31.6 6.4a5.3 5.3 0 016.8 0L37 7.9a3.3 3.3 0 00-4 0zM35 11.6l-1.9-2a2.6 2.6 0 013.8 0z"/><rect x="42" y="1" width="21" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1"/><rect x="44" y="3" width="15" height="6" rx="1"/><rect x="64" y="4" width="1.6" height="4" rx=".8"/></g></symbol>
+  <symbol id="logo" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#256EF4"/><path d="M8 14a4 4 0 014-4h2M20 14a4 4 0 01-4 4h-2M11 14h6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="shell">
+<nav class="nav" id="nav" aria-label="화면 목록"><div class="top">이음수첩 프로토타입<a href="../ieum-wireframes.html">화면 설계 보드로 돌아가기</a><a href="console.html">담당자 콘솔 열기</a><button type="button" id="hcb" aria-pressed="false">고대비 모드 켜기</button></div></nav>
+<main class="device" id="device">
+<div class="sbar" id="sbar" aria-hidden="true"><span id="sbt">9:41</span><svg><use href="#i-sb"/></svg></div>
+
+<!-- A0 처음 설정 1/3 -->
+<section class="scr" id="A0" data-g="A. 보호자" data-t="처음 설정 1/3">
+  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>처음 설정</h1><span class="r">1/3</span></header>
+  <div class="ct">
+    <ol class="steps" aria-label="3단계 중 1단계"><li class="on">1 기본 정보</li><li>2 연락처</li><li>3 동의</li></ol>
+    <h2 class="h2">돌봐 드리는 분을 알려 주세요</h2>
+    <div class="fld"><span class="lbl">이름과 나이</span><div class="row"><span class="inp grow">김순자</span><span class="inp" style="width:100px">82세</span></div></div>
+    <div class="fld"><span class="lbl" id="l-care">돌봄 상황</span><div class="opts" role="radiogroup" aria-labelledby="l-care"><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>치매</span><span class="opt" role="radio" aria-checked="false">지적장애</span><span class="opt" role="radio" aria-checked="false">지체장애</span><span class="opt" role="radio" aria-checked="false">기타</span></div></div>
+    <div class="fld"><span class="lbl">알레르기·위험행동</span><span class="inp area">페니실린, 복숭아 알레르기<br>밤에 혼자 밖으로 나가려 함</span></div>
+    <p class="cap">나머지는 나중에 말로 채워도 돼요.</p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/A0b">다음</a></div>
+</section>
+
+<!-- A0b 처음 설정 3/3 -->
+<section class="scr" id="A0b" data-g="A. 보호자" data-t="처음 설정 3/3">
+  <header class="ab"><a class="l" href="#/A0" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>처음 설정</h1><span class="r">3/3</span></header>
+  <div class="ct tight">
+    <ol class="steps" aria-label="3단계 중 3단계"><li class="done">1 기본 정보</li><li class="done">2 연락처</li><li class="on">3 동의</li></ol>
+    <h2 class="h2">위급할 때 누가 볼 수 있을까요?</h2>
+    <div class="card" style="padding:0 16px">
+      <div class="kv"><div><span>볼 수 있는 사람</span><b>구급대원, 돌봄 인력</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+      <div class="kv"><div><span>볼 수 있는 내용</span><b>복약·알레르기 등 7개 항목</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+      <div class="kv"><div><span>동의 기간</span><b>1년 (2027년 11월 18일까지)</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+    </div>
+    <p class="lbl" id="l-appr" style="margin-top:4px">전체 보기를 허락할 승인자</p>
+    <div class="opts one" role="radiogroup" aria-labelledby="l-appr">
+      <span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>가족·지인 · 이민수(아들)</span>
+      <span class="opt" role="radio" aria-checked="false">동주민센터 담당자 (가족·지인이 없을 때)</span>
+    </div>
+    <div class="kv mockarea" style="padding:0 16px;border-bottom:1px dashed #9AA3AD"><div><span>선택 · 목업</span><b>당사자 기기 연결</b></div><span class="cap">나중에</span></div>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/A0d">동의하고 다음</a></div>
+</section>
+
+<!-- A0c QR에 보일 정보 -->
+<section class="scr" id="A0c" data-g="A. 보호자" data-t="1단계 공개 항목 고르기" data-m>
+  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>QR에 보일 정보</h1><span></span></header>
+  <div class="ct tight">
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>QR을 찍으면 <b>누구나</b> 이 정보를 볼 수 있어요. 꼭 필요한 것만 골라 주세요.</span></p>
+    <p class="cap"><b style="color:var(--t1)">항상 보여요</b> · 알레르기, 주의가 필요한 약 종류, 보호자 전화 버튼(번호는 가려져요)</p>
+    <p class="lbl">꼭 알아야 해요</p>
+    <div class="tg"><span>밤에 혼자 밖으로 나가려 해요</span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
+    <div class="tg"><span>음식은 잘게 잘라 주세요</span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
+    <div class="tg"><span>혈액희석제(와파린)를 먹어요<small>1단계에는 약 종류만 보여요</small></span><span class="sw" role="switch" aria-checked="false">숨기기<i></i></span></div>
+    <div class="prev" aria-label="QR 1단계 미리보기"><p>미리보기 · 돌봄이 필요한 가족이 있어요</p><p>알레르기: 페니실린, 복숭아 · 혈액희석제 복용 중<br>꼭 알아야 해요: 밤에 혼자 밖으로 나가려 해요, 음식은 잘게 잘라 주세요</p></div>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/A1">저장</a></div>
+</section>
+
+<!-- A0d 쉬운 말 동의 -->
+<section class="scr" id="A0d" data-g="A. 보호자" data-t="쉬운 말 동의" data-m>
+  <header class="ab"><span></span><h1>본인 동의</h1><span></span></header>
+  <div class="ct mid" style="gap:14px">
+    <svg width="220" height="112" viewBox="0 0 220 112" role="img" aria-label="돌봐 주는 사람이 수첩을 보는 그림"><circle cx="52" cy="30" r="20" fill="#ECF2FE" stroke="#256EF4" stroke-width="3"/><path d="M18 108c0-24 15-40 34-40s34 16 34 40" fill="#ECF2FE" stroke="#256EF4" stroke-width="3"/><circle cx="168" cy="30" r="20" fill="#FFF5D6" stroke="#8A5A00" stroke-width="3"/><path d="M134 108c0-24 15-40 34-40s34 16 34 40" fill="#FFF5D6" stroke="#8A5A00" stroke-width="3"/><rect x="88" y="40" width="44" height="56" rx="4" fill="#fff" stroke="#1E2124" stroke-width="3"/><path d="M98 56h24M98 68h24M98 80h14" stroke="#1E2124" stroke-width="3" stroke-linecap="round"/></svg>
+    <div class="easy"><span><svg class="ic"><use href="#i-pill"/></svg></span><p>약 먹는 시간</p></div>
+    <div class="easy"><span><svg class="ic"><use href="#i-music"/></svg></span><p>좋아하는 노래</p></div>
+    <div class="easy"><span><svg class="ic"><use href="#i-phone"/></svg></span><p>연락할 사람</p></div>
+    <p class="h1" style="font-size:25px">이 정보를 돌봐 주는 사람이 볼 수 있어요. 괜찮아요?</p>
+  </div>
+  <div class="bt col">
+    <a class="btn btn-p full" href="#/A0c"><svg class="ic"><use href="#i-check"/></svg>괜찮아요</a>
+    <a class="btn btn-t full" href="#/A0b"><svg class="ic"><use href="#i-x"/></svg>싫어요</a>
+    <a class="btn full" style="color:var(--p-d);text-decoration:underline;font-size:17px" href="#/A0b">후견인이 대신 동의하기</a>
+  </div>
+</section>
+
+<!-- A1 홈 -->
+<section class="scr" id="A1" data-g="A. 보호자" data-t="홈" data-d>
+  <header class="ab home"><span class="logo"><svg><use href="#logo"/></svg>이음수첩</span><span class="who">김순자 님<svg class="ic" style="width:20px;height:20px"><use href="#i-down"/></svg></span></header>
+  <div class="ct tight">
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><span class="lbl">인수인계서 완성도</span><span class="pct">71%</span></div>
+      <div class="meter" role="img" aria-label="완성도 71%" style="margin-top:6px"><i style="width:71%"></i></div>
+      <p class="cap" style="margin-top:6px">7개 항목 중 5개 완료</p>
+      <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목 2개</b><a class="link" href="#/A3">채우기<svg class="ic"><use href="#i-next"/></svg></a></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
+    </div>
+    <div class="tiles">
+      <a class="tile" href="#/A2"><svg class="ic"><use href="#i-cam"/></svg><span><b>복약안내문<br>찍기</b><br><span>약이 바뀐 날 한 장만</span></span></a>
+      <a class="tile s2" href="#/A3"><svg class="ic"><use href="#i-mic"/></svg><span><b>말로<br>기록</b><br><span>AI가 정리해요</span></span></a>
+    </div>
+    <a class="li" href="#/A4" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 보기</b><span>꼭 알아야 해요 3개</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></a>
+  </div>
+  <div class="bt slim"><a class="btn btn-s full" href="#/A5"><svg class="ic"><use href="#i-away"/></svg>자리비움</a></div>
+  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A1" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/A0c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/A0b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
+</section>
+
+<!-- A2 복약안내문 촬영 -->
+<section class="scr" id="A2" data-g="A. 보호자" data-t="복약안내문 촬영" data-d>
+  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>복약안내문 촬영</h1><span></span></header>
+  <div class="ct tight">
+    <div class="photo" role="img" aria-label="찍은 복약안내문. 이름은 검은 상자로 가려짐">
+      <div class="paper" aria-hidden="true"><p class="t">복약안내문</p>성명<div class="ln" style="width:60%;margin-left:30px;margin-top:-9px"></div><div class="ln"></div><div class="dr"><i></i><div class="ln" style="flex:1"></div></div><div class="dr"><i></i><div class="ln" style="flex:1"></div></div><div class="dr"><i></i><div class="ln" style="flex:1"></div></div></div>
+      <div class="mask" aria-hidden="true">이름 가림</div>
+      <p class="ph"><svg class="ic"><use href="#i-hand"/></svg>검은 상자를 이름 위로 끌어 놓으세요</p>
+    </div>
+    <h2 class="h2">이렇게 읽었어요. 맞나요?</h2>
+    <div class="med"><b>도네페질정 5mg</b><p class="d">1정 · 저녁 식후</p></div>
+    <div class="med"><b>와파린정 2mg</b><p class="d">1정 · 아침 식후</p><span class="bdg bdg-gray" style="margin-top:6px">주의가 필요한 약 · 혈액희석제</span></div>
+    <div class="med chk"><div class="row" style="justify-content:space-between"><b>아모디핀정 5mg</b><span class="bdg bdg-warn"><svg class="ic"><use href="#i-alert"/></svg>확인 필요</span></div><p class="d"><span class="fx">1정?</span> · 아침 식후 · 용량 글자가 흐려요</p></div>
+  </div>
+  <div class="bt"><a class="btn btn-t" href="#/A2" aria-disabled="true">다시 찍기</a><a class="btn btn-p grow" href="#/A4">맞아요, 저장</a></div>
+</section>
+
+<!-- A3 음성 기록 -->
+<section class="scr" id="A3" data-g="A. 보호자" data-t="음성 기록" data-d>
+  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>말로 기록</h1><span></span></header>
+  <div class="ct" style="gap:12px">
+    <p class="bub me"><small>나</small>엄마가 <mark>손을 비비면 불안하다는 뜻이에요</mark>. 그럴 땐 <mark>트로트를 틀어 주세요</mark>.</p>
+    <div class="aic">
+      <p class="lbl" style="color:var(--p-d)">이렇게 정리했어요</p>
+      <div class="row" style="flex-wrap:wrap;gap:6px"><span class="bdg bdg-gray">의사소통</span><span class="bdg bdg-gray">위험행동과 진정법</span></div>
+      <p>손을 비비면 불안하다는 신호예요. 트로트를 틀어 드려요.</p>
+      <p class="q"><b>원문</b> “손을 비비면 불안하다는 뜻이에요”, “트로트를 틀어 주세요”</p>
+      <div class="row"><a class="btn btn-t grow" href="#/A3" aria-disabled="true">고치기</a><a class="btn btn-p grow" href="#/A4">맞아요</a></div>
+    </div>
+    <p class="bub ai"><small>빠진 항목 · 일과(밤잠)</small>밤에 잠을 못 주무시면 어떻게 하세요?</p>
+  </div>
+  <div class="bt"><a class="btn btn-t" href="#/A3" aria-disabled="true" aria-label="음성이 안 되면 글로 쓰기"><svg class="ic"><use href="#i-pen"/></svg>글로 쓰기</a><a class="btn btn-p grow" href="#/A3" aria-disabled="true"><svg class="ic"><use href="#i-mic"/></svg>누르고 말하기</a></div>
+</section>
+
+<!-- A4 인수인계서 -->
+<section class="scr" id="A4" data-g="A. 보호자" data-t="인수인계서" data-d>
+  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계서</h1><span></span></header>
+  <div class="ct tight">
+    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
+    <div>
+      <div class="li"><div><b>일과</b><span>밤잠 항목이 빠졌어요</span></div><a class="btn btn-s" style="padding:0 16px" href="#/A3"><svg class="ic" style="width:20px;height:20px"><use href="#i-pen"/></svg>쓰기</a></div>
+      <div class="li"><div><b>비상연락처</b><span>1명 더 필요해요</span></div><a class="btn btn-s" style="padding:0 16px" href="#/A3"><svg class="ic" style="width:20px;height:20px"><use href="#i-pen"/></svg>쓰기</a></div>
+      <div class="li"><div><b>복약</b><span>마지막 확인 11월 18일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
+      <div class="li"><div><b>건강·병력</b><span>마지막 확인 11월 10일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
+      <div class="li"><div><b>식사·알레르기</b><span>마지막 확인 11월 3일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
+    </div>
+    <div class="card" style="padding:12px 16px"><div class="row" style="justify-content:space-between;align-items:flex-start"><div><b style="font-size:17px">의사소통</b><p class="cap">마지막 확인 11월 18일</p></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div><a class="btn btn-t full" href="#/A4" aria-disabled="true" style="font-size:17px;margin-top:8px"><svg class="ic" style="color:var(--red)"><use href="#i-alert"/></svg>꼭 알아야 해요로 지정</a></div>
+    <div class="li"><div><b>위험행동과 진정법</b><span>마지막 확인 11월 18일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
+  </div>
+</section>
+
+<!-- A5 자리비움 시작 -->
+<section class="scr" id="A5" data-g="A. 보호자" data-t="자리비움 시작" data-sb="#888C93">
+  <div inert style="display:flex;flex-direction:column;flex:1;min-height:0">
+    <header class="ab home"><span class="logo"><svg><use href="#logo"/></svg>이음수첩</span><span class="who">김순자 님<svg class="ic" style="width:20px;height:20px"><use href="#i-down"/></svg></span></header>
+    <div class="ct tight">
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><span class="lbl">인수인계서 완성도</span><span class="pct">71%</span></div>
+        <div class="meter" style="margin-top:6px"><i style="width:71%"></i></div>
+        <p class="cap" style="margin-top:6px">7개 항목 중 5개 완료</p>
+        <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목 2개</b><span class="link">채우기<svg class="ic"><use href="#i-next"/></svg></span></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
+      </div>
+      <div class="tiles"><span class="tile"><svg class="ic"><use href="#i-cam"/></svg><span><b>복약안내문<br>찍기</b><br><span>약이 바뀐 날 한 장만</span></span></span><span class="tile s2"><svg class="ic"><use href="#i-mic"/></svg><span><b>말로<br>기록</b><br><span>AI가 정리해요</span></span></span></div>
+      <span class="li" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 보기</b><span>꼭 알아야 해요 3개</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></span>
+    </div>
+    <div class="bt slim"><span class="btn btn-s full"><svg class="ic"><use href="#i-away"/></svg>자리비움</span></div>
+    <div class="tb"><a class="on"><svg class="ic"><use href="#i-home"/></svg>홈</a><a><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a><svg class="ic"><use href="#i-qr"/></svg>QR</a><a><svg class="ic"><use href="#i-set"/></svg>설정</a></div>
+  </div>
+  <div class="dim" aria-hidden="true"></div>
+  <div class="sheet" role="dialog" aria-label="자리비움 시작 확인">
+    <span class="grab" aria-hidden="true"></span>
+    <h2 class="h2">자리비움을 시작할까요?</h2>
+    <p>시작하면 돌봄자용 링크가 만들어져요.</p>
+    <ul class="chk-list"><li><svg class="ic"><use href="#i-check"/></svg>정한 기간이 지나면 링크가 닫혀요</li><li><svg class="ic"><use href="#i-check"/></svg>누가 언제 봤는지 기록돼요</li><li><svg class="ic"><use href="#i-check"/></svg>돌아오면 버튼 하나로 닫혀요</li></ul>
+    <div class="kv" style="border:1px solid var(--dv);border-radius:8px;padding:0 16px"><div><span>기간</span><b>3일 (11월 21일까지)</b></div><a class="link" href="#/A5" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+    <div class="row"><a class="btn btn-t" href="#/A1">취소</a><a class="btn btn-p grow" href="#/A6">자리비움 시작</a></div>
+  </div>
+</section>
+
+<!-- A6 홈 (자리비움 중) -->
+<section class="scr" id="A6" data-g="A. 보호자" data-t="홈 (자리비움 중)" data-m data-time="19:30">
+  <header class="ab home"><span class="logo"><svg><use href="#logo"/></svg>이음수첩</span><span class="who">김순자 님</span></header>
+  <div class="ct tight">
+    <p class="away"><i aria-hidden="true"></i>자리비움 중 · 11월 18일부터</p>
+    <div class="stats"><div><b>3회</b><span>열람</span></div><div><b>2건</b><span>들어온 기록</span></div></div>
+    <div class="row"><a class="btn btn-t grow" href="#/B1">링크 보기</a><a class="btn btn-d grow" href="#/A1">열람 막기</a></div>
+    <p class="lbl">들어온 기록</p>
+    <div class="li"><div><b>점심 식사 완료</b><span>12:40 · 박○○ 선생님</span></div><span class="bdg bdg-ok">식사</span></div>
+    <div class="li"><div><b>저녁 약 드림</b><span>19:10 · 박○○ 선생님</span></div><span class="bdg bdg-ok">복약</span></div>
+    <p class="lbl">열람 기록</p>
+    <div class="li"><div><b>돌봄 인력 · 긴급 요약</b><span>15:12 · 링크로 열람</span></div><span class="bdg bdg-gray">2단계</span></div>
+  </div>
+  <div class="bt slim"><a class="btn btn-p full" href="#/A7">복귀</a></div>
+  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A6" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/A0c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/A0b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
+</section>
+
+<!-- A7 복귀 확인 -->
+<section class="scr" id="A7" data-g="A. 보호자" data-t="복귀 확인" data-m data-time="19:40">
+  <header class="ab"><a class="l" href="#/A6" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>복귀 확인</h1><span></span></header>
+  <div class="ct tight">
+    <h2 class="h2">자리를 비운 동안<br>이런 일이 있었어요</h2>
+    <p class="lbl">돌봄자 기록 2건과 넘겨받은 한 줄</p>
+    <div class="li"><div><b>점심 식사 완료</b><span>11월 18일 12:40</span></div></div>
+    <div class="li"><div><b>저녁 약 드림</b><span>11월 18일 19:10</span></div></div>
+    <div class="li"><div><b>넘겨받은 한 줄</b><span>“오후에 손을 자주 비비셔서 트로트를 틀어 드렸어요”</span></div></div>
+    <p class="lbl">열람 기록 3회 · 구급대원 1회, 돌봄 인력 2회</p>
+    <div class="card" style="padding:14px 16px"><b>구두로 전달받은 내용이 있나요?</b><div class="row" style="margin-top:10px"><a class="btn btn-t grow" href="#/A3"><svg class="ic"><use href="#i-mic"/></svg>말로 기록</a><a class="btn btn-t grow" href="#/A7" aria-disabled="true">없어요</a></div></div>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/A1">인수인계서에 반영하고 복귀</a></div>
+</section>
+
+<!-- A8 열람 승인 알림 -->
+<section class="scr" id="A8" data-g="A. 보호자" data-t="열람 승인 알림" data-d data-time="15:13">
+  <header class="ab"><span class="l"><svg class="ic" style="color:var(--p-d)"><use href="#i-bell"/></svg></span><h1>승인 요청</h1><span></span></header>
+  <div class="ct tight">
+    <div class="card req" style="padding:16px 18px">
+      <h2 class="h2">김순자 님 QR<br>전체 보기 요청</h2>
+      <dl><dt>사유</dt><dd>돌봄 공백</dd><dt>요청한 분</dt><dd>010-****-5678</dd><dt>인증</dt><dd>문자 인증 완료</dd><dt>요청 시각</dt><dd>오늘 오후 3:12</dd></dl>
+    </div>
+    <div class="timer"><b>8:42</b><p>10분 안에 응답이 없으면 긴급 요약만 열려요.</p></div>
+    <div><a class="btn btn-p full" href="#/B1"><svg class="ic"><use href="#i-check"/></svg>승인</a><p class="cap" style="text-align:center;margin-top:4px">승인 전에 문자 인증을 한 번 더 해요</p></div>
+    <a class="btn btn-t full" href="#/A8" aria-disabled="true"><svg class="ic"><use href="#i-x"/></svg>거절</a>
+  </div>
+  <div class="bt"><a class="btn btn-d full" href="#/A8" aria-disabled="true">이 QR 폐기하고 새로 발급</a></div>
+</section>
+
+<!-- Q1 QR 1단계 -->
+<section class="scr" id="Q1" data-g="Q. QR 1단계" data-t="QR 1단계" data-d data-dark data-time="15:12">
+  <div class="qhead"><p><svg class="ic"><use href="#i-qr"/></svg>이음수첩 · 긴급 돌봄 정보 1단계</p><h1>돌봄이 필요한<br>가족이 있어요</h1></div>
+  <div class="ct tight">
+    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
+    <div class="info"><span>주의가 필요한 약 종류</span><b>혈액희석제 복용 중</b></div>
+    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
+    <a class="btn btn-t full call" href="#/Q1" aria-disabled="true"><span class="row"><svg class="ic"><use href="#i-phone"/></svg>보호자에게 전화</span><small>번호는 가려져요</small></a>
+    <p class="cap" style="text-align:center">이 화면을 연 기록이 남아요</p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/B0"><svg class="ic"><use href="#i-lock"/></svg>전체 보기 요청</a></div>
+</section>
+
+<!-- B0 전체 보기 요청 -->
+<section class="scr" id="B0" data-g="B. 긴급 돌봄자" data-t="전체 보기 요청" data-d data-time="15:12">
+  <header class="ab"><a class="l" href="#/Q1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>전체 보기 요청</h1><span></span></header>
+  <div class="ct tight">
+    <p class="lbl">기관 인증 · 바로 열려요</p>
+    <a class="btn btn-t full" style="justify-content:flex-start" href="#/B1"><svg class="ic" style="color:var(--p-d)"><use href="#i-shield"/></svg>돌봄SOS 1회용 코드 입력</a>
+    <a class="btn btn-t full" style="justify-content:flex-start" href="#/B1"><svg class="ic" style="color:var(--p-d)"><use href="#i-shield"/></svg>구급대원 업무용 번호 인증</a>
+    <p class="div">코드가 없으면 문자 인증으로 요청</p>
+    <div class="row"><span class="inp grow">010-1234-5678</span><a class="btn btn-s" style="padding:0 12px;font-size:17px" href="#/B0" aria-disabled="true">인증번호 받기</a></div>
+    <span class="inp ok">482913<span class="ok"><svg class="ic" style="width:18px;height:18px"><use href="#i-check"/></svg>확인됨</span></span>
+    <p class="lbl" id="l-why">열람 사유</p>
+    <div class="opts three" role="radiogroup" aria-labelledby="l-why"><span class="opt" role="radio" aria-checked="false">구급 출동</span><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 공백</span><span class="opt" role="radio" aria-checked="false">기타</span></div>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>승인자가 허락하면 열려요. 10분 안에 응답이 없으면 긴급 요약만 열려요.</span></p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/B0w">승인 요청 보내기</a></div>
+</section>
+
+<!-- B0w 승인 대기 -->
+<section class="scr" id="B0w" data-g="B. 긴급 돌봄자" data-t="승인 대기" data-d data-time="15:13">
+  <header class="ab"><span></span><h1>승인 대기</h1><span></span></header>
+  <div class="ct mid" style="gap:16px">
+    <div class="ring" role="img" aria-label="남은 시간 9분 12초"><svg viewBox="0 0 176 176" aria-hidden="true"><circle cx="88" cy="88" r="76" fill="none" stroke="#E6E8EA" stroke-width="12"/><circle cx="88" cy="88" r="76" fill="none" stroke="#256EF4" stroke-width="12" stroke-dasharray="477.5" stroke-dashoffset="38.2"/></svg><div><b>9:12</b><span>남은 시간</span></div></div>
+    <h2 class="h2">승인자에게 요청을 보냈어요</h2>
+    <p>승인되면 바로 열려요.</p>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>10분 안에 응답이 없으면 긴급 요약만 열려요.</span></p>
+    <a class="btn btn-t full" href="#/Q1">1단계 정보 다시 보기</a>
+    <a class="btn btn-x full" href="#/B1s"><span class="row"><svg class="ic"><use href="#i-clock"/></svg>시간 경과</span><small>시연용 · 시연 때만 보여요</small></a>
+  </div>
+</section>
+
+<!-- B1 긴급 요약 (승인·기관 인증) -->
+<section class="scr" id="B1" data-g="B. 긴급 돌봄자" data-t="긴급 요약" data-d data-time="15:15">
+  <header class="ab"><span></span><h1>긴급 요약</h1><span></span></header>
+  <div class="ct tight">
+    <p class="scope"><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg>2단계 전체 열림 · 11월 21일 만료</p>
+    <div class="seg" role="radiogroup" aria-label="보는 순서"><span class="on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 인력 순서</span><span role="radio" aria-checked="false">구급대원 순서</span></div>
+    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
+    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
+    <div class="blk"><span>일과 · 지금</span><b>오후 3시 간식, 4시 산책</b></div>
+    <div class="blk"><span>의사소통·진정법</span><b>손을 비비면 불안하다는 뜻이에요. 트로트를 틀어 드려요.</b></div>
+    <a class="btn btn-s full" href="#/B2">상세 보기 (복약·식사·연락처)</a>
+  </div>
+  <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드 보여주기</a><a class="btn btn-p" href="#/B1" aria-disabled="true"><svg class="ic"><use href="#i-phone"/></svg>보호자 전화</a></div>
+</section>
+
+<!-- B1s 긴급 요약만 (10분 무응답) -->
+<section class="scr" id="B1s" data-g="B. 긴급 돌봄자" data-t="긴급 요약 (10분 무응답)" data-d data-time="15:23">
+  <header class="ab"><span></span><h1>긴급 요약</h1><span></span></header>
+  <div class="ct tight">
+    <p class="scope"><svg class="ic" style="color:var(--amb)"><use href="#i-lock"/></svg>승인 없음 · 긴급 요약만 열렸어요</p>
+    <div class="seg" role="radiogroup" aria-label="보는 순서"><span class="on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 인력 순서</span><span role="radio" aria-checked="false">구급대원 순서</span></div>
+    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
+    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
+    <div class="blk"><span>일과 · 지금</span><b>오후 3시 간식, 4시 산책</b></div>
+    <div class="blk"><span>의사소통·진정법</span><b>손을 비비면 불안하다는 뜻이에요. 트로트를 틀어 드려요.</b></div>
+    <p class="note"><svg class="ic"><use href="#i-lock"/></svg><span>상세(복약·식사·연락처)는 승인되거나 기관 인증을 해야 열려요.</span></p>
+  </div>
+  <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드 보여주기</a><a class="btn btn-p" href="#/B1s" aria-disabled="true"><svg class="ic"><use href="#i-phone"/></svg>보호자 전화</a></div>
+</section>
+
+<!-- B2 상세 -->
+<section class="scr" id="B2" data-g="B. 긴급 돌봄자" data-t="상세" data-time="15:15">
+  <header class="ab"><a class="l" href="#/B1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>상세</h1><span></span></header>
+  <div class="ct tight">
+    <div class="tabs" role="tablist" aria-label="항목"><span class="on" role="tab" aria-selected="true"><svg class="ic"><use href="#i-check"/></svg>복약</span><span role="tab" aria-selected="false">식사</span><span role="tab" aria-selected="false">소통</span><span role="tab" aria-selected="false">진정법</span><span role="tab" aria-selected="false">일과</span><span role="tab" aria-selected="false">연락처</span></div>
+    <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>아침 8:00 · 식후</p><div>와파린정 2mg<span>1정</span></div><div>아모디핀정 5mg<span>1정</span></div></div>
+    <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>저녁 6:30 · 식후</p><div>도네페질정 5mg<span>1정</span></div></div>
+    <p class="cap">마지막 확인 11월 18일 · 보호자가 확인함</p>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>약 이름은 돌봄자 화면에만 보여요. 당사자 화면에는 “선생님과 약 먹기”로 나와요.</span></p>
+  </div>
+  <div class="bt"><a class="btn btn-s full" href="#/B3"><svg class="ic"><use href="#i-pen"/></svg>기록 남기기</a></div>
+</section>
+
+<!-- B3 기록 남기기 -->
+<section class="scr" id="B3" data-g="B. 긴급 돌봄자" data-t="기록 남기기" data-m data-time="15:15">
+  <header class="ab"><a class="l" href="#/B2" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>기록 남기기</h1><span></span></header>
+  <div class="ct">
+    <p class="lbl">식사</p>
+    <div class="row"><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>아침</span><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>점심</span><span class="ck" role="checkbox" aria-checked="false">저녁</span></div>
+    <p class="lbl">복약</p>
+    <div class="row"><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>아침 약</span><span class="ck" role="checkbox" aria-checked="false">저녁 약</span></div>
+    <p class="lbl">다음 사람에게 넘길 한 줄</p>
+    <span class="inp area">오후에 손을 자주 비비셔서 트로트를 틀어 드렸어요.</span>
+    <p class="cap">이 기록은 보호자가 돌아오면 확인해요.</p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/B1">저장</a></div>
+</section>
+
+<!-- C1 일과표 (발달장애인용) -->
+<section class="scr" id="C1a" data-g="C. 당사자" data-t="일과표 · 순서 그림" data-m data-time="15:15">
+  <header class="ab"><span></span><h1>오늘 할 일</h1><span></span></header>
+  <div class="ct tight">
+    <p class="when"><svg class="ic" style="width:18px;height:18px;stroke-width:3"><use href="#i-check"/></svg>끝</p>
+    <div class="step done"><span class="pic"><svg class="ic"><use href="#i-img"/></svg>밥그릇<br>사진</span><b>점심 먹기</b></div>
+    <p class="when now">지금</p>
+    <div class="step now"><span class="pic"><svg class="ic"><use href="#i-img"/></svg>늘 쓰는<br>컵 사진</span><b>간식 먹기</b></div>
+    <p class="when">다음</p>
+    <div class="step"><span class="pic"><svg class="ic"><use href="#i-img"/></svg>운동화<br>사진</span><b>산책하기</b></div>
+    <div class="step"><span class="pic"><svg class="ic"><use href="#i-img"/></svg>선생님<br>사진</span><b>저녁 먹고<br>선생님과 약 먹기</b></div>
+  </div>
+  <div class="bt"><a class="btn btn-t full" href="#/B1" data-back>돌봄자 화면으로</a></div>
+</section>
+
+<!-- C1 일과표 (치매 어르신용) -->
+<section class="scr" id="C1b" data-g="C. 당사자" data-t="일과표 · 큰 글씨 한 줄" data-m data-time="15:15">
+  <header class="ab"><span></span><h1>지금 할 일</h1><span></span></header>
+  <div class="ct mid" style="gap:22px">
+    <p style="font-size:22px;font-weight:700;color:var(--t2)">오후 3시 15분</p>
+    <p class="one">지금은 간식 드실<br>시간이에요</p>
+    <span class="pic" style="width:220px;height:160px"><svg class="ic"><use href="#i-img"/></svg>늘 쓰시던 컵 사진</span>
+    <p style="font-size:20px;font-weight:700">다음: 4시 산책하기</p>
+  </div>
+  <div class="bt"><a class="btn btn-t full" href="#/B1" data-back>돌봄자 화면으로</a></div>
+</section>
+
+<!-- C2 안심 카드 -->
+<section class="scr" id="C2" data-g="C. 당사자" data-t="안심 카드" data-m data-time="15:15">
+  <header class="ab"><span></span><h1>안심 카드</h1><span></span></header>
+  <div class="ct mid" style="gap:28px">
+    <span class="avatar"><svg class="ic"><use href="#i-user"/></svg>돌봄자 사진</span>
+    <p class="one" style="font-size:31px">오늘은 박○○ 선생님이<br>함께 있어요.</p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" style="min-height:72px;font-size:22px" href="#/C1b">알겠어요</a></div>
+</section>
+</main>
+</div>
+
+<script>
+// 장식용 아이콘은 화면낭독기가 읽지 않게
+document.querySelectorAll('svg.ic, .logo svg, .sbar svg').forEach(s => { s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false'); });
+const scrs = [...document.querySelectorAll('.scr')];
+const nav = document.getElementById('nav');
+let group = '';
+for (const s of scrs) {
+  if (s.dataset.g !== group) { group = s.dataset.g; nav.insertAdjacentHTML('beforeend', `<p class="nh">${group}</p>`); }
+  const tag = 'd' in s.dataset ? '<i class="d">시연</i>' : 'm' in s.dataset ? '<i class="m">목업</i>' : '';
+  nav.insertAdjacentHTML('beforeend', `<a href="#/${s.id}" data-id="${s.id}"><b>${s.id}</b>${s.dataset.t}${tag}</a>`);
+}
+const sbar = document.getElementById('sbar'), sbt = document.getElementById('sbt');
+let lastB = 'B1';  // 당사자 화면에서 돌아갈 때 열람 범위(B1 전체 / B1s 요약만)를 그대로 유지
+function show() {
+  const id = location.hash.replace(/^#\/?/, '') || 'A1';
+  const cur = scrs.find(s => s.id === id) || scrs.find(s => s.id === 'A1');
+  scrs.forEach(s => s.classList.toggle('on', s === cur));
+  if (cur.id === 'B1' || cur.id === 'B1s') lastB = cur.id;
+  document.querySelectorAll('[data-back]').forEach(a => a.setAttribute('href', '#/' + lastB));
+  nav.querySelectorAll('a[data-id]').forEach(a => a.dataset.id === cur.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  sbar.classList.toggle('dark', 'dark' in cur.dataset);
+  sbar.style.background = cur.dataset.sb || ('dark' in cur.dataset ? '#0B50D0' : '#fff');
+  sbt.textContent = cur.dataset.time || '9:41';
+  document.title = `${cur.id} ${cur.dataset.t} · 이음수첩 프로토타입`;
+}
+addEventListener('hashchange', show);
+// 시연용으로만 있는 버튼은 눌러도 이동하지 않음
+document.addEventListener('click', e => { if (e.target.closest('[aria-disabled="true"]')) e.preventDefault(); });
+const params = new URLSearchParams(location.search), root = document.documentElement, hcb = document.getElementById('hcb');
+const setHc = on => { root.classList.toggle('hc', on); hcb.setAttribute('aria-pressed', String(on)); hcb.textContent = on ? '고대비 모드 끄기' : '고대비 모드 켜기'; };
+hcb.addEventListener('click', () => setHc(!root.classList.contains('hc')));
+if (params.has('capture')) root.classList.add('capture');
+setHc(params.has('hc'));
+show();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음수첩 담당자 콘솔</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
+<style>
+:root{
+  --font:"Pretendard GOV Variable","Pretendard GOV",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --p:#256EF4;--p-d:#0B50D0;--p-t:#ECF2FE;--p-ink:#0B3D99;--navy:#13294B;
+  --t1:#1E2124;--t2:#464C53;--t3:#6D7882;--bd:#CDD1D5;--dv:#E6E8EA;--bg:#F4F5F6;
+  --red:#C8281E;--red-t:#FDEEEC;--amb:#8A5A00;--amb-t:#FFF5D6;--amb-b:#E9A800;--grn:#1E7B34;--grn-t:#E8F5EB;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);color:var(--t1);background:var(--bg);font-size:16px;line-height:1.5;word-break:keep-all;-webkit-font-smoothing:antialiased;min-width:1280px}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+a{color:inherit;text-decoration:none}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.top{height:60px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800}
+.brand span{font-weight:500;opacity:.85;font-size:16px;padding-left:10px;border-left:1px solid rgba(255,255,255,.35)}
+.brand svg{width:28px;height:28px}
+.user{display:flex;align-items:center;gap:16px;font-size:15px}
+.user b{font-weight:700}
+.user a{border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:6px 12px;font-size:14px}
+.wrap{display:flex;min-height:calc(100% - 60px)}
+.side{width:240px;flex:none;background:#fff;border-right:1px solid var(--dv);padding:20px 12px;display:flex;flex-direction:column}
+.side a{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border-radius:6px;font-weight:600;color:var(--t2)}
+.side .off{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;color:var(--t3);font-weight:600}
+.side a[aria-current]{background:var(--p-t);color:var(--p-d);font-weight:800}
+.side a .n{margin-left:auto;background:var(--red);color:#fff;font-size:13px;font-weight:700;border-radius:10px;padding:0 8px;line-height:20px}
+.side .hours{margin-top:auto;border-top:1px solid var(--dv);padding:16px 14px 0;font-size:14px;color:var(--t2)}
+.side .hours b{display:block;color:var(--t1);font-size:15px}
+main{flex:1;min-width:0;padding:24px 32px 40px}
+.page{display:none}
+.page.on{display:block}
+.crumb{font-size:14px;color:var(--t3)}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;margin:6px 0 16px}
+.ph h1{font-size:26px;font-weight:800;letter-spacing:-.01em}
+.ph p{color:var(--t2);font-size:15px;margin-top:2px}
+.bar{display:flex;align-items:center;gap:10px;background:var(--amb-t);border:1px solid var(--amb-b);border-radius:8px;padding:10px 16px;font-size:15px;margin-bottom:16px}
+.bar .ic{color:var(--amb)}
+.bar.info{background:#fff;border-color:var(--dv)}
+.bar.info .ic{color:var(--p-d)}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi div{background:#fff;border:1px solid var(--dv);border-radius:8px;padding:16px 20px}
+.kpi span{font-size:14px;color:var(--t2);font-weight:600}
+.kpi b{display:block;font-size:28px;font-weight:800;margin-top:2px}
+.kpi b small{font-size:16px;font-weight:600;margin-left:2px}
+.kpi p{font-size:13px;color:var(--t3)}
+.kpi .hot b{color:var(--red)}
+.cols{display:grid;grid-template-columns:1fr 400px;gap:16px;align-items:start}
+.cols.d2{grid-template-columns:420px 1fr}
+.box{background:#fff;border:1px solid var(--dv);border-radius:8px}
+.box>h2{font-size:17px;font-weight:800;padding:16px 20px;border-bottom:1px solid var(--dv);display:flex;justify-content:space-between;align-items:center}
+.box>h2 small{font-size:14px;font-weight:500;color:var(--t3)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{background:var(--bg);color:var(--t2);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--dv);white-space:nowrap}
+td{padding:0 14px;height:52px;border-bottom:1px solid var(--dv);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tr.sel td{background:var(--p-t)}
+tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--p)}
+.num{font-variant-numeric:tabular-nums}
+.bdg{display:inline-flex;align-items:center;height:26px;padding:0 8px;border-radius:4px;font-size:13px;font-weight:700}
+.b-wait{background:var(--amb-t);color:var(--amb)}
+.b-ok{background:var(--grn-t);color:var(--grn)}
+.b-no{background:var(--red-t);color:var(--red)}
+.b-sum{background:#EEF0F2;color:var(--t2)}
+.b-blue{background:#fff;color:var(--p-ink);box-shadow:inset 0 0 0 1px #8DB2F8}
+.det{padding:20px}
+.det dl{display:grid;grid-template-columns:96px 1fr;row-gap:10px;font-size:15px}
+.det dt{color:var(--t2)}
+.det dd{font-weight:600}
+.timer{display:flex;align-items:center;gap:14px;background:var(--amb-t);border:1px solid var(--amb-b);border-radius:8px;padding:12px 16px;margin:16px 0 12px}
+.timer b{font-size:26px;font-weight:800;color:var(--amb);font-variant-numeric:tabular-nums}
+.timer p{font-size:14px}
+.hint{font-size:14px;color:var(--t2);background:var(--bg);border-radius:6px;padding:10px 12px}
+.btns{display:flex;gap:8px;margin-top:16px}
+.btn{flex:1;min-height:52px;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:700;border:1px solid transparent;background:#fff;white-space:nowrap;padding:0 16px}
+.btn-p{background:var(--p);color:#fff}
+.btn-t{border-color:var(--bd)}
+.btn-d{border-color:var(--red);color:var(--red)}
+.small{font-size:13px;color:var(--t3);margin-top:8px;text-align:center}
+.sep{border-top:1px solid var(--dv);margin:20px 0 16px}
+.qr{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.qr b{display:block}
+.form{padding:20px;display:flex;flex-direction:column;gap:16px}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{font-size:15px;font-weight:700}
+.inp{height:48px;border:1px solid var(--bd);border-radius:6px;padding:0 14px;display:flex;align-items:center;gap:8px;background:#fff;font-size:15px}
+.inp .ic{color:var(--t3)}
+.inp.sel{justify-content:space-between}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg span{height:44px;border:1px solid var(--bd);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}
+.seg span.on{border:2px solid var(--p);background:var(--p-t);color:var(--p-ink);font-weight:800}
+.code{border:1px solid var(--p);background:var(--p-t);border-radius:8px;padding:16px;text-align:center}
+.code span{font-size:14px;color:var(--p-ink);font-weight:700}
+.code b{display:block;font-size:34px;letter-spacing:.08em;font-variant-numeric:tabular-nums;margin:2px 0}
+.code p{font-size:14px;color:var(--t2)}
+.filters{display:flex;gap:10px;align-items:flex-end;padding:16px 20px;border-bottom:1px solid var(--dv)}
+.filters .fld{gap:4px}
+.filters label{font-size:13px;color:var(--t2);font-weight:700}
+.filters .inp{height:42px;min-width:150px}
+.pg{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-top:1px solid var(--dv);font-size:14px;color:var(--t2)}
+.pg span a{display:inline-grid;place-items:center;min-width:32px;height:32px;border-radius:4px;margin-left:4px}
+.pg span a.on{background:var(--navy);color:#fff;font-weight:700}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#256EF4"/><path d="M8 14a4 4 0 014-4h2M20 14a4 4 0 01-4 4h-2M11 14h6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v6a2 2 0 01-2 2H4a2 2 0 01-2-2v-6z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L21 2M17 6l3 3M15 8l2 2"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1M16 4a4 4 0 010 8M22 21v-1a6 6 0 00-4-5.6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+</svg>
+
+<header class="top">
+  <span class="brand"><svg><use href="#logo"/></svg>이음수첩<span>담당자 콘솔</span></span>
+  <span class="user"><span id="org">○○동 주민센터</span><b id="who">최○○ 주무관</b><a href="#/D1">로그아웃</a></span>
+</header>
+<div class="wrap">
+<nav class="side" aria-label="메뉴">
+  <a href="#/D1" data-p="D1"><svg class="ic"><use href="#i-inbox"/></svg>승인 요청<span class="n">2</span></a>
+  <a href="#/D2" data-p="D2"><svg class="ic"><use href="#i-key"/></svg>1회용 코드 발급</a>
+  <a href="#/D3" data-p="D3"><svg class="ic"><use href="#i-list"/></svg>열람 기록</a>
+  <span class="off" aria-disabled="true"><svg class="ic"><use href="#i-qr"/></svg>QR 관리 (목업)</span>
+  <span class="off" aria-disabled="true"><svg class="ic"><use href="#i-users"/></svg>담당 대상자 (목업)</span>
+  <p class="hours"><b>근무시간 09:00~18:00</b>근무시간 밖 요청은 응답이 없으면 10분 뒤 긴급 요약만 열립니다.</p>
+</nav>
+<main>
+
+<!-- D1 승인 요청 -->
+<section class="page" id="D1" data-org="○○동 주민센터" data-who="최○○ 주무관">
+  <p class="crumb">홈 › 승인 요청</p>
+  <div class="ph"><div><h1>승인 요청</h1><p>가족·지인 승인자가 없는 대상자의 전체 보기 요청을 처리합니다.</p></div><span class="crumb">2026.11.18 (수) 15:13 기준</span></div>
+  <div class="kpi">
+    <div class="hot"><span>승인 대기</span><b>2<small>건</small></b><p>가장 빠른 마감 1분 15초</p></div>
+    <div><span>오늘 처리</span><b>3<small>건</small></b><p>승인 2 · 거절 1</p></div>
+    <div><span>10분 경과 · 긴급 요약만</span><b>1<small>건</small></b><p>근무시간 밖 1건</p></div>
+    <div><span>이번 달 열람</span><b>38<small>회</small></b><p>QR 21 · 링크 17</p></div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h2>요청 목록<small>오늘 · 6건</small></h2>
+      <table>
+        <thead><tr><th>접수</th><th>대상자</th><th>요청자</th><th>사유</th><th>남은 시간</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr class="sel"><td class="num">15:12</td><td>오○례 (79세)</td><td class="num">010-****-7314</td><td>돌봄 공백</td><td class="num"><b style="color:var(--amb)">08:42</b></td><td><span class="bdg b-wait">승인 대기</span></td></tr>
+          <tr><td class="num">15:05</td><td>이○수 (34세)</td><td class="num">010-****-1290</td><td>기타</td><td class="num"><b style="color:var(--red)">01:15</b></td><td><span class="bdg b-wait">승인 대기</span></td></tr>
+          <tr><td class="num">13:58</td><td>최○호 (27세)</td><td class="num">010-****-4471</td><td>돌봄 공백</td><td>-</td><td><span class="bdg b-ok">승인</span></td></tr>
+          <tr><td class="num">11:20</td><td>정○순 (88세)</td><td class="num">010-****-9083</td><td>기타</td><td>-</td><td><span class="bdg b-no">거절</span></td></tr>
+          <tr><td class="num">10:41</td><td>강○석 (69세)</td><td class="num">010-****-2216</td><td>구급 출동</td><td>-</td><td><span class="bdg b-ok">승인</span></td></tr>
+          <tr><td class="num">07:47</td><td>한○민 (41세)</td><td class="num">010-****-3352</td><td>돌봄 공백</td><td>-</td><td><span class="bdg b-sum">긴급 요약만</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <h2>요청 상세<span class="bdg b-wait">승인 대기</span></h2>
+      <div class="det">
+        <dl><dt>대상자</dt><dd>오○례 (79세)</dd><dt>요청자</dt><dd class="num">010-****-7314</dd><dt>인증</dt><dd>문자 인증 완료</dd><dt>사유</dt><dd>돌봄 공백</dd><dt>접수</dt><dd class="num">2026.11.18 15:12</dd><dt>QR 위치</dt><dd>현관문 안쪽</dd></dl>
+        <div class="timer"><b>08:42</b><p>10분 안에 응답이 없으면 긴급 요약만 열립니다.</p></div>
+        <p class="hint">승인하면 요청자에게 2단계 전체가 만료 링크로 열립니다. 담당자 화면에는 대상자의 건강정보가 보이지 않습니다.</p>
+        <div class="btns"><a class="btn btn-p" href="#/D1"><svg class="ic"><use href="#i-check"/></svg>승인</a><a class="btn btn-t" href="#/D1"><svg class="ic"><use href="#i-x"/></svg>거절</a></div>
+        <p class="small">승인 전 담당자 문자 인증을 한 번 더 진행합니다.</p>
+        <div class="sep"></div>
+        <div class="qr"><div><b>이 대상자의 QR</b><span style="color:var(--t2)">2026.03.02 발급 · 사용 중</span></div><a class="btn btn-d" style="flex:none" href="#/D1">QR 폐기·재발급</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- D2 1회용 코드 발급 -->
+<section class="page" id="D2" data-org="○○구 돌봄SOS센터" data-who="정○○ 담당">
+  <p class="crumb">홈 › 1회용 코드 발급</p>
+  <div class="ph"><div><h1>1회용 코드 발급</h1><p>돌봄SOS 인력을 배정할 때 대상자 가구 전용 1회용 코드를 발급합니다. 코드는 한 번 쓰면 사라집니다.</p></div></div>
+  <div class="cols d2">
+    <div class="box">
+      <h2>코드 발급</h2>
+      <div class="form">
+        <div class="fld"><label>대상자</label><span class="inp"><svg class="ic"><use href="#i-search"/></svg>한○민 (41세) · ○○동</span></div>
+        <div class="fld"><label>배정 인력</label><span class="inp sel">서○○ · 요양보호사<svg class="ic"><use href="#i-down"/></svg></span></div>
+        <div class="fld"><label>유효 기간</label><div class="seg"><span>12시간</span><span class="on">24시간</span><span>3일</span></div></div>
+        <a class="btn btn-p" href="#/D2">코드 발급</a>
+        <div class="code"><span>발급된 코드</span><b>4827-1953</b><p>2026.11.19 15:20까지 · 1회 사용</p></div>
+        <div class="btns" style="margin-top:0"><a class="btn btn-t" href="#/D2">배정 인력에게 문자 보내기</a></div>
+      </div>
+    </div>
+    <div class="box">
+      <h2>발급 내역<small>최근 7일 · 5건</small></h2>
+      <table>
+        <thead><tr><th>발급 일시</th><th>대상자</th><th>배정 인력</th><th>만료</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr class="sel"><td class="num">11.18 15:20</td><td>한○민 (41세)</td><td>서○○ 요양보호사</td><td class="num">11.19 15:20</td><td><span class="bdg b-blue">미사용</span></td></tr>
+          <tr><td class="num">11.18 08:40</td><td>윤○희 (76세)</td><td>이○○ 요양보호사</td><td class="num">11.19 08:40</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+          <tr><td class="num">11.17 16:42</td><td>강○석 (69세)</td><td>최○○ 활동지원사</td><td class="num">11.18 16:42</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+          <tr><td class="num">11.16 09:30</td><td>박○례 (79세)</td><td>김○○ 요양보호사</td><td class="num">11.17 09:30</td><td><span class="bdg b-sum">만료</span></td></tr>
+          <tr><td class="num">11.14 14:12</td><td>조○연 (23세)</td><td>한○○ 활동지원사</td><td class="num">11.15 14:12</td><td><span class="bdg b-ok">사용됨</span></td></tr>
+        </tbody>
+      </table>
+      <p class="bar info" style="margin:16px 20px 20px"><svg class="ic"><use href="#i-info"/></svg>코드는 대상자 가구에서만 쓸 수 있고, 다른 가구 QR에는 통하지 않습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- D3 열람 기록 -->
+<section class="page" id="D3" data-org="○○동 주민센터" data-who="최○○ 주무관">
+  <p class="crumb">홈 › 열람 기록</p>
+  <div class="ph"><div><h1>열람 기록</h1><p>QR과 링크로 열린 모든 기록입니다. 1년간 보관한 뒤 자동으로 파기합니다.</p></div></div>
+  <div class="box">
+    <div class="filters">
+      <div class="fld"><label>기간</label><span class="inp" style="min-width:250px"><svg class="ic"><use href="#i-cal"/></svg>2026.11.01 ~ 2026.11.18</span></div>
+      <div class="fld"><label>단계</label><span class="inp sel">전체<svg class="ic"><use href="#i-down"/></svg></span></div>
+      <div class="fld"><label>경로</label><span class="inp sel">전체<svg class="ic"><use href="#i-down"/></svg></span></div>
+      <div class="fld" style="flex:1"><label>대상자</label><span class="inp"><svg class="ic"><use href="#i-search"/></svg>이름 또는 관리번호</span></div>
+      <a class="btn btn-p" style="flex:none;min-height:42px;padding:0 24px" href="#/D3">조회</a>
+    </div>
+    <table>
+      <thead><tr><th>열람 일시</th><th>대상자</th><th>단계</th><th>경로</th><th>긴급 돌봄자 유형</th><th>인증 방식</th><th>요청 번호</th></tr></thead>
+      <tbody>
+        <tr><td class="num">11.18 15:15</td><td>김○자 (82세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>확인 안 됨</td><td>문자 인증 · 승인</td><td class="num">R-1118-012</td></tr>
+        <tr><td class="num">11.18 15:12</td><td>김○자 (82세)</td><td><span class="bdg b-sum">1단계</span></td><td>QR</td><td>확인 안 됨</td><td>없음</td><td>-</td></tr>
+        <tr><td class="num">11.18 15:11</td><td>오○례 (79세)</td><td><span class="bdg b-sum">1단계</span></td><td>QR</td><td>확인 안 됨</td><td>없음</td><td>-</td></tr>
+        <tr><td class="num">11.18 15:04</td><td>이○수 (34세)</td><td><span class="bdg b-sum">1단계</span></td><td>QR</td><td>확인 안 됨</td><td>없음</td><td>-</td></tr>
+        <tr><td class="num">11.18 14:31</td><td>박○례 (79세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>구급대원</td><td>업무용 번호</td><td class="num">R-1118-009</td></tr>
+        <tr><td class="num">11.18 14:29</td><td>박○례 (79세)</td><td><span class="bdg b-sum">1단계</span></td><td>QR</td><td>확인 안 됨</td><td>없음</td><td>-</td></tr>
+        <tr><td class="num">11.18 13:59</td><td>최○호 (27세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>확인 안 됨</td><td>문자 인증 · 승인</td><td class="num">R-1118-010</td></tr>
+        <tr><td class="num">11.18 10:42</td><td>강○석 (69세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>확인 안 됨</td><td>문자 인증 · 승인</td><td class="num">R-1118-006</td></tr>
+        <tr><td class="num">11.18 08:55</td><td>윤○희 (76세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>돌봄 인력</td><td>1회용 코드</td><td class="num">R-1118-004</td></tr>
+        <tr><td class="num">11.18 07:57</td><td>한○민 (41세)</td><td><span class="bdg b-wait">2단계 긴급 요약</span></td><td>링크</td><td>확인 안 됨</td><td>문자 인증 · 10분 경과</td><td class="num">R-1118-003</td></tr>
+        <tr><td class="num">11.17 22:14</td><td>정○순 (88세)</td><td><span class="bdg b-sum">1단계</span></td><td>QR</td><td>확인 안 됨</td><td>없음</td><td>-</td></tr>
+        <tr><td class="num">11.17 19:40</td><td>강○석 (69세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>돌봄 인력</td><td>보호자 자리비움 링크</td><td>-</td></tr>
+        <tr><td class="num">11.17 16:50</td><td>강○석 (69세)</td><td><span class="bdg b-blue">2단계 전체</span></td><td>링크</td><td>돌봄 인력</td><td>1회용 코드</td><td class="num">R-1117-021</td></tr>
+      </tbody>
+    </table>
+    <div class="pg"><span>총 38건 · 담당자가 기록을 열람하면 사유와 함께 따로 남습니다.</span><span><a class="on" href="#/D3">1</a><a href="#/D3">2</a><a href="#/D3">3</a><a href="#/D3">4</a><a href="#/D3">다음</a></span></div>
+  </div>
+</section>
+
+</main>
+</div>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+function show() {
+  const id = location.hash.replace(/^#\/?/, '') || 'D1';
+  const cur = pages.find(p => p.id === id) || pages[0];
+  pages.forEach(p => p.classList.toggle('on', p === cur));
+  document.querySelectorAll('.side a[data-p]').forEach(a => a.dataset.p === cur.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  document.getElementById('org').textContent = cur.dataset.org;
+  document.getElementById('who').textContent = cur.dataset.who;
+  document.title = `${cur.querySelector('h1').textContent} · 이음수첩 담당자 콘솔`;
+}
+addEventListener('hashchange', show);
+// 화면 안의 처리 버튼은 시연용이라 눌러도 이동하지 않음
+document.querySelectorAll('main a[href^="#/"]').forEach(a => a.setAttribute('aria-disabled', 'true'));
+document.addEventListener('click', e => { if (e.target.closest('main [aria-disabled="true"]')) e.preventDefault(); });
+document.querySelectorAll('svg.ic, .brand svg').forEach(s => { s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false'); });
+show();
+</script>
+</body>
+</html>

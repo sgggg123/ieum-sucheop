@@ -1,0 +1,212 @@
+// 이음수첩 해커톤 MVP ERD
+// dbdiagram.io의 New Diagram에 이 파일 내용을 그대로 붙여 넣으세요. (Share > Public으로 공개 링크 발급)
+
+Enum care_type {
+  dementia
+  intellectual
+  physical
+  other
+}
+
+Enum item_category {
+  medication
+  health
+  meal
+  communication
+  risk_calming
+  routine
+  contact
+}
+
+Enum viewer_role {
+  paramedic
+  caregiver
+  other
+  unverified
+}
+
+Enum request_status {
+  pending
+  approved
+  auto_opened_summary
+  denied
+}
+
+Enum link_scope {
+  summary
+  full
+}
+
+Enum verify_method {
+  sos_one_time_code
+  registered_work_phone
+  sms_otp
+}
+
+Enum consent_by {
+  recipient
+  legal_guardian
+  guardian_of_minor
+}
+
+Enum access_reason {
+  ambulance
+  care_gap
+  other
+}
+
+Enum confidence_level {
+  high
+  low
+}
+
+Table guardians [headercolor: #256EF4] {
+  id uuid [pk, note: 'Supabase Auth 사용자 ID (휴대폰 OTP 로그인)']
+  name varchar [not null]
+  phone_enc bytea [not null]
+  privacy_consent_at timestamp [not null]
+  overseas_transfer_consent_at timestamp [not null, note: 'AI API 국외 이전 동의']
+}
+
+Table care_recipients [headercolor: #256EF4] {
+  id uuid [pk]
+  guardian_id uuid [not null, ref: > guardians.id]
+  name_enc bytea [not null]
+  care_type care_type [not null]
+}
+
+Table sharing_consents [headercolor: #1E7B34] {
+  id uuid [pk]
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  allowed_roles "viewer_role[]" [not null]
+  allowed_categories "item_category[]" [not null]
+  valid_until timestamp [not null]
+  consented_by consent_by [not null, note: '성인 당사자 본인 또는 후견인']
+  consented_at timestamp [not null]
+}
+
+Table handover_docs [headercolor: #256EF4] {
+  id uuid [pk]
+  recipient_id uuid [not null, unique, ref: - care_recipients.id]
+  version int [not null, default: 1]
+  completeness int [not null]
+  updated_at timestamp [not null]
+}
+
+Table conversations [headercolor: #256EF4] {
+  id uuid [pk]
+  doc_id uuid [not null, ref: > handover_docs.id]
+  message_enc bytea [not null, note: '가명 처리된 원문']
+  created_at timestamp [not null]
+}
+
+Table handover_items [headercolor: #256EF4] {
+  id uuid [pk]
+  doc_id uuid [not null, ref: > handover_docs.id]
+  source_conversation_id uuid [ref: >? conversations.id]
+  source_start int [not null, note: '원문 인용 위치 (서버가 원문에 실제로 있는지 검사)']
+  source_end int [not null]
+  category item_category [not null]
+  content_enc bytea [not null]
+  confidence confidence_level [not null]
+  is_must_know boolean [not null, default: false]
+  show_on_stage1 boolean [not null, default: false]
+  last_confirmed_at timestamp [not null]
+}
+
+Table medications [headercolor: #256EF4] {
+  id uuid [pk]
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  name_enc bytea [not null]
+  dose_enc bytea [not null]
+  schedule_time varchar [not null]
+  caution_class varchar [note: "1단계 '주의 약 종류'"]
+  source_photo_path varchar [not null, note: '비공개 버킷']
+  confirmed_by_guardian boolean [not null, default: false]
+}
+
+Table emergency_contacts [headercolor: #1E7B34] {
+  id uuid [pk]
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  name_enc bytea [not null]
+  phone_enc bytea [not null]
+  is_approver boolean [not null, default: false]
+}
+
+Table qr_codes [headercolor: #D9730D] {
+  id uuid [pk]
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  token_hash varchar [not null, unique]
+  revoked_at timestamp
+}
+
+Table institution_codes [headercolor: #D9730D] {
+  id uuid [pk]
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  code_hash varchar [not null, unique, note: '돌봄SOS 배정 시 발급, 가구 전용·1회용 (시연은 모의 코드)']
+  expires_at timestamp [not null]
+  used_at timestamp
+}
+
+Table access_requests [headercolor: #D9730D] {
+  id uuid [pk]
+  qr_id uuid [not null, ref: > qr_codes.id]
+  requester_role viewer_role [not null, default: 'unverified']
+  verify_method verify_method [not null]
+  institution_code_id uuid [ref: >? institution_codes.id]
+  reason access_reason [not null]
+  status request_status [not null, default: 'pending']
+  decided_by_contact_id uuid [ref: >? emergency_contacts.id]
+  created_at timestamp [not null]
+}
+
+Table access_links [headercolor: #D9730D] {
+  id uuid [pk]
+  request_id uuid [ref: >? access_requests.id, note: '보호자가 직접 자리비움을 켜면 null']
+  recipient_id uuid [not null, ref: > care_recipients.id]
+  consent_id uuid [not null, ref: > sharing_consents.id]
+  scope link_scope [not null]
+  token_hash varchar [not null, unique]
+  expires_at timestamp [not null]
+  revoked_at timestamp
+}
+
+Table access_logs [headercolor: #D9730D] {
+  id uuid [pk]
+  qr_id uuid [ref: >? qr_codes.id]
+  link_id uuid [ref: >? access_links.id]
+  request_id uuid [ref: >? access_requests.id]
+  stage int [not null]
+  viewer_role viewer_role [not null]
+  accessed_at timestamp [not null]
+}
+
+TableGroup "기록" [color: #256EF4] {
+  guardians
+  care_recipients
+  handover_docs
+  conversations
+  handover_items
+  medications
+}
+
+TableGroup "열람" [color: #D9730D] {
+  qr_codes
+  institution_codes
+  access_requests
+  access_links
+  access_logs
+}
+
+TableGroup "동의·연락" [color: #1E7B34] {
+  sharing_consents
+  emergency_contacts
+}
+
+Note erd_memo {
+'''
+- _enc 칼럼은 운영 단계에서 pgcrypto로 암호화하고, MVP에서는 RLS와 서버 함수로 접근을 막습니다.
+- 원문 인용은 위치(source_start·source_end)로만 저장하고, 서버가 원문에 실제로 있는지 검사합니다.
+- 일과표·안심 카드는 medications.schedule_time과 handover_items에서 만들어 따로 테이블을 두지 않습니다.
+'''
+}

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음수첩 유저 플로우</title>
+<meta name="description" content="이음수첩 유저 플로우: 평소 기록부터 보호자가 쓰러졌을 때 2단계 QR 열람, 돌봄, 복귀까지">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
+<style>
+:root{
+  --font:"Pretendard GOV Variable","Pretendard GOV",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --p:#256EF4;--p-d:#0B50D0;--p-t:#ECF2FE;--navy:#13294B;
+  --t1:#1E2124;--t2:#464C53;--t3:#6D7882;--bd:#CDD1D5;--dv:#E6E8EA;--bg:#F4F5F6;--red:#C8281E;--red-t:#FDEEEC;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--t1);background:var(--bg);font-size:16px;line-height:1.5;word-break:keep-all;-webkit-font-smoothing:antialiased}
+h1,h2,p,ol{margin:0}
+a{color:inherit}
+.gnb{background:var(--navy);color:#fff}
+.gnb .in{max-width:1280px;margin:0 auto;height:56px;display:flex;align-items:center;gap:28px;padding:0 24px}
+.gnb .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px}
+.gnb .brand svg{width:26px;height:26px}
+.gnb nav{display:flex;gap:4px}
+.gnb nav a{text-decoration:none;font-size:15px;font-weight:600;padding:8px 12px;border-radius:6px;opacity:.85}
+.gnb nav a[aria-current]{background:rgba(255,255,255,.14);opacity:1}
+.doc{max-width:1280px;margin:0 auto;padding:28px 24px 0}
+.doc h1{font-size:28px;font-weight:800;letter-spacing:-.01em}
+.meta{width:100%;border-collapse:collapse;margin-top:14px;background:#fff;font-size:15px}
+.meta th,.meta td{border:1px solid var(--dv);padding:9px 14px;text-align:left;vertical-align:top}
+.meta th{background:#EEF1F5;width:120px;font-weight:700;color:var(--t2);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.tools{max-width:1280px;margin:16px auto 0;padding:0 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tools button{min-height:44px;padding:0 14px;border-radius:6px;border:1px solid var(--bd);background:#fff;color:var(--t1);font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.tools button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tools button:focus-visible{outline:3px solid var(--p);outline-offset:2px}
+.tools .hint{font-size:14px;color:var(--t3);margin-left:8px}
+.board-wrap{position:relative;margin:12px auto 0;max-width:calc(100% - 48px)}
+.board{overflow:auto;background:#fff;border:1px solid var(--bd)}
+.pin{position:absolute;left:1px;top:1px;width:120px;height:852px;pointer-events:none}
+#canvas{position:relative;width:3340px;height:852px;font-size:15px}
+#canvas svg{position:absolute;inset:0}
+.node{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6px 12px;font-weight:700;line-height:1.3}
+.node small{display:block;font-size:13px;font-weight:500;color:var(--t2);line-height:1.3;margin-top:2px}
+.node.gray{color:var(--t2)}
+.node.crisis,.node.crisis small{color:var(--red)}
+.phase{position:absolute;top:0;height:64px;display:flex;align-items:center;gap:10px;padding:0 16px;font-weight:800;font-size:16px;white-space:nowrap;border-bottom:2px solid var(--navy)}
+.phase .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:14px}
+.phase.key .n{background:var(--red)}
+.phase.key{color:var(--red);border-bottom-color:var(--red)}
+.phase .tag{font-size:12px;font-weight:800;background:var(--red);color:#fff;border-radius:4px;padding:2px 7px}
+.lane{position:absolute;left:0;width:120px;display:flex;flex-direction:column;justify-content:center;padding:0 14px;font-weight:800;font-size:16px;line-height:1.3;background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.18)}
+.lane small{font-size:12px;font-weight:500;opacity:.8;margin-top:4px}
+.corner{position:absolute;left:0;top:0;width:120px;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.18)}
+.elab{position:absolute;transform:translate(-50%,-50%);background:#fff;border:1px solid var(--bd);border-radius:4px;padding:1px 7px;font-size:13px;font-weight:700;color:var(--t2);white-space:nowrap;line-height:1.5;text-align:center}
+.elab.l{transform:translate(0,-50%)}
+.elab small{display:block;font-size:11.5px;font-weight:600;color:#5B3FB3}
+.elab.mock{border-style:dashed}
+.elab.loop{color:var(--p-d);border-color:var(--p)}
+.conn{position:absolute;width:30px;height:30px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:800;font-size:14px;display:grid;place-items:center;transform:translate(-50%,-50%)}
+.note{position:absolute;border:1px solid var(--bd);background:#fff;padding:12px 14px;font-size:14px;line-height:1.45}
+.note b{display:block;font-size:13px;color:var(--navy);margin-bottom:2px}
+.note.ai{background:var(--bg);border-color:var(--dv);color:var(--t2)}
+.text-ver{max-width:1280px;margin:0 auto;padding:32px 24px 72px}
+.text-ver h2{font-size:20px;font-weight:800;margin-bottom:12px}
+.text-ver table{width:100%;border-collapse:collapse;background:#fff;font-size:15px}
+.text-ver th,.text-ver td{border:1px solid var(--dv);padding:12px 14px;text-align:left;vertical-align:top}
+.text-ver th{background:#EEF1F5;width:230px;white-space:nowrap}
+.text-ver tr.key th{background:var(--red-t);color:var(--red)}
+/* 기획서 삽입용: ?embed=1 */
+html.embed body{background:#fff}
+html.embed .gnb,html.embed .doc,html.embed .tools,html.embed .text-ver{display:none}
+html.embed .board-wrap{margin:0;max-width:none}
+html.embed .board{border:0;overflow:hidden}
+html.embed .pin{display:none}
+@media (max-width:640px){.doc,.text-ver{padding-left:16px;padding-right:16px}.board-wrap{max-width:calc(100% - 32px)}.meta th{width:auto}}
+</style>
+</head>
+<body>
+<header class="gnb"><div class="in">
+  <span class="brand"><svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="6" fill="#256EF4"/><path d="M8 14a4 4 0 014-4h2M20 14a4 4 0 01-4 4h-2M11 14h6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>이음수첩</span>
+  <nav aria-label="제출물"><a href="ieum-wireframes.html">화면 설계</a><a href="ieum-userflow.html" aria-current="page">유저 플로우</a><a href="prototype/app.html">프로토타입</a></nav>
+</div></header>
+
+<div class="doc">
+  <h1>유저 플로우</h1>
+  <table class="meta">
+    <tr><th>서비스</th><td>이음수첩 · 돌봄 노하우를 잇는 AI 돌봄 인수인계서</td></tr>
+    <tr><th>흐름</th><td>평소에 말과 사진으로 쌓은 인수인계서가 보호자가 갑자기 쓰러진 순간 2단계 QR로 열리고, 보호자가 돌아오면 돌봄 기록이 인수인계서로 되돌아갑니다. ③이 핵심 상황입니다.</td></tr>
+    <tr><th>레인</th><td>보호자·승인자 / AI / 긴급 돌봄자 / 당사자 / 시스템</td></tr>
+    <tr><th>표시</th><td><div class="legend">
+      <span><svg width="34" height="20" aria-hidden="true"><rect x="1" y="1" width="32" height="18" rx="3" fill="#fff" stroke="#1E2124" stroke-width="1.5"/></svg>시연에서 실제 동작</span>
+      <span><svg width="34" height="20" aria-hidden="true"><rect x="1" y="1" width="32" height="18" rx="3" fill="#fff" stroke="#1E2124" stroke-width="1.5" stroke-dasharray="5 3"/></svg>시연에서 모의 처리 (문자 인증·승인·기관 인증·10분 대기)</span>
+      <span><svg width="34" height="20" aria-hidden="true"><rect x="1" y="1" width="32" height="18" rx="3" fill="#EEF0F2" stroke="#9AA3AD" stroke-width="1.5"/></svg>화면 목업 (시연 범위 밖)</span>
+      <span><svg width="34" height="20" aria-hidden="true"><polygon points="7,1 27,1 33,10 27,19 7,19 1,10" fill="#fff" stroke="#1E2124" stroke-width="1.5"/></svg>갈림길</span>
+      <span><svg width="34" height="20" aria-hidden="true"><rect x="1" y="1" width="32" height="18" rx="9" fill="#ECF2FE" stroke="#256EF4" stroke-width="2"/></svg>시작</span>
+      <span><svg width="34" height="20" aria-hidden="true"><rect x="1" y="1" width="32" height="18" rx="3" fill="#FDEEEC" stroke="#C8281E" stroke-width="2"/></svg>위기 상황</span>
+      <span><svg width="34" height="20" aria-hidden="true"><path d="M2 10h28" stroke="#256EF4" stroke-width="2" stroke-dasharray="6 4"/><path d="M26 6l6 4-6 4" fill="#256EF4"/></svg>단계 사이 이어짐</span>
+    </div></td></tr>
+  </table>
+</div>
+<div class="tools">
+  <button type="button" id="fit" aria-pressed="false">화면에 맞추기</button>
+  <span role="group" aria-label="단계로 이동" style="display:contents" id="jumps"></span>
+  <span class="hint">가로로 넘기면 ①~⑤를 모두 볼 수 있습니다.</span>
+</div>
+<div class="board-wrap">
+  <div class="board" id="board">
+    <div id="canvas" role="img" aria-label="유저 플로우 스윔레인 그림. 같은 내용을 아래 '단계별 흐름' 표에 정리했습니다."></div>
+  </div>
+  <div class="pin" id="pin" aria-hidden="true"></div>
+</div>
+
+<section class="text-ver" aria-labelledby="tv">
+  <h2 id="tv">단계별 흐름</h2>
+  <table>
+    <tr><th>① 평소·쌓기</th><td>가입·개인정보 동의 → 건강정보 제공 동의(열람자 유형·항목·기간, 성인 당사자는 본인 또는 후견인) → 처음 설정(승인자 지정, 1단계 공개 항목 선택) → QR 출력·부착(현관문 안쪽, 지갑) → 복약안내문 촬영 또는 음성 기록 → AI 정리·되묻기 → 보호자 확인 → 인수인계서 갱신(마지막 확인일)</td></tr>
+    <tr><th>② 자리비움 시작 (미리 알 때)</th><td>홈에서 자리비움 → 만료 링크 생성 → 돌봄자에게 전달 → 당사자 카드 준비</td></tr>
+    <tr class="key"><th>③ 보호자가 갑자기 쓰러졌을 때</th><td>붙여 둔 QR 스캔 → 1단계(알레르기·주의가 필요한 약 종류·번호를 가린 전화 버튼·보호자가 고른 '꼭 알아야 해요') → 전체 보기 요청 → 기관 인증(돌봄SOS 1회용 코드, 구급대원 업무용 번호)이면 바로 2단계 / 그 밖의 사람은 문자 인증 + 열람 사유 → 승인자 알림 → 승인하면 2단계, 10분 동안 응답이 없으면 긴급 요약만, 거절하면 종료</td></tr>
+    <tr><th>④ 돌봄 중</th><td>긴급 요약 → 상세 → 안심 카드·일과표 보여 주기 → 식사·복약 체크와 한 줄 기록</td></tr>
+    <tr><th>⑤ 복귀·이음</th><td>복귀 → 돌봄 기록·열람 기록 확인 → 인수인계서 반영 → 링크 만료 → 평소 상태</td></tr>
+    <tr><th>어느 단계에서든</th><td>보호자·승인자는 알림에서 열람을 막고 QR을 폐기·재발급할 수 있습니다.</td></tr>
+  </table>
+</section>
+
+<script>
+const W = 3340, H = 852, NW = 150, NH = 68;
+const ROW = { ga: 82, gb: 176, ai: 285, ca: 392, cb: 486, r: 595, s: 705 };
+const LANES = [
+  ['보호자·승인자', 64, 200], ['AI', 264, 110], ['긴급 돌봄자', 374, 200, '돌봄SOS 인력·활동지원사·구급대원'],
+  ['당사자', 574, 110], ['시스템', 684, 110]
+];
+const PHASES = [
+  ['①', '평소·쌓기', 120, 870], ['②', '자리비움 시작 (미리 알 때)', 990, 380],
+  ['③', '보호자가 갑자기 쓰러졌을 때', 1370, 1150, true], ['④', '돌봄 중', 2520, 420], ['⑤', '복귀·이음', 2940, 400]
+];
+// [id, x, 줄, 모양, 제목, 설명]  모양: step 실제 · mock 모의(점선) · gray 목업 · dec 갈림길 · mockdec 모의 갈림길 · start · crisis · end
+const NODES = [
+  ['P1', 140, 'ga', 'step', '가입·동의', '개인정보·건강정보<br>국외 이전'],
+  ['P3', 310, 'ga', 'step', '처음 설정', '승인자 지정'],
+  ['P3b', 480, 'ga', 'gray', '1단계 공개 항목', 'QR에 보일 정보'],
+  ['P4', 650, 'ga', 'step', 'QR 출력·부착', '현관문 안쪽·지갑'],
+  ['P5', 820, 'ga', 'dec', '기록 방법'],
+  ['P6', 820, 'gb', 'step', '복약안내문 촬영', '이름 가림'],
+  ['P7', 650, 'gb', 'step', '음성 기록', '안 되면 글로 쓰기'],
+  ['P8', 480, 'gb', 'step', '보호자 확인', '맞아요 · 고치기'],
+  ['I1', 750, 'ai', 'step', 'AI 정리·되묻기', '근거 없는 내용은 버림'],
+  ['R1', 140, 'r', 'gray', '본인 동의', '쉬운 말, 어려우면 후견인'],
+  ['S2', 480, 's', 'step', '인수인계서 갱신', '마지막 확인일'],
+  ['Bb1', 1010, 'ga', 'start', '미리 자리를 비울 때', '홈에서 자리비움'],
+  ['Bs1', 1010, 's', 'step', '만료 링크 생성', '당사자 카드 준비'],
+  ['Bc1', 1170, 'ca', 'step', '받은 링크로 열기', '설치·가입 없이'],
+  ['Ce', 1390, 'ga', 'crisis', '보호자가 갑자기 쓰러짐', '버튼 누를 사람 없음'],
+  ['C1', 1390, 'ca', 'step', '붙여 둔 QR 스캔', '현관문 안쪽·지갑'],
+  ['Cs1', 1390, 's', 'step', 'QR 토큰 확인', '모든 열람 기록'],
+  ['C2', 1560, 'ca', 'step', '1단계', '알레르기·주의 약 종류·전화 버튼'],
+  ['C3', 1730, 'ca', 'dec', '전체 보기 요청'],
+  ['C5', 1970, 'ca', 'mock', '문자 인증<br>+ 열람 사유'],
+  ['C4', 1970, 'cb', 'mock', '기관 인증', '돌봄SOS 1회용 코드 · 구급대원 업무용 번호'],
+  ['Ca', 2150, 'ga', 'mockdec', '승인자 판단', '문자 인증 후'],
+  ['C9', 2340, 'ga', 'end', '종료', '열리지 않음'],
+  ['C8', 2340, 'ca', 'step', '긴급 요약만 열림'],
+  ['C7', 2340, 'cb', 'step', '2단계 전체 열림', '만료 링크로'],
+  ['Cs3', 2340, 's', 'step', '만료 링크 발급', '열람 기록'],
+  ['D1', 2560, 'ca', 'step', '긴급 요약', '위험 정보 먼저'],
+  ['D2', 2750, 'ca', 'step', '상세', '승인·기관 인증 시만'],
+  ['D3', 2750, 'cb', 'gray', '식사·복약 체크', '한 줄 기록'],
+  ['D4', 2560, 'r', 'gray', '안심 카드·일과표', '당사자에게 보여 주기'],
+  ['Ds1', 2750, 's', 'gray', '돌봄 기록 저장'],
+  ['E1', 2980, 'ga', 'gray', '복귀', '홈에서 복귀'],
+  ['E2', 3150, 'ga', 'gray', '돌봄·열람 기록 확인'],
+  ['E3', 3150, 'gb', 'gray', '인수인계서 반영', '구두 전달 내용 포함'],
+  ['E4', 3150, 's', 'step', '링크 만료', '평소 상태로'],
+];
+// [점 목록, 글자, 글자 위치, 옵션]  옵션: m 모의(점선) · loop 되돌아감 · l 왼쪽 정렬 · sub 둘째 줄
+const EDGES = [
+  [[[290,116],[310,116]]], [[[460,116],[480,116]]], [[[630,116],[650,116]]], [[[800,116],[820,116]]],
+  [[[920,150],[920,176]], '사진', [946,163]],
+  [[[850,150],[850,163],[725,163],[725,176]], '말', [788,163]],
+  [[[880,244],[880,285]]], [[[780,244],[780,285]]],
+  [[[750,319],[590,319],[590,244]]],
+  [[[520,244],[520,705]]],
+  [[[215,150],[215,595]], '성인 당사자', [225,474], { l: 1 }],
+  [[[1085,150],[1085,705]]],
+  [[[1160,739],[1245,739],[1245,460]], '링크 전달', [1245,600]],
+  [[[1320,426],[1332,426]]],
+  [[[1465,150],[1465,392]], '돌봄 인력·구급대원 도착', [1475,319], { l: 1 }],
+  [[[1540,426],[1560,426]]], [[[1710,426],[1730,426]]],
+  [[[1880,426],[1970,426]], '그 밖의 사람', [1925,404]],
+  [[[1805,460],[1805,520],[1970,520]], '기관 인증', [1887,520]],
+  [[[2045,392],[2045,116],[2150,116]], '승인 요청 알림', [2055,212], { l: 1 }],
+  [[[2300,116],[2340,116]], '거절', [2320,92]],
+  [[[2190,150],[2190,473],[2415,473],[2415,486]], '승인', [2190,300]],
+  [[[2260,150],[2260,426],[2340,426]], '10분 무응답', [2265,340], { m: 1, sub: "시연: '시간 경과' 버튼" }],
+  [[[2120,520],[2340,520]], '바로 열림', [2272,520]],
+  [[[1465,460],[1465,705]]],
+  [[[2415,554],[2415,705]]],
+  [[[2490,426],[2560,426]]],
+  [[[2490,520],[2600,520],[2600,460]]],
+  [[[2635,374],[2635,392]]],
+  [[[2710,426],[2750,426]]], [[[2825,460],[2825,486]]], [[[2670,460],[2670,595]]], [[[2825,554],[2825,705]]],
+  [[[2900,520],[2950,520],[2950,116],[2980,116]], '보호자 복귀', [2960,319], { l: 1 }],
+  [[[3130,116],[3150,116]]], [[[3225,150],[3225,176]]], [[[3225,244],[3225,705]]],
+  [[[3225,773],[3225,826],[555,826],[555,773]], '평소 상태로 돌아가 다시 쌓기', [1890,826], { loop: 1 }],
+  [[[630,739],[690,739]], '평소 기록이 ②·③으로 이어짐', [696,739], { loop: 1, l: 1 }],
+];
+
+const NS = 'http://www.w3.org/2000/svg';
+const canvas = document.getElementById('canvas');
+const svg = document.createElementNS(NS, 'svg');
+svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('aria-hidden', 'true');
+svg.innerHTML = `<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#464C53"/></marker>
+  <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#256EF4"/></marker></defs>`;
+canvas.append(svg);
+const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); svg.append(e); return e; };
+const div = (cls, style, html) => { const d = document.createElement('div'); d.className = cls; Object.assign(d.style, style); d.innerHTML = html; canvas.append(d); return d; };
+const px = v => v + 'px';
+
+// 레인·단계 배경
+LANES.forEach(([name, top, h, sub], i) => {
+  el('rect', { x: 120, y: top, width: W - 120, height: h, fill: i % 2 ? '#FFFFFF' : '#F7F8F9' });
+  el('line', { x1: 120, y1: top, x2: W, y2: top, stroke: '#D6DADF' });
+  div('lane', { top: px(top), height: px(h) }, name + (sub ? `<small>${sub}</small>` : ''));
+});
+div('corner', {}, '레인 \\ 단계');
+el('line', { x1: 120, y1: 794, x2: W, y2: 794, stroke: '#D6DADF' });
+const key = PHASES.find(p => p[4]);
+el('rect', { x: key[2], y: 64, width: key[3], height: 730, fill: '#C8281E', 'fill-opacity': 0.04 });
+PHASES.forEach(([n, t, x, w, isKey]) => {
+  el('line', { x1: x, y1: 64, x2: x, y2: 794, stroke: '#D6DADF' });
+  div('phase' + (isKey ? ' key' : ''), { left: px(x), width: px(w) }, `<span class="n">${n}</span><span>${t}</span>` + (isKey ? '<span class="tag">핵심 상황</span>' : ''));
+});
+
+// 선
+const roundPath = pts => {
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], [x2, y2] = pts[i + 1];
+    const r = Math.min(8, Math.hypot(x1 - x0, y1 - y0) / 2, Math.hypot(x2 - x1, y2 - y1) / 2);
+    const a = [x1 - Math.sign(x1 - x0) * r, y1 - Math.sign(y1 - y0) * r], b = [x1 + Math.sign(x2 - x1) * r, y1 + Math.sign(y2 - y1) * r];
+    d += ` L${a[0]} ${a[1]} Q${x1} ${y1} ${b[0]} ${b[1]}`;
+  }
+  const e = pts[pts.length - 1];
+  return d + ` L${e[0]} ${e[1]}`;
+};
+EDGES.forEach(([pts, label, at, o = {}]) => {
+  el('path', { d: roundPath(pts), fill: 'none', stroke: o.loop ? '#256EF4' : '#464C53', 'stroke-width': o.loop ? 2 : 1.6,
+    'stroke-dasharray': o.m ? '6 5' : (o.loop ? '8 5' : 'none'), 'marker-end': o.loop ? 'url(#arb)' : 'url(#ar)' });
+  if (label) div('elab' + (o.l ? ' l' : '') + (o.m ? ' mock' : '') + (o.loop ? ' loop' : ''), { left: px(at[0]), top: px(at[1]) }, label + (o.sub ? `<small>${o.sub}</small>` : ''));
+});
+
+// 상자
+NODES.forEach(([id, x, row, type, t, s]) => {
+  const y = ROW[row], w = NW, h = NH;
+  const dashed = type === 'mock' || type === 'mockdec' ? '6 4' : 'none';
+  const stroke = { gray: '#9AA3AD', start: '#256EF4', crisis: '#C8281E', end: '#6D7882' }[type] || '#1E2124';
+  const fill = { gray: '#EEF0F2', start: '#ECF2FE', crisis: '#FDEEEC' }[type] || '#FFFFFF';
+  const sw = type === 'crisis' || type === 'start' ? 2 : 1.4;
+  if (type === 'dec' || type === 'mockdec') {
+    const k = 18;
+    el('polygon', { points: `${x + k},${y} ${x + w - k},${y} ${x + w},${y + h / 2} ${x + w - k},${y + h} ${x + k},${y + h} ${x},${y + h / 2}`, fill, stroke, 'stroke-width': sw, 'stroke-dasharray': dashed });
+  } else {
+    el('rect', { x, y, width: w, height: h, rx: type === 'start' || type === 'end' ? 22 : 4, fill, stroke, 'stroke-width': sw, 'stroke-dasharray': dashed });
+  }
+  div('node ' + type, { left: px(x), top: px(y), width: px(w), height: px(h), padding: type.endsWith('dec') ? '6px 22px' : '' }, t + (s ? `<small>${s}</small>` : ''));
+});
+
+// 다른 단계로 잇는 동그라미와 메모
+div('conn', { left: px(1347), top: px(426) }, '④');
+div('conn', { left: px(2635), top: px(362), width: '26px', height: '26px', fontSize: '13px' }, '②');
+div('note', { left: px(2560), top: px(90), width: px(340) }, '<b>언제든</b>보호자·승인자는 알림에서 열람을 막고 QR을 폐기·재발급할 수 있습니다.');
+div('note ai', { left: px(2560), top: px(282), width: px(340) }, 'AI는 기록을 정리할 때만 씁니다. 열람·돌봄 단계에서는 쓰지 않습니다.');
+
+// 화면에 맞추기, 단계 이동, 기획서 삽입 모드
+const board = document.getElementById('board');
+const fitBtn = document.getElementById('fit');
+// 가로로 넘겨도 레인 이름이 보이도록 왼쪽 칸을 고정
+const pin = document.getElementById('pin');
+canvas.querySelectorAll('.lane, .corner').forEach(n => pin.append(n.cloneNode(true)));
+const setFit = on => {
+  const z = on ? Math.min(1, board.clientWidth / W) : 1;
+  canvas.style.zoom = z; pin.style.zoom = z;
+  fitBtn.setAttribute('aria-pressed', String(on));
+};
+fitBtn.addEventListener('click', () => setFit(fitBtn.getAttribute('aria-pressed') !== 'true'));
+const jumps = document.getElementById('jumps');
+PHASES.forEach(([n, t, x]) => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = n; b.setAttribute('aria-label', `${n} ${t} 단계로 이동`);
+  b.addEventListener('click', () => board.scrollTo({ left: (x - 130) * (parseFloat(canvas.style.zoom) || 1), behavior: 'smooth' }));
+  jumps.append(b);
+});
+if (new URLSearchParams(location.search).has('embed')) {
+  document.documentElement.classList.add('embed');
+  const fitEmbed = () => { canvas.style.zoom = innerWidth / W; };
+  fitEmbed(); addEventListener('resize', fitEmbed);
+}
+</script>
+</body>
+</html>
