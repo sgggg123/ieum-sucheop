@@ -1,0 +1,113 @@
+.experience {
+  --confirmation-ink: var(--positive);
+  --source-ink: color-mix(in oklab, var(--primary) 80%, var(--foreground));
+  --soft-blue: color-mix(in oklab, var(--primary) 7%, var(--background));
+  --soft-green: color-mix(in oklab, var(--confirmation-ink) 8%, var(--background));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.experience :global([data-slot="button"]):active:not(:disabled) { scale: .98; }
+.demoBadge { align-self: center; padding: 4px 8px; border-radius: 6px; background: var(--muted); font-size: 12px; font-weight: 650; white-space: nowrap; }
+.context { display: flex; align-items: center; gap: 6px; color: var(--muted-foreground); font-size: 13px; }
+.context > svg { width: 16px; height: 16px; color: var(--primary); }
+.contextLevel { margin-left: auto; font-size: 12px; }
+.screen { display: flex; flex-direction: column; gap: 20px; animation: screen-enter 180ms ease-out; }
+.heroIcon { position: relative; display: grid; place-items: center; width: 68px; height: 68px; margin-top: 4px; border-radius: 22px; background: var(--soft-blue); color: var(--primary); }
+.heroIcon > svg { width: 34px; height: 34px; stroke-width: 1.7; }
+.heroIcon > span { position: absolute; right: -5px; bottom: -3px; display: grid; place-items: center; width: 27px; height: 27px; border: 3px solid var(--background); border-radius: 50%; background: var(--primary); color: var(--primary-foreground); }
+.heroIcon > span > svg { width: 15px; height: 15px; }
+.positiveIcon { background: var(--soft-green); color: var(--confirmation-ink); }
+.eyebrow { margin-bottom: -12px; color: var(--primary); font-size: 14px; font-weight: 650; }
+.heading { margin: 0; outline: none; font-size: clamp(25px, 7vw, 30px); font-weight: 750; line-height: 1.35; letter-spacing: -.04em; }
+.question { font-size: 27px; }
+.lead { margin-top: -8px; color: var(--muted-foreground); font-size: 16px; line-height: 1.75; }
+.welcomeCard { display: block; border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+.cardEyebrow { margin-bottom: 16px; color: var(--muted-foreground); font-size: 13px; font-weight: 600; }
+.topicRow { display: flex; align-items: center; gap: 12px; }
+.topicRow + .topicRow { margin-top: 20px; }
+.topicIcon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--soft-blue); color: var(--primary); }
+.topicIcon svg { width: 21px; height: 21px; }
+.topicRow strong, .resultRow strong { display: block; font-size: 16px; font-weight: 650; }
+.topicRow small, .resultRow small { display: block; margin-top: 4px; color: var(--muted-foreground); font-size: 13px; line-height: 1.65; }
+.welcomeNote { display: flex; align-items: flex-start; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 13px; line-height: 1.7; }
+.welcomeNote svg { flex: none; width: 16px; height: 16px; margin-top: 3px; }
+.demoNote { color: var(--muted-foreground); font-size: 12px; line-height: 1.8; }
+.primaryAction { width: 100%; font-size: 16px; gap: 10px; box-shadow: 0 4px 16px color-mix(in oklab, var(--primary) 15%, transparent); }
+.primaryAction svg { width: 18px; height: 18px; }
+.footerSurface { position: relative; isolation: isolate; width: 100%; }
+.footerSurface::before { position: absolute; z-index: -1; inset: -20px -16px -30px; background: var(--background); pointer-events: none; content: ""; }
+.progressHeading { display: flex; align-items: center; justify-content: space-between; font-size: 14px; }
+.progressHeading p { font-weight: 700; }
+.progressHeading p span { color: var(--muted-foreground); font-weight: 400; }
+.progressHeading > span { color: var(--muted-foreground); }
+.steps { display: flex; margin: -8px 0 8px; gap: 8px; }
+.steps li { display: flex; flex: 1; align-items: center; justify-content: center; gap: 5px; min-height: 38px; padding: 7px 4px; border-bottom: 2px solid var(--border); color: var(--muted-foreground); font-size: 12px; white-space: nowrap; }
+.steps li > span { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: var(--muted); font-size: 10px; }
+.steps li svg { width: 12px; height: 12px; }
+.steps li[data-active="true"] { border-color: var(--primary); color: var(--primary); font-weight: 700; }
+.steps li[data-active="true"] > span { background: var(--primary); color: var(--primary-foreground); }
+.steps li[data-done="true"] > span { background: var(--soft-blue); color: var(--primary); }
+.guidanceCard { display: block; padding: 22px; border: 1px solid color-mix(in oklab, var(--primary) 15%, var(--background)); border-radius: 18px; background: var(--soft-blue); }
+.guidanceIcon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 16px; border-radius: 12px; background: var(--background); color: var(--primary); }
+.guidanceIcon svg { width: 23px; height: 23px; }
+.quote { font-size: 20px; font-weight: 600; line-height: 1.8; letter-spacing: -.025em; }
+.sourceBadge { display: flex; align-items: center; gap: 5px; margin-top: 20px; padding-top: 14px; border-top: 1px solid color-mix(in oklab, var(--primary) 15%, var(--background)); color: var(--muted-foreground); font-size: 12px; }
+.sourceBadge svg { width: 14px; height: 14px; color: var(--primary); }
+.sourceBadge > span { margin-left: auto; }
+.source { border: 1px solid var(--border); border-radius: 13px; padding: 0 14px; }
+.source summary { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; list-style: none; font-size: 14px; font-weight: 550; }
+.source summary::-webkit-details-marker { display: none; }
+.source summary > span { display: flex; align-items: center; gap: 7px; }
+.source summary svg { width: 16px; height: 16px; color: var(--muted-foreground); }
+.source[open] summary > svg { transform: rotate(180deg); }
+.source blockquote { margin: 2px 0 12px; border-left: 2px solid var(--primary); padding-left: 12px; font-size: 15px; line-height: 1.85; }
+.source > p { margin-bottom: 8px; color: var(--muted-foreground); font-size: 12px; line-height: 1.7; }
+.source > .sourceNote { margin-bottom: 14px; font-size: 11px; }
+.helper { color: var(--muted-foreground); font-size: 14px; line-height: 1.8; }
+.textAction { align-self: center; min-height: 44px; max-width: 100%; margin-top: -8px; white-space: normal; height: auto; padding-block: 10px; font-size: 14px; }
+.inputLabel { display: block; margin-bottom: 9px; font-size: 14px; font-weight: 650; }
+.answerInput { min-height: 140px; padding: 14px 16px; border-color: var(--muted-foreground); background: var(--card); line-height: 1.85; resize: vertical; }
+.inputHint { margin-top: 8px; color: var(--muted-foreground); font-size: 12px; line-height: 1.7; }
+.examples { margin-top: -4px; }
+.examples > p { margin-bottom: 8px; color: var(--muted-foreground); font-size: 12px; }
+.examples > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.examples button { min-height: 44px; border: 1px solid var(--muted-foreground); border-radius: 999px; padding: 8px 12px; background: var(--card); font-size: 12px; cursor: pointer; }
+.examples button[aria-pressed="true"] { border-color: var(--primary); background: var(--soft-blue); color: var(--primary); }
+.feedbackHeader { display: flex; flex-direction: column; gap: 20px; }
+.feedbackIcon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 15px; background: var(--soft-blue); color: var(--primary); }
+.feedbackIcon svg { width: 25px; height: 25px; }
+.myAnswer { display: block; padding: 14px 16px; border-radius: 14px; background: var(--muted); }
+.myAnswer > span { color: var(--muted-foreground); font-size: 12px; }
+.myAnswer p { margin-top: 6px; font-size: 15px; line-height: 1.8; white-space: pre-wrap; }
+.checkList { display: flex; flex-direction: column; gap: 10px; }
+.checkList li { display: flex; align-items: flex-start; gap: 10px; padding: 14px 12px; border: 1px solid var(--border); border-radius: 14px; }
+.checkList .missing { border-color: color-mix(in oklab, var(--primary) 20%, var(--background)); background: var(--soft-blue); }
+.pointIcon { display: grid; flex: none; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--background); color: var(--primary); }
+.pointIcon svg { width: 15px; height: 15px; }
+.checkList strong { display: block; font-size: 15px; line-height: 1.6; font-weight: 650; }
+.checkList li > div > span { display: block; margin-top: 3px; color: var(--muted-foreground); font-size: 12px; }
+.checkList blockquote { margin-top: 10px; border-left: 2px solid var(--primary); padding-left: 9px; color: var(--source-ink); font-size: 14px; line-height: 1.8; }
+.confirmed { background: var(--soft-green); color: var(--confirmation-ink); }
+.followup { display: block; padding: 16px; border: 1px solid var(--border); border-radius: 14px; }
+.followup strong { font-size: 15px; }
+.followup p { margin-top: 7px; color: var(--muted-foreground); font-size: 14px; line-height: 1.8; }
+.summaryStats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 20px; border: 1px solid var(--border); border-radius: 16px; }
+.summaryStats > span { display: flex; flex-direction: column; gap: 5px; align-items: center; color: var(--muted-foreground); font-size: 13px; }
+.summaryStats > span + span { border-left: 1px solid var(--border); }
+.summaryStats strong { color: var(--foreground); font-size: 30px; font-weight: 700; line-height: 1.3; }
+.resultList { border-top: 1px solid var(--border); }
+.resultRow { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 90px; border-bottom: 1px solid var(--border); padding: 16px 0; text-align: left; cursor: pointer; }
+.resultIcon { display: grid; flex: none; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--muted); color: var(--muted-foreground); }
+.resultIcon.confirmed { background: var(--soft-green); color: var(--confirmation-ink); }
+.resultIcon svg { width: 17px; height: 17px; }
+.resultRow > svg { flex: none; width: 17px; height: 17px; margin-left: auto; color: var(--muted-foreground); }
+:global(.dark) .experience { --confirmation-ink: #86d9a7; }
+.examples button:focus-visible, .resultRow:focus-visible, .source summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+@keyframes screen-enter { from { opacity: .5; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@media (max-width: 340px) { .steps { gap: 3px; } .steps li { gap: 3px; font-size: 11px; } .guidanceCard { padding: 18px; } .question { font-size: 25px; } }
+@media (prefers-reduced-motion: reduce) { .screen { animation: none; } .experience :global([data-slot="button"]):active:not(:disabled) { scale: 1; } }

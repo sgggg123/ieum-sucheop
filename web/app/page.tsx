@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   Camera,
+  ClipboardCheck,
   ChevronDown,
   ChevronRight,
   Clock,
@@ -144,6 +145,16 @@ export default function Home() {
           <span className="flex flex-col">
             <span className="font-bold">인수인계서 확인</span>
             <span className="text-muted-foreground">최근 저장 11월 18일</span>
+          </span>
+        </MobileListCard>
+
+        <MobileListCard href="/care/understanding" className={styles.listAction}>
+          <span className="flex items-start gap-3">
+            <ClipboardCheck className="mt-1 size-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="flex flex-col gap-1">
+              <span className="font-bold">인수인계 함께 확인</span>
+              <span className="text-sm text-muted-foreground">임시 보호자 화면 체험</span>
+            </span>
           </span>
         </MobileListCard>
 

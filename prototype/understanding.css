@@ -1,0 +1,65 @@
+/* 인수인계 이해 확인: 제출용 프로토타입의 기존 KRDS 색과 화면 틀을 재사용한다. */
+.understanding button{font-family:inherit;cursor:pointer}
+.understanding button:disabled{opacity:.5;cursor:not-allowed}
+.understanding :is(button,a,textarea,summary):focus-visible{outline:3px solid var(--p-ink);outline-offset:3px}
+.understanding .tb-context{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:15px;color:var(--t2)}
+.understanding .tb-tag{background:var(--bg);border-radius:4px;padding:2px 7px;font-size:14px;font-weight:700}
+.understanding .tb-hero{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--p-t);color:var(--p-ink)}
+.understanding .tb-hero .ic{width:30px;height:30px}
+.understanding .tb-eyebrow{font-size:15px;font-weight:700;color:var(--p-ink)}
+.understanding .h1{outline:none}
+.understanding .tb-copy{color:var(--t2);font-size:17px;line-height:1.7}
+.understanding .tb-topics{padding:4px 16px}
+.understanding .tb-topic{display:flex;align-items:flex-start;gap:10px;padding:14px 0}
+.understanding .tb-topic+.tb-topic{border-top:1px solid var(--dv)}
+.understanding .tb-topic>.ic{margin-top:3px;color:var(--p-ink)}
+.understanding .tb-topic strong{display:block}
+.understanding .tb-topic p{margin-top:4px;color:var(--t2);font-size:17px;line-height:1.6}
+.understanding .tb-note{font-size:15px;line-height:1.65;color:var(--t2)}
+.understanding .tb-progress{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;color:var(--t2)}
+.understanding .tb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;list-style:none;padding:0;font-size:14px;color:var(--t2)}
+.understanding .tb-steps li{padding:8px 0;border-bottom:3px solid var(--dv);text-align:center}
+.understanding .tb-steps li[aria-current]{border-color:var(--p-d);color:var(--p-ink);font-weight:700}
+.understanding .tb-guide{border-color:var(--p);background:var(--p-t)}
+.understanding .tb-guide blockquote{margin:0;font-size:21px;font-weight:700;line-height:1.7}
+.understanding .tb-source{border:1px solid var(--t3);border-radius:8px;padding:0 12px;color:var(--t2)}
+.understanding .tb-source summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;font-size:15px;font-weight:700;list-style:none}
+.understanding .tb-source summary::-webkit-details-marker{display:none}
+.understanding .tb-source summary .ic{width:18px;height:18px}
+.understanding .tb-source[open] summary .ic{transform:rotate(180deg)}
+.understanding .tb-source blockquote{margin:0 0 10px;padding-left:10px;border-left:3px solid var(--p-ink);font-size:17px;line-height:1.65}
+.understanding .tb-source p{margin-bottom:10px;font-size:15px}
+.understanding textarea{display:block;width:100%;min-height:112px;resize:vertical;border:1px solid var(--t3);border-radius:8px;padding:12px 14px;color:var(--t1);background:#fff;font:inherit;font-size:17px;line-height:1.65}
+.understanding #tb-answer-form{display:grid;gap:8px}
+.understanding .tb-examples{display:flex;flex-wrap:wrap;gap:6px}
+.understanding .tb-examples button{min-height:44px;border:1px solid var(--t3);border-radius:22px;padding:8px 12px;background:#fff;color:var(--t2);font:inherit;font-size:15px}
+.understanding .tb-examples button[aria-pressed="true"]{border-color:var(--p-d);background:var(--p-t);color:var(--p-ink)}
+.understanding .tb-link{display:block;min-height:44px;padding:10px 0;background:none;border:0;color:var(--p-d);font:inherit;font-size:17px;text-decoration:underline;text-underline-offset:4px;text-align:center}
+.understanding .tb-answer{padding:12px 14px;border-radius:8px;background:var(--bg)}
+.understanding .tb-answer p{margin-top:4px;white-space:pre-wrap}
+.understanding .tb-points{display:flex;flex-direction:column;gap:8px;list-style:none;padding:0}
+.understanding .tb-points li{display:flex;align-items:flex-start;gap:8px;padding:12px;border:1px solid var(--dv);border-radius:8px}
+.understanding .tb-points .ic{width:20px;height:20px;margin-top:3px;color:var(--grn)}
+.understanding .tb-points .tb-missing{background:var(--p-t);border-color:var(--p)}
+.understanding .tb-points .tb-missing .ic{color:var(--p-ink)}
+.understanding .tb-points strong{display:block;font-size:17px}
+.understanding .tb-points small{display:block;font-size:15px;color:var(--t2)}
+.understanding .tb-points blockquote{margin:8px 0 0;border-left:3px solid var(--p-ink);padding-left:9px;color:var(--p-ink);font-size:17px;line-height:1.6}
+.understanding .tb-stats{display:grid;grid-template-columns:1fr 1fr;padding:16px;border:1px solid var(--bd);border-radius:12px;text-align:center}
+.understanding .tb-stats div+div{border-left:1px solid var(--bd)}
+.understanding .tb-stats b{display:block;font-size:30px;line-height:1.3}
+.understanding .tb-stats span{font-size:15px;color:var(--t2)}
+.understanding .tb-result{display:flex;align-items:center;gap:8px;min-height:68px;width:100%;padding:12px 0;border:0;border-bottom:1px solid var(--dv);background:#fff;color:var(--t1);text-align:left;font-size:17px}
+.understanding .tb-result>span{flex:1}
+.understanding .tb-result small{display:block;margin-top:3px;color:var(--t2);font-size:15px}
+.understanding .tb-result .ic{width:20px;height:20px;color:var(--p-ink)}
+.understanding .btn{white-space:normal}
+.understanding .tb-feedback-title{font-size:23px}
+.understanding .ct{gap:12px}
+.understanding-entry{border:1px solid var(--p);border-radius:10px;background:var(--p-t);padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:17px;color:var(--p-ink)}
+.understanding-entry>span{flex:1}
+.understanding-entry b,.understanding-entry small{display:block}
+.understanding-entry small{margin-top:3px;font-size:15px;color:var(--t2)}
+#B3 .ct{gap:10px}
+.tb-demo-tool{margin:12px 20px 0;display:block;min-height:44px;padding:8px;border:1px dashed var(--t3);border-radius:6px;background:#fff;color:var(--t2);font:inherit;font-size:14px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.understanding *{scroll-behavior:auto}}

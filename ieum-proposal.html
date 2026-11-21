@@ -115,7 +115,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
 .qr2 .s1 ul{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font-size:14px}
 .qr2 .arr{text-align:center;font-size:14px;font-weight:700;color:var(--t2);margin:6px 0;display:flex;flex-direction:column;align-items:center}
 .qr2 .arr::after{content:"";width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--t2);margin-top:4px}
-.qr2 .brs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qr2 .brs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .qr2 .br{border:1px solid var(--bd);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.45;display:flex;flex-direction:column;gap:6px}
 .qr2 .br .to{margin-top:auto;border-radius:4px;padding:6px 8px;font-weight:800;text-align:center}
 .to.full{background:var(--p);color:#fff}
@@ -255,14 +255,14 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <div class="flow">
     <div><b>평소 기록</b><p>말과 사진으로 쌓고<br>보호자가 확인</p></div>
     <div class="hot"><b>보호자 쓰러짐</b><p>자리비움 버튼을<br>누를 사람이 없음</p></div>
-    <div><b>2단계 QR 열람</b><p>붙여 둔 QR로 1단계,<br>인증·승인 후 2단계</p></div>
-    <div><b>돌봄</b><p>위험 정보부터 보고<br>식사·복약 체크</p></div>
+    <div><b>2단계 QR 열람</b><p>붙여 둔 QR로 1단계,<br>보호자 승인 후 2단계</p></div>
+    <div><b>돌봄</b><p>위험 정보부터 보고<br>생활 안내 이해 확인</p></div>
     <div><b>복귀 반영</b><p>돌봄 기록을<br>인수인계서에 반영</p></div>
   </div>
   <div class="p5">
     <div class="uf"><img src="captures/userflow-key.png" alt="유저 플로우 중 ③ 보호자가 갑자기 쓰러졌을 때 구간"></div>
     <div class="p5n"><b>③ 보호자가 갑자기<br>쓰러졌을 때</b>
-      <ul class="d"><li>기관 인증이면 바로 2단계</li><li>문자 인증이면 승인자가 허락해야 2단계</li><li>10분 무응답이면 긴급 요약만</li><li>거절하면 열리지 않음</li></ul>
+      <ul class="d"><li>열람자 유형과 사유로 2단계 요청</li><li>보호자 또는 대리 보호자가 승인</li><li>10분 무응답이면 만료, 1단계만</li><li>생활 안내 이해 확인은 2단계에서만</li></ul>
       <p class="src">레인 5개 × 단계 5개 전체 그림은 08번 유저 플로우에 있습니다.</p></div>
   </div>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>5 / 9</span></footer>
@@ -271,14 +271,14 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
 <!-- 6쪽 주요 화면 -->
 <section class="page">
   <header class="ph"><span>5. 주요 화면</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
-  <h2 class="hl">보호자는 찍고 말하기만, 긴급 돌봄자는 위험 정보부터 봅니다</h2>
+  <h2 class="hl">위험 정보부터 보고, <em>생활 안내는 내 말로 함께 확인합니다</em></h2>
   <div class="shots">
     <figure><div class="dev"><img src="captures/A1.png" alt="A1 홈"></div><figcaption><p class="t"><b>A1</b>홈</p><p class="d">큰 버튼 두 개와 완성도</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/A2.png" alt="A2 복약안내문 촬영"></div><figcaption><p class="t"><b>A2</b>복약안내문 촬영</p><p class="d">읽은 내용을 보호자가 확인하고 저장</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/A3.png" alt="A3 음성 기록"></div><figcaption><p class="t"><b>A3</b>음성 기록</p><p class="d">말하면 AI가 정리하고 빠진 건 되묻기</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/Q1.png" alt="Q1 QR 1단계"></div><figcaption><p class="t"><b>Q1</b>QR 1단계</p><p class="d">누구나 보는 최소 정보</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/B1.png" alt="B1 긴급 요약"></div><figcaption><p class="t"><b>B1</b>긴급 요약</p><p class="d">위험 정보부터</p></figcaption></figure>
-    <figure><div class="dev"><img src="captures/C2.png" alt="C2 안심 카드"></div><figcaption><p class="t"><b>C2</b>안심 카드</p><p class="d">쉬운 말과 그림</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/B5c.png" alt="B5c 이해 확인 원문 재안내"></div><figcaption><p class="t"><b>B5c</b>이해 확인</p><p class="d">빠진 생활 안내만 원문으로 재안내 (UI 체험)</p></figcaption></figure>
   </div>
   <p class="crit"><b>설계 기준</b><span>본문 17px 이상</span><span>버튼 높이 60px 이상</span><span>한 화면에 한 가지 일</span><span>상태는 색과 글자로 함께 표시</span><span>고대비 모드·스크린리더 레이블</span><span>KWCAG 2.2 AA</span><span>KRDS 색·글꼴 참고</span></p>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>6 / 9</span></footer>
@@ -291,50 +291,50 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <div class="p7">
     <div class="qr2">
       <div class="s1"><h4>1단계<span>QR을 찍은 누구나</span></h4>
-        <ul class="d"><li>알레르기</li><li>주의가 필요한 약 종류</li><li>번호를 가린 전화 버튼</li><li>보호자가 고른 '꼭 알아야 해요'</li></ul></div>
-      <p class="arr">전체 보기 요청</p>
+        <ul class="d"><li>알레르기</li><li>주의가 필요한 약 종류</li><li>복용 중인 약</li><li>생활 안내는 2단계</li></ul></div>
+      <p class="arr">2단계 요청 / 열람자 유형과 사유</p>
       <div class="brs">
-        <div class="br"><h4>기관 인증</h4><span>돌봄SOS 1회용 코드<br>구급대원 업무용 번호</span><span class="to full">바로 2단계</span></div>
-        <div class="br"><h4>문자 인증 + 사유</h4><span>승인자에게 알림<br>승인자도 문자 인증</span><span class="to full">승인하면 2단계</span></div>
-        <div class="br"><h4>10분 무응답</h4><span>승인자가 응답하지<br>않으면</span><span class="to sum">긴급 요약까지만</span></div>
+        <div class="br"><h4>보호자 승인</h4><span>보호자 또는 대리 보호자가<br>10분 안에 승인</span><span class="to full">만료 링크로 2단계</span></div>
+        <div class="br"><h4>거절 또는 10분 무응답</h4><span>요청이 만료되며<br>1단계 정보만 유지</span><span class="to sum">2단계 열리지 않음</span></div>
       </div>
       <p class="no">거절하면 열리지 않습니다. 2단계 링크는 시간이 지나면 만료됩니다.</p>
-      <p class="demo">해커톤 시연에서는 문자 인증·승인·기관 인증을 모의로 처리합니다.</p>
+      <p class="demo">가입 문자 인증과 승인은 모의 처리합니다. 이해 확인은 예시 비교이며 실제 AI 분석과 저장은 연결하지 않았습니다.</p>
     </div>
     <div class="safe">
       <table class="tbl">
         <tbody>
-          <tr><td class="k">AI 원칙</td><td>정리만 하고 증상 해석·복약 조언 같은 의료 판단은 하지 않습니다. 원문 인용 위치가 없는 항목은 버리고, AI가 정리한 내용임을 표시해 보호자가 확인한 뒤에만 저장합니다.</td></tr>
+          <tr><td class="k">AI 원칙</td><td>기록 정리와 허용 원문 기반의 생활 안내 비교에만 사용합니다. 증상 해석이나 복용 가능 판단은 하지 않습니다. 원문 없는 내용은 버리며, 불명확하면 보호자 확인으로 남깁니다.</td></tr>
           <tr><td class="k">개인정보</td><td>음성(OpenAI)과 이름·연락처를 가린 글, 이름을 가린 사진(Anthropic)은 한국 밖에서 처리되므로 국외 이전 동의를 받습니다. 두 API 모두 입력을 학습에 쓰지 않습니다. 건강정보는 열람 범위 동의와 AI 처리 동의를 따로 받고, 성인 당사자는 본인(어렵다면 후견인)이 동의합니다.</td></tr>
-          <tr><td class="k">승인자</td><td>가족·지인, 없으면 동주민센터 돌봄매니저를 두는 방안입니다(서울시·자치구와 협의 필요). 근무시간 밖에는 10분 뒤 긴급 요약만 열립니다.</td></tr>
+          <tr><td class="k">승인자</td><td>보호자 또는 미리 수락하고 동의한 대리 보호자가 결정합니다. 10분 무응답이나 거절이면 2단계는 열리지 않습니다. 이해 확인 결과는 승인 근거가 아닙니다.</td></tr>
           <tr><td class="k">분실·오남용</td><td>링크 만료, 모든 열람 기록, 보호자가 알림에서 열람 차단·QR 재발급</td></tr>
           <tr><td class="k">보관 기간</td><td>음성 30일, 이전 약 사진 90일, 대화 원문·열람 로그 1년, 탈퇴 시 즉시 파기. AI 업체 쪽은 기본 최대 30일 보관이며 무보존(ZDR)을 신청합니다.</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-  <p class="key" style="position:absolute;left:56px;right:56px;bottom:64px">AI는 정리만 하고, 원문에 근거가 없는 내용은 버리고, 모든 내용은 보호자가 확인한 뒤에만 저장합니다.</p>
+  <p class="key" style="position:absolute;left:56px;right:56px;bottom:64px">매 조회와 출력 전에 권한과 만료를 확인합니다. 이해 확인으로 공개 범위나 돌봄 자격을 바꾸지 않습니다.</p>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>7 / 9</span></footer>
 </section>
 
 <!-- 8쪽 시연과 측정 -->
 <section class="page">
   <header class="ph"><span>7. 해커톤 시연과 측정</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
-  <h2 class="hl">3분 동안 기록·인식·QR 열람을 직접 보여 주고, 정확도는 숫자로 발표합니다</h2>
+  <h2 class="hl">3분 동안 기록, QR 열람과 <em>인수인계 이해 확인</em>을 보여 줍니다</h2>
   <div class="p8">
     <div>
       <h3>시연 3분</h3>
       <table class="tbl">
         <thead><tr><th>단계</th><th style="width:70px">시간</th><th>막히면 대체 화면</th></tr></thead>
         <tbody>
-          <tr><td class="k">음성 기록·되묻기</td><td>40초</td><td>녹화 영상</td></tr>
-          <tr><td class="k">복약안내문 인식</td><td>40초</td><td>미리 찍어 둔 사진</td></tr>
-          <tr><td class="k">QR 1단계</td><td>30초</td><td>정적 화면</td></tr>
-          <tr><td class="k">승인 → 2단계 요약</td><td>40초</td><td>승인 완료 상태 화면</td></tr>
-          <tr><td class="k">측정 결과</td><td>30초</td><td>슬라이드</td></tr>
+          <tr><td class="k">음성 기록·되묻기</td><td>35초</td><td>녹화 영상</td></tr>
+          <tr><td class="k">복약안내문 인식</td><td>35초</td><td>미리 찍어 둔 사진</td></tr>
+          <tr><td class="k">QR 1단계</td><td>20초</td><td>정적 화면</td></tr>
+          <tr><td class="k">승인 → 2단계 상세</td><td>30초</td><td>승인 완료 상태 화면</td></tr>
+          <tr><td class="k">이해 확인 UI 체험</td><td>35초</td><td>B5c 원문 재안내 캡처</td></tr>
+          <tr><td class="k">측정 결과</td><td>25초</td><td>슬라이드</td></tr>
         </tbody>
       </table>
-      <p class="note"><b>모의 처리</b> 문자 인증·승인·기관 인증은 모의로 처리하고, 10분 대기는 '시간 경과' 버튼으로 넘깁니다. 음성 인식이 실패하면 글 입력으로 대신합니다.</p>
+      <p class="note"><b>모의 처리</b> 가입 문자 인증과 승인을 모의 처리합니다. 이해 확인은 준비된 답변만 비교하고 자유 답변은 미확인으로 남깁니다. 실제 AI와 서버 권한 검사는 운영 연동 과제입니다.</p>
     </div>
     <div>
       <h3>측정</h3>
@@ -344,6 +344,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
           <tr><td class="k">작성 효율</td><td>팀원 4명 · 가상 보호자 사례 2개로 서식 직접 작성과 비교</td><td>빠진 항목 수, 작성 시간</td></tr>
           <tr><td class="k">AI 정리</td><td>정답 세트 30건 (가상 발화 20 + 복약안내문 사진 10)</td><td>필드별 정확도, 지어낸 항목 수 (목표 0건)</td></tr>
           <tr><td class="k">복약안내문 인식</td><td>복약안내문 10장</td><td>인식 정확도</td></tr>
+          <tr><td class="k">이해 확인 UI</td><td>일부 설명, 모두 설명, 자유 답변, 만료 시나리오</td><td>재안내와 미확인 분기, 권한 유지</td></tr>
         </tbody>
       </table>
       <p class="note">측정 결과는 해커톤 현장에서 실제로 잰 값만 발표합니다.</p>
@@ -353,8 +354,8 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
     <span><b>① 말로 기록</b>A3 · 되묻기까지</span>
     <span><b>② 복약안내문</b>A2 · 이름 가림, 확인 필요 표시</span>
     <span><b>③ QR 1단계</b>Q1 · 누구나 보는 최소 정보</span>
-    <span><b>④ 승인 요청</b>B0 → B0w → A8</span>
-    <span><b>⑤ 2단계 요약</b>B1 · 위험 정보부터</span>
+    <span><b>④ 승인 요청</b>B0 → B2 → B2b → A8b</span>
+    <span><b>⑤ 함께 확인</b>B3 → B5 → B5c / 생활 안내</span>
   </p>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>8 / 9</span></footer>
 </section>
@@ -378,7 +379,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
           <tr><td class="k">확장 10만 가구</td><td><span class="num">월 약 1,460만 원</span></td></tr>
         </tbody>
       </table>
-      <p class="src" style="margin-top:8px">가구당 월 AI·음성 인식 약 $0.09(1달러 1,400원 가정) + 승인 문자 20원. Claude Haiku 5.5·Opus 5.5·Whisper API 단가와 가구당 월 사용량 가정으로 계산했습니다.</p>
+      <p class="src" style="margin-top:8px">기존 기록 기능 기준 가정: 가구당 월 AI·음성 인식 약 $0.09(1달러 1,400원 가정) + 승인 문자 20원. 이해 확인 AI 연동 비용은 별도 산정이 필요하며 현재 UI 체험은 API를 호출하지 않습니다.</p>
     </div>
     <figure><div class="console"><img src="captures/D1.png" alt="담당자 콘솔 승인 요청 화면"></div><p class="cap">담당자 콘솔 (확장 설계, 목업): 동주민센터 돌봄매니저의 승인 요청 처리 화면</p></figure>
   </div>

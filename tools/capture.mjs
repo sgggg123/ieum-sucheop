@@ -7,6 +7,8 @@ import path from 'node:path';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const out = path.join(root, 'captures');
+const screenArgument = process.argv.find(arg => arg.startsWith('--screens='));
+const selectedScreens = screenArgument ? new Set(screenArgument.slice('--screens='.length).split(',')) : null;
 mkdirSync(out, { recursive: true });
 const chrome = [
   process.env.CHROME_PATH,
@@ -32,7 +34,13 @@ const open = async (url, width, height, scale = 2) => {
   await settle();
 };
 const go = async hash => {
-  await page.evaluate(h => new Promise(r => { location.hash = h; requestAnimationFrame(() => requestAnimationFrame(r)); }), hash);
+  await page.evaluate(h => new Promise(r => {
+    const id = h.replace(/^#\/?/, '');
+    window.ieumUnderstanding?.capture(id);
+    if (location.hash === h) window.ieumUnderstanding?.render(id);
+    else location.hash = h;
+    requestAnimationFrame(() => requestAnimationFrame(r));
+  }), hash);
   await settle();
 };
 const shot = name => path.join(out, `${name}.png`);
@@ -41,14 +49,20 @@ let overflow = 0;
 try {
 // 1) 모바일 화면 (375×812, 2배). 내용이 화면보다 길면 캡처에서 잘리므로 알려 줌
 await open(file('prototype/app.html') + '?capture', 375, 812);
-for (const id of await page.$$eval('.scr', s => s.map(e => e.id))) {
+const screenIds = await page.$$eval('.scr', s => s.map(e => e.id));
+if (selectedScreens) for (const id of selectedScreens) {
+  if (id !== 'A1-hc' && !screenIds.includes(id)) throw new Error(`없는 화면: ${id}`);
+}
+for (const id of screenIds.filter(id => !selectedScreens || selectedScreens.has(id))) {
   await go('#/' + id);
   const over = await page.$eval(`#${id} .ct`, c => c.scrollHeight - c.clientHeight).catch(() => 0);
   if (over > 0) { overflow++; console.warn(`${id}: 내용이 ${over}px 넘칩니다`); }
   await page.screenshot({ path: shot(id) });
 }
-await open(file('prototype/app.html') + '?capture&hc#/A1', 375, 812);  // 고대비 모드 예시
-await page.screenshot({ path: shot('A1-hc') });
+if (!selectedScreens || selectedScreens.has('A1-hc')) {
+  await open(file('prototype/app.html') + '?capture&hc#/A1', 375, 812);
+  await page.screenshot({ path: shot('A1-hc') });
+}
 
 // 2) 담당자 콘솔 (1440 너비, 2배). 콘솔은 삭제되었으므로 파일이 있을 때만 캡처
 if (existsSync(path.join(root, 'prototype/console.html'))) {
@@ -60,7 +74,7 @@ if (existsSync(path.join(root, 'prototype/console.html'))) {
 }
 
 // 3) 유저 플로우: 전체 그림, 그리고 기획서용 ③ 구간(레인 이름 포함)
-await open(file('ieum-userflow.html') + '?embed=1', 3340, 852);
+await open(file('ieum-userflow.html') + '?embed=1', 3740, 852);
 await (await page.$('#canvas')).screenshot({ path: shot('userflow') });
 await open(file('ieum-userflow.html'), 1400, 1200);
 const box = await page.evaluate(() => {
