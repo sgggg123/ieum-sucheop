@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 
 import { Logo } from "@/components/logo";
+import { LegalFooter } from "@/components/legal/legal-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MobileAppShell, MobileListCard } from "@/components/ui/mobile-app-shell";
@@ -162,6 +163,7 @@ export default function Home() {
           <LogOut data-icon="inline-start" aria-hidden="true" />
           자리비움
         </Button>
+        <LegalFooter />
       </div>
     </MobileAppShell>
   );
