@@ -143,8 +143,8 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
 .p9b{display:grid;grid-template-columns:1fr 470px;gap:24px}
 .cost .tbl td{padding:9px 12px;font-size:14.5px}
 .cost .num{font-size:17px;font-weight:800;color:var(--p-d);white-space:nowrap}
-.console{border:1px solid var(--bd);border-radius:6px;overflow:hidden}
-.console img{display:block;width:100%;height:296px;object-fit:cover;object-position:top left}
+.pair2{display:flex;gap:16px;justify-content:center}
+.pair2 .dev{width:136px;border-width:5px;border-radius:20px}
 </style>
 </head>
 <body>
@@ -174,7 +174,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
       <p class="by"><svg><use href="#logo"/></svg>이음수첩</p>
     </div>
     <div class="dev cv-phone"><img src="captures/Q1.png" alt="QR 1단계 화면"></div>
-    <p class="cv-cap">현관문 안쪽·지갑에 붙이는 QR과 QR 1단계 화면</p>
+    <p class="cv-cap">보호자 휴대폰에 띄우는 QR과 QR 1단계 화면</p>
   </div>
 </section>
 
@@ -223,7 +223,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
     </tbody>
   </table>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px">
-    <div class="box"><p style="font-weight:800;color:var(--navy);margin-bottom:4px">경쟁이 아니라 연계</p><p>이음수첩 QR을 이런 홀더에 함께 넣으면 응급 정보에 돌봄 방법까지 이어집니다.</p></div>
+    <div class="box"><p style="font-weight:800;color:var(--navy);margin-bottom:4px">문에 붙이지 않는 QR</p><p>현관문 종이는 드나드는 누구나 봅니다. 이음수첩 QR은 보호자 휴대폰에 두고, 누가 열면 보호자에게 바로 알립니다.</p></div>
     <div class="box"><p style="font-weight:800;color:var(--navy);margin-bottom:4px">빈칸 서식과 다른 점</p><p>보호자가 말과 사진으로 남기면 AI가 정리하고, 빠진 항목은 먼저 묻습니다. 위기 때는 필요한 사람에게만 열립니다.</p></div>
   </div>
   <p class="src" style="margin-top:14px">출처: 서울신문 (2026.8.14) 관악구 현관문 긴급정보 홀더 보도</p>
@@ -235,12 +235,12 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <header class="ph"><span>3. 이용자</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
   <h2 class="hl">보호자는 말로 남기고, 긴급 돌봄자는 바로 보고, 당사자는 안심합니다</h2>
   <div class="users">
-    <div class="user"><h3>보호자<small>40~50대 가족 보호자</small></h3>
-      <div class="in"><dl><dt>상황</dt><dd>매일 돌봄에 지쳐 긴 서식을 쓰기 어렵습니다.</dd><dt>이음수첩이 하는 일</dt><dd>말과 사진으로 기록하고, 빠진 것은 AI가 먼저 묻습니다.</dd></dl>
+    <div class="user"><h3>보호자<small>40~50대 핵심 보호자 + 대리(임시) 보호자</small></h3>
+      <div class="in"><dl><dt>상황</dt><dd>매일 돌봄에 지쳐 긴 서식을 쓰기 어렵습니다.</dd><dt>이음수첩이 하는 일</dt><dd>말과 사진으로 기록하고, 빠진 것은 AI가 먼저 묻습니다. 핵심 보호자가 응답하지 못하면 대리 보호자가 열람을 허락합니다.</dd></dl>
         <div class="dev"><img src="captures/A3.png" alt="음성 기록 화면"></div></div></div>
     <div class="user"><h3>긴급 돌봄자<small>돌봄SOS 인력·활동지원사·구급대원</small></h3>
-      <div class="in"><dl><dt>상황</dt><dd>처음 보는 대상자를 정보 없이 맡습니다.</dd><dt>이음수첩이 하는 일</dt><dd>QR로 설치·가입 없이 위험 정보부터 바로 확인합니다.</dd></dl>
-        <div class="dev"><img src="captures/B1.png" alt="긴급 요약 화면"></div></div></div>
+      <div class="in"><dl><dt>상황</dt><dd>처음 보는 대상자를 정보 없이 맡습니다.</dd><dt>이음수첩이 하는 일</dt><dd>QR로 설치·가입 없이 알레르기·약 정보부터 확인하고, 보호자가 허락하면 돌보는 방법까지 봅니다.</dd></dl>
+        <div class="dev"><img src="captures/B1.png" alt="1단계 기본 열람 확인 화면"></div></div></div>
     <div class="user"><h3>당사자<small>치매 어르신·발달장애인</small></h3>
       <div class="in"><dl><dt>상황</dt><dd>자기 상태를 설명하기 어렵습니다.</dd><dt>이음수첩이 하는 일</dt><dd>안심 카드와 쉬운 일과표로 지금 상황을 알려 줍니다.</dd></dl>
         <div class="dev"><img src="captures/C2.png" alt="안심 카드 화면"></div></div></div>
@@ -255,14 +255,14 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <div class="flow">
     <div><b>평소 기록</b><p>말과 사진으로 쌓고<br>보호자가 확인</p></div>
     <div class="hot"><b>보호자 쓰러짐</b><p>자리비움 버튼을<br>누를 사람이 없음</p></div>
-    <div><b>2단계 QR 열람</b><p>붙여 둔 QR로 1단계,<br>인증·승인 후 2단계</p></div>
+    <div><b>2단계 QR 열람</b><p>휴대폰 QR로 1단계,<br>보호자 승인 후 2단계</p></div>
     <div><b>돌봄</b><p>위험 정보부터 보고<br>식사·복약 체크</p></div>
     <div><b>복귀 반영</b><p>돌봄 기록을<br>인수인계서에 반영</p></div>
   </div>
   <div class="p5">
     <div class="uf"><img src="captures/userflow-key.png" alt="유저 플로우 중 ③ 보호자가 갑자기 쓰러졌을 때 구간"></div>
     <div class="p5n"><b>③ 보호자가 갑자기<br>쓰러졌을 때</b>
-      <ul class="d"><li>기관 인증이면 바로 2단계</li><li>문자 인증이면 승인자가 허락해야 2단계</li><li>10분 무응답이면 긴급 요약만</li><li>거절하면 열리지 않음</li></ul>
+      <ul class="d"><li>1단계는 열자마자 보호자·대리 보호자에게 알림</li><li>보호자나 대리 보호자가 10분 안에 승인하면 2단계</li><li>거절하거나 10분이 지나면 1단계만</li></ul>
       <p class="src">레인 5개 × 단계 5개 전체 그림은 08번 유저 플로우에 있습니다.</p></div>
   </div>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>5 / 9</span></footer>
@@ -273,11 +273,11 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <header class="ph"><span>5. 주요 화면</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
   <h2 class="hl">보호자는 찍고 말하기만, 긴급 돌봄자는 위험 정보부터 봅니다</h2>
   <div class="shots">
-    <figure><div class="dev"><img src="captures/A1.png" alt="A1 홈"></div><figcaption><p class="t"><b>A1</b>홈</p><p class="d">큰 버튼 두 개와 완성도</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/A1.png" alt="A1 홈"></div><figcaption><p class="t"><b>A1</b>홈</p><p class="d">그림 게이지와 빠진 항목</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/A2.png" alt="A2 복약안내문 촬영"></div><figcaption><p class="t"><b>A2</b>복약안내문 촬영</p><p class="d">읽은 내용을 보호자가 확인하고 저장</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/A3.png" alt="A3 음성 기록"></div><figcaption><p class="t"><b>A3</b>음성 기록</p><p class="d">말하면 AI가 정리하고 빠진 건 되묻기</p></figcaption></figure>
-    <figure><div class="dev"><img src="captures/Q1.png" alt="Q1 QR 1단계"></div><figcaption><p class="t"><b>Q1</b>QR 1단계</p><p class="d">누구나 보는 최소 정보</p></figcaption></figure>
-    <figure><div class="dev"><img src="captures/B1.png" alt="B1 긴급 요약"></div><figcaption><p class="t"><b>B1</b>긴급 요약</p><p class="d">위험 정보부터</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/Q1.png" alt="Q1 QR 1단계"></div><figcaption><p class="t"><b>Q1</b>QR 1단계</p><p class="d">알레르기·약 정보만</p></figcaption></figure>
+    <figure><div class="dev"><img src="captures/B1.png" alt="B1 1단계 확인"></div><figcaption><p class="t"><b>B1</b>1단계 확인</p><p class="d">열람 기록 동의 후, 주의 약부터</p></figcaption></figure>
     <figure><div class="dev"><img src="captures/C2.png" alt="C2 안심 카드"></div><figcaption><p class="t"><b>C2</b>안심 카드</p><p class="d">쉬운 말과 그림</p></figcaption></figure>
   </div>
   <p class="crit"><b>설계 기준</b><span>본문 17px 이상</span><span>버튼 높이 60px 이상</span><span>한 화면에 한 가지 일</span><span>상태는 색과 글자로 함께 표시</span><span>고대비 모드·스크린리더 레이블</span><span>KWCAG 2.2 AA</span><span>KRDS 색·글꼴 참고</span></p>
@@ -287,27 +287,27 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
 <!-- 7쪽 안전장치 -->
 <section class="page">
   <header class="ph"><span>6. 안전장치와 개인정보</span><span class="mark"><svg><use href="#logo"/></svg>이음수첩</span></header>
-  <h2 class="hl">2단계 QR: <em>쓰러져도 열리고, 아무나 다 보지는 못하게</em></h2>
+  <h2 class="hl">휴대폰 2단계 QR: <em>최소 정보는 바로, 나머지는 보호자가 허락할 때만</em></h2>
   <div class="p7">
     <div class="qr2">
       <div class="s1"><h4>1단계<span>QR을 찍은 누구나</span></h4>
-        <ul class="d"><li>알레르기</li><li>주의가 필요한 약 종류</li><li>번호를 가린 전화 버튼</li><li>보호자가 고른 '꼭 알아야 해요'</li></ul></div>
-      <p class="arr">전체 보기 요청</p>
+        <ul class="d"><li>알레르기</li><li>복용 약·주의가 필요한 약 종류</li></ul></div>
+      <p class="arr">로그·IP 제공 동의 후 2단계 열람 요청</p>
       <div class="brs">
-        <div class="br"><h4>기관 인증</h4><span>돌봄SOS 1회용 코드<br>구급대원 업무용 번호</span><span class="to full">바로 2단계</span></div>
-        <div class="br"><h4>문자 인증 + 사유</h4><span>승인자에게 알림<br>승인자도 문자 인증</span><span class="to full">승인하면 2단계</span></div>
-        <div class="br"><h4>10분 무응답</h4><span>승인자가 응답하지<br>않으면</span><span class="to sum">긴급 요약까지만</span></div>
+        <div class="br"><h4>열람 알림</h4><span>1단계를 열자마자<br>시각·기기·IP 전달<br>(위치는 모으지 않음)</span><span class="to sum">보호자가 바로 앎</span></div>
+        <div class="br"><h4>보호자 승인</h4><span>열람자 유형·사유를<br>보고 보호자나<br>대리 보호자가 승인</span><span class="to full">10분 안에 승인하면 2단계</span></div>
+        <div class="br"><h4>거절·10분 경과</h4><span>승인이 없으면<br>요청 만료</span><span class="to sum">1단계만</span></div>
       </div>
-      <p class="no">거절하면 열리지 않습니다. 2단계 링크는 시간이 지나면 만료됩니다.</p>
-      <p class="demo">해커톤 시연에서는 문자 인증·승인·기관 인증을 모의로 처리합니다.</p>
+      <p class="no">QR은 현관에 붙이지 않고 보호자 휴대폰에 둡니다. 루틴·행동 요령은 1단계에 넣지 않고, 2단계 링크는 시간이 지나면 만료됩니다.</p>
+      <p class="demo">해커톤 시연에서는 문자 인증 가입과 승인을 모의로 처리합니다. 체험 모드는 쿠키 세션으로 로그인을 유지합니다.</p>
     </div>
     <div class="safe">
       <table class="tbl">
         <tbody>
           <tr><td class="k">AI 원칙</td><td>정리만 하고 증상 해석·복약 조언 같은 의료 판단은 하지 않습니다. 원문 인용 위치가 없는 항목은 버리고, AI가 정리한 내용임을 표시해 보호자가 확인한 뒤에만 저장합니다.</td></tr>
           <tr><td class="k">개인정보</td><td>음성(OpenAI)과 이름·연락처를 가린 글, 이름을 가린 사진(Anthropic)은 한국 밖에서 처리되므로 국외 이전 동의를 받습니다. 두 API 모두 입력을 학습에 쓰지 않습니다. 건강정보는 열람 범위 동의와 AI 처리 동의를 따로 받고, 성인 당사자는 본인(어렵다면 후견인)이 동의합니다.</td></tr>
-          <tr><td class="k">승인자</td><td>가족·지인, 없으면 동주민센터 돌봄매니저를 두는 방안입니다(서울시·자치구와 협의 필요). 근무시간 밖에는 10분 뒤 긴급 요약만 열립니다.</td></tr>
-          <tr><td class="k">분실·오남용</td><td>링크 만료, 모든 열람 기록, 보호자가 알림에서 열람 차단·QR 재발급</td></tr>
+          <tr><td class="k">승인자</td><td>핵심 보호자와 대리(임시) 보호자입니다. 대리 보호자는 가입할 때 번호 하나로 초대하고(건너뛰기 가능), 초대를 수락하고 동의해야 2단계 허락 권한을 넘겨받습니다.</td></tr>
+          <tr><td class="k">분실·오남용</td><td>1단계 열람 즉시 알림, 링크 만료, 모든 열람 기록, 보호자가 알림에서 QR 새로 발급</td></tr>
           <tr><td class="k">보관 기간</td><td>음성 30일, 이전 약 사진 90일, 대화 원문·열람 로그 1년, 탈퇴 시 즉시 파기. AI 업체 쪽은 기본 최대 30일 보관이며 무보존(ZDR)을 신청합니다.</td></tr>
         </tbody>
       </table>
@@ -330,11 +330,11 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
           <tr><td class="k">음성 기록·되묻기</td><td>40초</td><td>녹화 영상</td></tr>
           <tr><td class="k">복약안내문 인식</td><td>40초</td><td>미리 찍어 둔 사진</td></tr>
           <tr><td class="k">QR 1단계</td><td>30초</td><td>정적 화면</td></tr>
-          <tr><td class="k">승인 → 2단계 요약</td><td>40초</td><td>승인 완료 상태 화면</td></tr>
+          <tr><td class="k">승인 → 2단계 상세</td><td>40초</td><td>승인 완료 상태 화면</td></tr>
           <tr><td class="k">측정 결과</td><td>30초</td><td>슬라이드</td></tr>
         </tbody>
       </table>
-      <p class="note"><b>모의 처리</b> 문자 인증·승인·기관 인증은 모의로 처리하고, 10분 대기는 '시간 경과' 버튼으로 넘깁니다. 음성 인식이 실패하면 글 입력으로 대신합니다.</p>
+      <p class="note"><b>모의 처리</b> 문자 인증 가입과 승인은 모의로 처리하고, 10분 대기는 '시간 경과' 버튼으로 넘깁니다. 음성 인식이 실패하면 글 입력으로 대신합니다.</p>
     </div>
     <div>
       <h3>측정</h3>
@@ -352,9 +352,9 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <p class="order" aria-label="시연 순서">
     <span><b>① 말로 기록</b>A3 · 되묻기까지</span>
     <span><b>② 복약안내문</b>A2 · 이름 가림, 확인 필요 표시</span>
-    <span><b>③ QR 1단계</b>Q1 · 누구나 보는 최소 정보</span>
-    <span><b>④ 승인 요청</b>B0 → B0w → A8</span>
-    <span><b>⑤ 2단계 요약</b>B1 · 위험 정보부터</span>
+    <span><b>③ QR 1단계</b>Q1 → B0 → B1 · 알레르기·약, 열람 알림</span>
+    <span><b>④ 승인 요청</b>B2 → B2b → A8b (10분)</span>
+    <span><b>⑤ 2단계 상세</b>B3 · 돌보는 방법</span>
   </p>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>8 / 9</span></footer>
 </section>
@@ -365,8 +365,8 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
   <h2 class="hl">보호자가 쓰러져도 돌봄이 끊기지 않도록, <em>공통 돌봄 인수인계 표준</em>으로 넓힙니다</h2>
   <div class="p9">
     <div class="box"><h3>기대효과</h3><ul class="d"><li>보호자가 갑자기 쓰러져도 돌봄이 끊기지 않습니다.</li><li>처음 온 돌봄 인력도, 활동지원사·요양보호사가 바뀔 때도 같은 문서로 인수인계합니다.</li></ul></div>
-    <div class="box"><h3>확장</h3><ul class="d"><li>돌봄SOS를 접수하는 동주민센터 돌봄매니저가 보호자가 미리 동의한 범위에서 먼저 열람</li><li>동주민센터가 돌봄 가구에 QR 스티커 배부</li></ul></div>
-    <div class="box"><h3>운영</h3><ul class="d"><li>운영은 시가 맡고 보호자는 무료로 씁니다.</li><li>승인·1회용 코드 발급은 돌봄매니저가 담당자 콘솔에서 처리합니다 (서울시·자치구와 협의가 필요한 확장 설계).</li></ul></div>
+    <div class="box"><h3>확장</h3><ul class="d"><li>돌봄SOS 신청 때 보호자가 인수인계서를 함께 전달</li><li>활동지원사·요양보호사 교대 때 같은 문서로 인수인계</li></ul></div>
+    <div class="box"><h3>운영</h3><ul class="d"><li>운영은 시가 맡고 보호자는 무료로 씁니다.</li><li>QR과 열람 승인은 보호자와 대리 보호자가 앱에서 직접 처리하므로 기관 담당자 화면이 필요 없습니다.</li></ul></div>
   </div>
   <div class="p9b">
     <div class="cost">
@@ -380,7 +380,7 @@ ul.d li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height
       </table>
       <p class="src" style="margin-top:8px">가구당 월 AI·음성 인식 약 $0.09(1달러 1,400원 가정) + 승인 문자 20원. Claude Haiku 5.5·Opus 5.5·Whisper API 단가와 가구당 월 사용량 가정으로 계산했습니다.</p>
     </div>
-    <figure><div class="console"><img src="captures/D1.png" alt="담당자 콘솔 승인 요청 화면"></div><p class="cap">담당자 콘솔 (확장 설계, 목업): 동주민센터 돌봄매니저의 승인 요청 처리 화면</p></figure>
+    <figure><div class="pair2"><div class="dev"><img src="captures/L3.png" alt="L3 대리 보호자 설정"></div><div class="dev"><img src="captures/A8.png" alt="A8 1단계 열람 알림"></div></div><p class="cap" style="text-align:center">L3 대리(임시) 보호자 설정 · A8 1단계 열람 알림</p></figure>
   </div>
   <footer class="pf"><span>청년 AI 해커톤 사전제출 · 이음수첩</span><span>9 / 9</span></footer>
 </section>
