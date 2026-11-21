@@ -1,0 +1,95 @@
+/* Motion references: https://designbookmark.com/motion
+   Step progress: completed items receive one brief emphasis.
+   Tab pill: one existing COMPASS selection surface moves between destinations.
+   Keep text opaque, hit areas fixed, and feedback short for the care workflow. */
+.home,
+.navigation {
+  --feedback-duration: 160ms;
+  --selection-duration: 240ms;
+  --feedback-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The final completion state is visible from the first paint, even without JS. */
+.step[data-complete="true"] {
+  animation: step-settle 240ms var(--feedback-ease) var(--step-delay) backwards;
+}
+
+@keyframes step-settle {
+  from { transform: scale(0.94); }
+  to { transform: scale(1); }
+}
+
+/* Move only the card surface, preserving the anchor's full pointer target. */
+.actionSurface {
+  transition: transform var(--feedback-duration) var(--feedback-ease);
+}
+
+.action:active .actionSurface {
+  transform: scale(0.985);
+}
+
+.listAction > :global([data-slot="card"]) {
+  transition:
+    transform var(--feedback-duration) var(--feedback-ease),
+    background-color var(--feedback-duration) ease-out;
+}
+
+.listAction svg {
+  transition: transform var(--feedback-duration) var(--feedback-ease);
+}
+
+.listAction:active > :global([data-slot="card"]) {
+  transform: scale(0.99);
+}
+
+.listAction:focus-visible svg {
+  transform: translateX(2px);
+}
+
+/* Keep COMPASS button feedback but soften its default 0.80 press scale here. */
+.home :global([data-slot="button"]):active:not(:disabled):not([aria-disabled="true"]) {
+  scale: 0.98;
+}
+
+/* Reuse GlassTabBar's lens and keyboard handling; only tune its travel time. */
+.navigation > span[aria-hidden="true"] {
+  transition: transform var(--selection-duration) var(--feedback-ease);
+}
+
+.navigation[data-dragging="true"] > span[aria-hidden="true"] {
+  transition-duration: 80ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .action:hover:not(:active) .actionSurface {
+    transform: translateY(-2px);
+  }
+
+  .listAction:hover svg {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step[data-complete="true"] {
+    animation: none;
+  }
+
+  .home .actionSurface,
+  .home .listAction > :global([data-slot="card"]),
+  .home .listAction svg,
+  .home :global([data-slot="button"]) {
+    transition: none;
+    transform: none !important;
+    scale: 1;
+  }
+
+  .home :global([data-slot="button"]):active:not(:disabled):not([aria-disabled="true"]) {
+    scale: 1;
+  }
+
+  /* Preserve the selected tab's final position; only remove the interpolation. */
+  .navigation > span[aria-hidden="true"] {
+    transition: none;
+  }
+}
