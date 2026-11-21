@@ -1,26 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, House, QrCode, Settings } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Camera,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  FileText,
+  Hand,
+  House,
+  LogOut,
+  Mic,
+  Music,
+  Phone,
+  Pill,
+  QrCode,
+  Settings,
+  ShieldCheck,
+  TriangleAlert,
+} from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  MobileAppShell,
-  MobileListCard,
-  MobileScreenHeading,
-} from "@/components/ui/mobile-app-shell";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MobileAppShell, MobileListCard } from "@/components/ui/mobile-app-shell";
+import { cn } from "@/lib/utils";
 
+// 프로토타입 A1(보호자 홈) 기준. 데이터는 아직 서버 없이 화면 확인용 고정값이다.
 const tabs = [
   { value: "home", label: "홈", icon: <House aria-hidden="true" /> },
   { value: "handover", label: "인수인계서", icon: <FileText aria-hidden="true" /> },
@@ -28,8 +35,21 @@ const tabs = [
   { value: "settings", label: "설정", icon: <Settings aria-hidden="true" /> },
 ];
 
-const completion = { done: 5, total: 7 };
-const percent = Math.round((completion.done / completion.total) * 100);
+const sections: { label: string; icon: LucideIcon; done: boolean }[] = [
+  { label: "복약", icon: Pill, done: true },
+  { label: "건강·병력", icon: ShieldCheck, done: true },
+  { label: "식사·알레르기", icon: Hand, done: true },
+  { label: "의사소통", icon: Music, done: true },
+  { label: "위험행동과 진정법", icon: TriangleAlert, done: true },
+  { label: "일과", icon: Clock, done: false },
+  { label: "비상연락처", icon: Phone, done: false },
+];
+const doneCount = sections.filter((s) => s.done).length;
+
+const quickActions = [
+  { href: "/record/photo", icon: Camera, title: ["복약안내문", "찍기"], note: "약이 바뀐 날 한 장만", tone: "bg-primary" },
+  { href: "/record/voice", icon: Mic, title: ["말로", "기록"], note: "AI가 정리해요", tone: "bg-primary-hover" },
+];
 
 export default function Home() {
   const [tab, setTab] = useState("home");
@@ -43,43 +63,89 @@ export default function Home() {
         "aria-label": "하단 메뉴",
       }}
     >
-      <div id="main-content" tabIndex={-1} className="outline-none">
-        <MobileScreenHeading>이음수첩</MobileScreenHeading>
-
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>인수인계서 완성도</CardTitle>
-              <CardAction>
-                <Badge variant="secondary">{percent}%</Badge>
-              </CardAction>
-              <CardDescription>
-                {completion.total}개 항목 중 {completion.done}개 완료
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-3">
-              <Progress value={percent} aria-label={`완성도 ${percent}%`} />
-              <p className="text-muted-foreground">
-                빠진 항목: 밤에 잠을 못 주무실 때, 비상연락처 1명 더
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button variant="secondary" className="w-full">
-                빠진 항목 채우기
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <div className="flex flex-col gap-3">
-            <MobileListCard href="/record/photo">복약안내문 찍기</MobileListCard>
-            <MobileListCard href="/record/voice">말로 기록</MobileListCard>
-            <MobileListCard href="/handover">인수인계서 보기</MobileListCard>
-          </div>
-
-          <Button variant="outline" size="lg" className="w-full">
-            자리비움
+      <div id="main-content" tabIndex={-1} className="flex flex-col gap-4 break-keep outline-none">
+        <header className="flex items-center justify-between gap-3">
+          <h1 className="text-xl">
+            <Logo />
+          </h1>
+          <Button variant="ghost" size="sm" aria-haspopup="menu">
+            김순자 님
+            <ChevronDown data-icon="inline-end" aria-hidden="true" />
           </Button>
+        </header>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>인수인계서</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3">
+            <div
+              role="img"
+              aria-label={`${sections.length}개 항목 중 ${doneCount}개를 채웠어요`}
+              className="grid grid-cols-7 gap-1.5"
+            >
+              {sections.map(({ label, icon: Icon, done }) => (
+                <span
+                  key={label}
+                  className={cn(
+                    "grid aspect-square place-items-center rounded-lg",
+                    done
+                      ? "bg-primary text-primary-foreground"
+                      : "border-2 border-dashed border-muted-foreground text-muted-foreground",
+                  )}
+                >
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+              ))}
+            </div>
+            <div className="rounded-lg bg-muted p-4">
+              <div className="flex items-center justify-between gap-2">
+                <p className="font-bold">빠진 항목이 있어요</p>
+                <Button asChild variant="link" size="sm" className="px-0">
+                  <a href="/record/voice">
+                    채우기
+                    <ChevronRight data-icon="inline-end" aria-hidden="true" />
+                  </a>
+                </Button>
+              </div>
+              <p className="mt-1 text-muted-foreground">
+                일과, 밤에 잠을 못 주무실 때
+                <br />
+                비상연락처 1명 더
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="grid grid-cols-2 gap-3">
+          {quickActions.map(({ href, icon: Icon, title, note, tone }) => (
+            <a key={href} href={href} className="block rounded-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+              <Card className={cn("h-full gap-2 text-primary-foreground ring-0", tone)}>
+                <CardContent className="flex flex-col gap-2">
+                  <Icon className="size-8" aria-hidden="true" />
+                  <span className="text-lg leading-snug font-bold">
+                    {title[0]}
+                    <br />
+                    {title[1]}
+                  </span>
+                  <span>{note}</span>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
         </div>
+
+        <MobileListCard href="/handover">
+          <span className="flex flex-col">
+            <span className="font-bold">인수인계서 확인</span>
+            <span className="text-muted-foreground">최근 저장 11월 18일</span>
+          </span>
+        </MobileListCard>
+
+        <Button variant="outline" size="lg" className="w-full">
+          <LogOut data-icon="inline-start" aria-hidden="true" />
+          자리비움
+        </Button>
       </div>
     </MobileAppShell>
   );
