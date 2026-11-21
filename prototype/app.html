@@ -251,8 +251,20 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
 #A4 .li{min-height:56px;padding:4px 0}
 #A6 .ct{gap:10px}
 #A4 .must{padding:10px 16px}
-#B1 .ct,#B1s .ct{gap:8px}
-#B1 .info,#B1s .info{padding:8px 14px}
+#B1 .ct{gap:8px}
+#B1 .info{padding:8px 14px}
+.gauge{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.gauge span{height:50px;border-radius:8px;display:grid;place-items:center;background:var(--p);color:#fff}
+.gauge span .ic{width:22px;height:22px}
+.gauge span.no{background:repeating-linear-gradient(135deg,#fff 0 5px,var(--bg) 5px 10px);color:var(--t3);border:2px dashed #9AA3AD}
+.alertc{border:2px solid var(--amb-b);background:var(--amb-t);border-radius:12px;padding:14px 16px}
+.alertc h2{display:flex;align-items:center;gap:6px;color:var(--amb)}
+.alertc dl{display:grid;grid-template-columns:86px 1fr;row-gap:4px;margin-top:8px;font-size:17px}
+.alertc dt{color:var(--t2)}
+.alertc dd{font-weight:600}
+.tabs2{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--dv)}
+.tabs2 span{min-height:52px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--t3)}
+.tabs2 span.on{color:var(--p-d);box-shadow:inset 0 -3px 0 var(--p)}
 @media (max-width:760px){.shell{display:block;padding:16px}.nav{position:static;width:auto;max-height:none;margin-bottom:16px}.device{margin:0 auto}}
 </style>
 </head>
@@ -288,62 +300,67 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
 </svg>
 
 <div class="shell">
-<nav class="nav" id="nav" aria-label="화면 목록"><div class="top">이음수첩 프로토타입<a href="../ieum-wireframes.html">화면 설계 보드로 돌아가기</a><a href="console.html">담당자 콘솔 열기</a><button type="button" id="hcb" aria-pressed="false">고대비 모드 켜기</button></div></nav>
+<nav class="nav" id="nav" aria-label="화면 목록"><div class="top">이음수첩 프로토타입<a href="../ieum-wireframes.html">화면 설계 보드로 돌아가기</a><button type="button" id="hcb" aria-pressed="false">고대비 모드 켜기</button></div></nav>
 <main class="device" id="device">
 <div class="sbar" id="sbar" aria-hidden="true"><span id="sbt">9:41</span><svg><use href="#i-sb"/></svg></div>
 
-<!-- A0 처음 설정 1/3 -->
-<section class="scr" id="A0" data-g="A. 보호자" data-t="처음 설정 1/3">
-  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>처음 설정</h1><span class="r">1/3</span></header>
+<!-- L0 로그인 -->
+<section class="scr" id="L0" data-g="L. 가입" data-t="로그인" data-d>
+  <header class="ab"><span></span><h1>이음수첩</h1><span></span></header>
+  <div class="tabs2" role="tablist" aria-label="로그인 방식"><span role="tab" aria-selected="false">처음 가입</span><span class="on" role="tab" aria-selected="true">로그인</span></div>
   <div class="ct">
-    <ol class="steps" aria-label="3단계 중 1단계"><li class="on">1 기본 정보</li><li>2 연락처</li><li>3 동의</li></ol>
-    <h2 class="h2">돌봐 드리는 분을 알려 주세요</h2>
-    <div class="fld"><span class="lbl">이름과 나이</span><div class="row"><span class="inp grow">김순자</span><span class="inp" style="width:100px">82세</span></div></div>
+    <div class="fld"><span class="lbl">휴대폰 번호</span><span class="inp">010-2345-6789</span></div>
+    <div class="fld"><span class="lbl">비밀번호</span><span class="inp">••••••••</span></div>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>처음에는 휴대폰 문자 인증으로 가입하고, 그다음부터는 전화번호와 비밀번호로 로그인해요.</span></p>
+    <p class="cap" style="border:1px dashed #9AA3AD;border-radius:8px;padding:8px 12px">체험 모드 · 쿠키 세션으로 로그인을 유지하고, 문자 인증은 모의로 처리해요</p>
+  </div>
+  <div class="bt col"><a class="btn btn-p full" href="#/A1">로그인</a><a class="btn btn-t full" href="#/L1">문자 인증으로 가입하기</a></div>
+</section>
+
+<!-- L1 초기 설정 1/3 -->
+<section class="scr" id="L1" data-g="L. 가입" data-t="초기 설정 1/3">
+  <header class="ab"><a class="l" href="#/L0" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>초기 설정</h1><span class="r">1/3</span></header>
+  <div class="ct tight">
+    <ol class="steps" aria-label="3단계 중 1단계"><li class="on">1 기본 정보</li><li>2 공개 범위</li><li>3 대리 보호자</li></ol>
+    <div class="fld"><span class="lbl">나 (보호자) · 이름과 나이</span><div class="row"><span class="inp grow">이영희</span><span class="inp" style="width:100px">54세</span></div></div>
+    <div class="fld"><span class="lbl">돌봐 드리는 분 · 이름과 나이</span><div class="row"><span class="inp grow">김순자</span><span class="inp" style="width:100px">82세</span></div></div>
     <div class="fld"><span class="lbl" id="l-care">돌봄 상황</span><div class="opts" role="radiogroup" aria-labelledby="l-care"><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>치매</span><span class="opt" role="radio" aria-checked="false">지적장애</span><span class="opt" role="radio" aria-checked="false">지체장애</span><span class="opt" role="radio" aria-checked="false">기타</span></div></div>
     <div class="fld"><span class="lbl">알레르기·위험행동</span><span class="inp area">페니실린, 복숭아 알레르기<br>밤에 혼자 밖으로 나가려 함</span></div>
-    <p class="cap">나머지는 나중에 말로 채워도 돼요.</p>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/A0b">다음</a></div>
+  <div class="bt"><a class="btn btn-p full" href="#/L1b">다음</a></div>
 </section>
 
-<!-- A0b 처음 설정 3/3 -->
-<section class="scr" id="A0b" data-g="A. 보호자" data-t="처음 설정 3/3">
-  <header class="ab"><a class="l" href="#/A0" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>처음 설정</h1><span class="r">3/3</span></header>
+<!-- L1b 초기 설정 2/3 -->
+<section class="scr" id="L1b" data-g="L. 가입" data-t="초기 설정 2/3 · 카드 공개 범위">
+  <header class="ab"><a class="l" href="#/L1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>초기 설정</h1><span class="r">2/3</span></header>
   <div class="ct tight">
-    <ol class="steps" aria-label="3단계 중 3단계"><li class="done">1 기본 정보</li><li class="done">2 연락처</li><li class="on">3 동의</li></ol>
-    <h2 class="h2">위급할 때 누가 볼 수 있을까요?</h2>
+    <ol class="steps" aria-label="3단계 중 2단계"><li class="done">1 기본 정보</li><li class="on">2 공개 범위</li><li>3 대리 보호자</li></ol>
+    <h2 class="h2">위급할 때 무엇을 보여 줄까요?</h2>
     <div class="card" style="padding:0 16px">
-      <div class="kv"><div><span>볼 수 있는 사람</span><b>구급대원, 돌봄 인력</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
-      <div class="kv"><div><span>볼 수 있는 내용</span><b>복약·알레르기 등 7개 항목</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
-      <div class="kv"><div><span>동의 기간</span><b>1년 (2027년 11월 18일까지)</b></div><a class="link" href="#/A0b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+      <div class="kv"><div><span>1단계 · QR을 찍은 누구나</span><b>알레르기, 복용 약</b></div><a class="link" href="#/L1c">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+      <div class="kv"><div><span>2단계 · 보호자가 허락한 사람만</span><b>일과·진정법 등 7개 항목</b></div><a class="link" href="#/L1b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
+      <div class="kv"><div><span>동의 기간</span><b>1년 (2027년 11월 21일까지)</b></div><a class="link" href="#/L1b" aria-disabled="true">변경<svg class="ic"><use href="#i-next"/></svg></a></div>
     </div>
-    <p class="lbl" id="l-appr" style="margin-top:4px">전체 보기를 허락할 승인자</p>
-    <div class="opts one" role="radiogroup" aria-labelledby="l-appr">
-      <span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>가족·지인 · 이민수(아들)</span>
-      <span class="opt" role="radio" aria-checked="false">동주민센터 돌봄매니저 (가족·지인이 없을 때)</span>
-    </div>
-    <div class="kv mockarea" style="padding:0 16px;border-bottom:1px dashed #9AA3AD"><div><span>선택 · 목업</span><b>당사자 기기 연결</b></div><span class="cap">나중에</span></div>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/A0d">동의하고 다음</a></div>
+  <div class="bt"><a class="btn btn-p full" href="#/L2">동의하고 다음</a></div>
 </section>
 
-<!-- A0c QR에 보일 정보 -->
-<section class="scr" id="A0c" data-g="A. 보호자" data-t="1단계 공개 항목 고르기" data-m>
-  <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>QR에 보일 정보</h1><span></span></header>
+<!-- L1c 1단계 공개 항목 고르기 -->
+<section class="scr" id="L1c" data-g="L. 가입" data-t="1단계 공개 항목 고르기" data-m>
+  <header class="ab"><a class="l" href="#/L1b" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>1단계에 보일 정보</h1><span></span></header>
   <div class="ct tight">
-    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>QR을 찍으면 <b>누구나</b> 이 정보를 볼 수 있어요. 꼭 필요한 것만 골라 주세요.</span></p>
-    <p class="cap"><b style="color:var(--t1)">항상 보여요</b> · 알레르기, 주의가 필요한 약 종류, 보호자 전화 버튼(번호는 가려져요)</p>
-    <p class="lbl">꼭 알아야 해요</p>
-    <div class="tg"><span>밤에 혼자 밖으로 나가려 해요</span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
-    <div class="tg"><span>음식은 잘게 잘라 주세요</span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
-    <div class="tg"><span>혈액희석제(와파린)를 먹어요<small>1단계에는 약 종류만 보여요</small></span><span class="sw" role="switch" aria-checked="false">숨기기<i></i></span></div>
-    <div class="prev" aria-label="QR 1단계 미리보기"><p>미리보기 · 돌봄이 필요한 가족이 있어요</p><p>알레르기: 페니실린, 복숭아 · 혈액희석제 복용 중<br>꼭 알아야 해요: 밤에 혼자 밖으로 나가려 해요, 음식은 잘게 잘라 주세요</p></div>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>QR을 찍으면 <b>누구나</b> 이 정보를 볼 수 있어요. 알레르기와 약 정보만 고를 수 있어요.</span></p>
+    <p class="cap"><b style="color:var(--t1)">항상 보여요</b> · 알레르기</p>
+    <div class="tg"><span>복용 중인 약 이름<small>도네페질, 와파린, 아모디핀</small></span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
+    <div class="tg"><span>주의가 필요한 약 종류<small>혈액희석제 복용 중</small></span><span class="sw on" role="switch" aria-checked="true">보이기<i></i></span></div>
+    <div class="tg"><span>보호자 본인 약·알레르기<small>기본 꺼짐</small></span><span class="sw" role="switch" aria-checked="false">숨기기<i></i></span></div>
+    <p class="cap">일과나 행동 요령은 보는 사람마다 다르게 받아들일 수 있어 1단계에 넣지 않아요.</p>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/A1">저장</a></div>
+  <div class="bt"><a class="btn btn-p full" href="#/L1b">저장</a></div>
 </section>
 
-<!-- A0d 쉬운 말 동의 -->
-<section class="scr" id="A0d" data-g="A. 보호자" data-t="쉬운 말 동의" data-m>
+<!-- L2 당사자 쉬운 말 동의 -->
+<section class="scr" id="L2" data-g="L. 가입" data-t="당사자 동의 · 쉬운 말" data-m>
   <header class="ab"><span></span><h1>본인 동의</h1><span></span></header>
   <div class="ct mid" style="gap:14px">
     <svg width="220" height="112" viewBox="0 0 220 112" role="img" aria-label="돌봐 주는 사람이 수첩을 보는 그림"><circle cx="52" cy="30" r="20" fill="#ECF2FE" stroke="#256EF4" stroke-width="3"/><path d="M18 108c0-24 15-40 34-40s34 16 34 40" fill="#ECF2FE" stroke="#256EF4" stroke-width="3"/><circle cx="168" cy="30" r="20" fill="#FFF5D6" stroke="#8A5A00" stroke-width="3"/><path d="M134 108c0-24 15-40 34-40s34 16 34 40" fill="#FFF5D6" stroke="#8A5A00" stroke-width="3"/><rect x="88" y="40" width="44" height="56" rx="4" fill="#fff" stroke="#1E2124" stroke-width="3"/><path d="M98 56h24M98 68h24M98 80h14" stroke="#1E2124" stroke-width="3" stroke-linecap="round"/></svg>
@@ -353,10 +370,23 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
     <p class="h1" style="font-size:25px">이 정보를 돌봐 주는 사람이 볼 수 있어요. 괜찮아요?</p>
   </div>
   <div class="bt col">
-    <a class="btn btn-p full" href="#/A0c"><svg class="ic"><use href="#i-check"/></svg>괜찮아요</a>
-    <a class="btn btn-t full" href="#/A0b"><svg class="ic"><use href="#i-x"/></svg>싫어요</a>
-    <a class="btn full" style="color:var(--p-d);text-decoration:underline;font-size:17px" href="#/A0b">후견인이 대신 동의하기</a>
+    <a class="btn btn-p full" href="#/L3"><svg class="ic"><use href="#i-check"/></svg>괜찮아요</a>
+    <a class="btn btn-t full" href="#/L1b"><svg class="ic"><use href="#i-x"/></svg>싫어요</a>
+    <a class="btn full" style="color:var(--p-d);text-decoration:underline;font-size:17px" href="#/L3">후견인이 대신 동의하기</a>
   </div>
+</section>
+
+<!-- L3 대리 보호자 설정 -->
+<section class="scr" id="L3" data-g="L. 가입" data-t="대리(임시) 보호자 설정" data-d>
+  <header class="ab"><a class="l" href="#/L1b" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>초기 설정</h1><span class="r">3/3</span></header>
+  <div class="ct tight">
+    <ol class="steps" aria-label="3단계 중 3단계"><li class="done">1 기본 정보</li><li class="done">2 공개 범위</li><li class="on">3 대리 보호자</li></ol>
+    <h2 class="h2">내가 응답하지 못할 때<br>대신 허락할 사람</h2>
+    <div class="fld"><span class="lbl">이름과 관계</span><div class="row"><span class="inp grow">이민수</span><span class="inp" style="width:110px">아들</span></div></div>
+    <div class="fld"><span class="lbl">휴대폰 번호</span><span class="inp">010-9876-5432</span></div>
+    <ul class="chk-list"><li><svg class="ic"><use href="#i-check"/></svg>초대를 수락하고 동의해야 대리 보호자가 돼요</li><li><svg class="ic"><use href="#i-check"/></svg>2단계 열람을 허락할 권한을 미리 맡겨요</li><li><svg class="ic"><use href="#i-check"/></svg>지금 건너뛰고 나중에 추가해도 돼요</li></ul>
+  </div>
+  <div class="bt"><a class="btn btn-t" href="#/A1">건너뛰기</a><a class="btn btn-p grow" href="#/A1">초대 보내기</a></div>
 </section>
 
 <!-- A1 홈 -->
@@ -364,19 +394,18 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
   <header class="ab home"><span class="logo"><svg><use href="#logo"/></svg>이음수첩</span><span class="who">김순자 님<svg class="ic" style="width:20px;height:20px"><use href="#i-down"/></svg></span></header>
   <div class="ct tight">
     <div class="card">
-      <div class="row" style="justify-content:space-between"><span class="lbl">인수인계서 완성도</span><span class="pct">71%</span></div>
-      <div class="meter" role="img" aria-label="완성도 71%" style="margin-top:6px"><i style="width:71%"></i></div>
-      <p class="cap" style="margin-top:6px">7개 항목 중 5개 완료</p>
-      <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목 2개</b><a class="link" href="#/A3">채우기<svg class="ic"><use href="#i-next"/></svg></a></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
+      <span class="lbl">인수인계서</span>
+      <div class="gauge" role="img" aria-label="7개 항목 중 5개를 채웠어요"><span><svg class="ic"><use href="#i-pill"/></svg></span><span><svg class="ic"><use href="#i-shield"/></svg></span><span><svg class="ic"><use href="#i-hand"/></svg></span><span><svg class="ic"><use href="#i-music"/></svg></span><span><svg class="ic"><use href="#i-alert"/></svg></span><span class="no"><svg class="ic"><use href="#i-clock"/></svg></span><span class="no"><svg class="ic"><use href="#i-phone"/></svg></span></div>
+      <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목이 있어요</b><a class="link" href="#/A3">채우기<svg class="ic"><use href="#i-next"/></svg></a></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
     </div>
     <div class="tiles">
       <a class="tile" href="#/A2"><svg class="ic"><use href="#i-cam"/></svg><span><b>복약안내문<br>찍기</b><br><span>약이 바뀐 날 한 장만</span></span></a>
       <a class="tile s2" href="#/A3"><svg class="ic"><use href="#i-mic"/></svg><span><b>말로<br>기록</b><br><span>AI가 정리해요</span></span></a>
     </div>
-    <a class="li" href="#/A4" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 보기</b><span>꼭 알아야 해요 3개</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></a>
+    <a class="li" href="#/A4" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 확인</b><span>최근 저장 11월 18일</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></a>
   </div>
   <div class="bt slim"><a class="btn btn-s full" href="#/A5"><svg class="ic"><use href="#i-away"/></svg>자리비움</a></div>
-  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A1" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/A0c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/A0b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
+  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A1" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/L1c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/L1b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
 </section>
 
 <!-- A2 복약안내문 촬영 -->
@@ -401,12 +430,12 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
   <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>말로 기록</h1><span></span></header>
   <div class="ct" style="gap:8px">
     <p class="scope" style="font-size:16px"><svg class="ic" style="color:var(--p-d)"><use href="#i-info"/></svg>AI가 정리해요 · 확인해야 저장돼요</p>
-    <p class="bub me"><small>나</small>엄마가 <mark>손을 비비면 불안하다는 뜻이에요</mark>. 그럴 땐 <mark>트로트를 틀어 주세요</mark>.</p>
+    <p class="bub me"><small>나</small>엄마가 <mark>공황 발작이 오면 넓은 공원으로 가서</mark> <mark>산책을 10분 이상 해 주세요</mark>.</p>
     <div class="aic">
       <p class="lbl" style="color:var(--p-d)">이렇게 정리했어요</p>
-      <div class="row" style="flex-wrap:wrap;gap:6px"><span class="bdg bdg-gray">의사소통</span><span class="bdg bdg-gray">위험행동과 진정법</span></div>
-      <p>손을 비비면 불안하다는 신호예요. 트로트를 틀어 드려요.</p>
-      <p class="q"><b>원문</b> “손을 비비면 불안하다는 뜻이에요”, “트로트를 틀어 주세요”</p>
+      <div class="row" style="flex-wrap:wrap;gap:6px"><span class="bdg bdg-gray">위험행동과 진정법</span></div>
+      <p>공황 발작이 오면 넓은 공원으로 모시고 가서 10분 이상 함께 산책해요.</p>
+      <p class="q"><b>원문</b> “공황 발작이 오면 넓은 공원으로 가서”, “산책을 10분 이상 해 주세요”</p>
       <div class="row"><a class="btn btn-t grow" href="#/A3" aria-disabled="true">고치기</a><a class="btn btn-p grow" href="#/A4">맞아요</a></div>
     </div>
     <p class="bub ai"><small>빠진 항목 · 일과(밤잠)</small>밤에 잠을 못 주무시면 어떻게 하세요?</p>
@@ -418,6 +447,10 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
 <section class="scr" id="A4" data-g="A. 보호자" data-t="인수인계서" data-d>
   <header class="ab"><a class="l" href="#/A1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계서</h1><span></span></header>
   <div class="ct tight">
+    <div class="card" style="display:flex;align-items:center;gap:12px;padding:8px 12px">
+      <svg id="qrA4" viewBox="0 0 29 29" style="width:60px;height:60px;flex:none" role="img" aria-label="김순자 님 QR (예시)"></svg>
+      <div style="line-height:1.35"><b style="font-size:17px">김순자 님 QR</b><p class="cap" style="font-size:15px">찍으면 알레르기·약만 보여요</p></div>
+    </div>
     <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
     <div>
       <div class="li"><div><b>일과</b><span>밤잠 항목이 빠졌어요</span></div><a class="btn btn-s" style="padding:0 16px" href="#/A3"><svg class="ic" style="width:20px;height:20px"><use href="#i-pen"/></svg>쓰기</a></div>
@@ -426,7 +459,7 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
       <div class="li"><div><b>건강·병력</b><span>마지막 확인 11월 10일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
       <div class="li"><div><b>식사·알레르기</b><span>마지막 확인 11월 3일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
     </div>
-    <div class="card" style="padding:12px 16px"><div class="row" style="justify-content:space-between;align-items:flex-start"><div><b style="font-size:17px">의사소통</b><p class="cap">마지막 확인 11월 18일</p></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div><a class="btn btn-t full" href="#/A4" aria-disabled="true" style="font-size:17px;margin-top:8px"><svg class="ic" style="color:var(--red)"><use href="#i-alert"/></svg>꼭 알아야 해요로 지정</a></div>
+    <div class="li"><div><b>의사소통</b><span>마지막 확인 11월 18일</span></div><a class="link" href="#/A4" aria-disabled="true" style="color:var(--red);font-size:16px;padding:0"><svg class="ic" style="width:18px;height:18px;margin-right:3px"><use href="#i-alert"/></svg>꼭 알아야 해요로</a></div>
     <div class="li"><div><b>위험행동과 진정법</b><span>마지막 확인 11월 18일</span></div><span class="bdg bdg-ok"><svg class="ic"><use href="#i-check"/></svg>완료</span></div>
   </div>
 </section>
@@ -437,13 +470,12 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
     <header class="ab home"><span class="logo"><svg><use href="#logo"/></svg>이음수첩</span><span class="who">김순자 님<svg class="ic" style="width:20px;height:20px"><use href="#i-down"/></svg></span></header>
     <div class="ct tight">
       <div class="card">
-        <div class="row" style="justify-content:space-between"><span class="lbl">인수인계서 완성도</span><span class="pct">71%</span></div>
-        <div class="meter" style="margin-top:6px"><i style="width:71%"></i></div>
-        <p class="cap" style="margin-top:6px">7개 항목 중 5개 완료</p>
-        <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목 2개</b><span class="link">채우기<svg class="ic"><use href="#i-next"/></svg></span></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
-      </div>
+      <span class="lbl">인수인계서</span>
+      <div class="gauge" role="img" aria-label="7개 항목 중 5개를 채웠어요"><span><svg class="ic"><use href="#i-pill"/></svg></span><span><svg class="ic"><use href="#i-shield"/></svg></span><span><svg class="ic"><use href="#i-hand"/></svg></span><span><svg class="ic"><use href="#i-music"/></svg></span><span><svg class="ic"><use href="#i-alert"/></svg></span><span class="no"><svg class="ic"><use href="#i-clock"/></svg></span><span class="no"><svg class="ic"><use href="#i-phone"/></svg></span></div>
+      <div class="miss" style="margin-top:10px;display:block"><div class="row" style="justify-content:space-between"><b>빠진 항목이 있어요</b><span class="link">채우기<svg class="ic"><use href="#i-next"/></svg></span></div><span>일과 · 밤에 잠을 못 주무실 때<br>비상연락처 1명 더</span></div>
+    </div>
       <div class="tiles"><span class="tile"><svg class="ic"><use href="#i-cam"/></svg><span><b>복약안내문<br>찍기</b><br><span>약이 바뀐 날 한 장만</span></span></span><span class="tile s2"><svg class="ic"><use href="#i-mic"/></svg><span><b>말로<br>기록</b><br><span>AI가 정리해요</span></span></span></div>
-      <span class="li" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 보기</b><span>꼭 알아야 해요 3개</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></span>
+      <span class="li" style="border:1px solid var(--dv);border-radius:12px;padding:0 16px"><div><b>인수인계서 확인</b><span>최근 저장 11월 18일</span></div><svg class="ic" style="color:var(--t3)"><use href="#i-next"/></svg></span>
     </div>
     <div class="bt slim"><span class="btn btn-s full"><svg class="ic"><use href="#i-away"/></svg>자리비움</span></div>
     <div class="tb"><a class="on"><svg class="ic"><use href="#i-home"/></svg>홈</a><a><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a><svg class="ic"><use href="#i-qr"/></svg>QR</a><a><svg class="ic"><use href="#i-set"/></svg>설정</a></div>
@@ -465,7 +497,7 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
   <div class="ct tight">
     <p class="away"><i aria-hidden="true"></i>자리비움 중 · 11월 18일부터</p>
     <div class="stats"><div><b>3회</b><span>열람</span></div><div><b>2건</b><span>들어온 기록</span></div></div>
-    <div class="row"><a class="btn btn-t grow" href="#/B1">링크 보기</a><a class="btn btn-d grow" href="#/A1">열람 막기</a></div>
+    <div class="row"><a class="btn btn-t grow" href="#/B3">링크 보기</a><a class="btn btn-d grow" href="#/A1">열람 막기</a></div>
     <p class="lbl">들어온 기록</p>
     <div class="li"><div><b>점심 식사 완료</b><span>12:40 · 박○○ 선생님</span></div><span class="bdg bdg-ok">식사</span></div>
     <div class="li"><div><b>저녁 약 드림</b><span>19:10 · 박○○ 선생님</span></div><span class="bdg bdg-ok">복약</span></div>
@@ -473,7 +505,7 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
     <div class="li"><div><b>돌봄 인력 · 긴급 요약</b><span>15:12 · 링크로 열람</span></div><span class="bdg bdg-gray">2단계</span></div>
   </div>
   <div class="bt slim"><a class="btn btn-p full" href="#/A7">복귀</a></div>
-  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A6" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/A0c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/A0b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
+  <nav class="tb" aria-label="하단 메뉴"><a class="on" href="#/A6" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>홈</a><a href="#/A4"><svg class="ic"><use href="#i-doc"/></svg>인수인계서</a><a href="#/L1c"><svg class="ic"><use href="#i-qr"/></svg>QR</a><a href="#/L1b"><svg class="ic"><use href="#i-set"/></svg>설정</a></nav>
 </section>
 
 <!-- A7 복귀 확인 -->
@@ -484,23 +516,37 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
     <p class="lbl">돌봄자 기록 2건과 넘겨받은 한 줄</p>
     <div class="li"><div><b>점심 식사 완료</b><span>11월 18일 12:40</span></div></div>
     <div class="li"><div><b>저녁 약 드림</b><span>11월 18일 19:10</span></div></div>
-    <div class="li"><div><b>넘겨받은 한 줄</b><span>“오후에 손을 자주 비비셔서 트로트를 틀어 드렸어요”</span></div></div>
+    <div class="li"><div><b>넘겨받은 한 줄</b><span>“밤에 혼자 나가려 한 적이 있어요”</span></div></div>
     <p class="lbl">열람 기록 3회 · 구급대원 1회, 돌봄 인력 2회</p>
     <div class="card" style="padding:14px 16px"><b>구두로 전달받은 내용이 있나요?</b><div class="row" style="margin-top:10px"><a class="btn btn-t grow" href="#/A3"><svg class="ic"><use href="#i-mic"/></svg>말로 기록</a><a class="btn btn-t grow" href="#/A7" aria-disabled="true">없어요</a></div></div>
   </div>
   <div class="bt"><a class="btn btn-p full" href="#/A1">인수인계서에 반영하고 복귀</a></div>
 </section>
 
-<!-- A8 열람 승인 알림 -->
-<section class="scr" id="A8" data-g="A. 보호자" data-t="열람 승인 알림" data-d data-time="15:13">
+<!-- A8 1단계 열람 알림 -->
+<section class="scr" id="A8" data-g="A. 보호자" data-t="열람 알림 · 1단계" data-d data-time="15:12">
+  <header class="ab"><span class="l"><svg class="ic" style="color:var(--amb)"><use href="#i-bell"/></svg></span><h1>열람 알림</h1><span></span></header>
+  <div class="ct tight">
+    <div class="alertc">
+      <h2 class="h2"><svg class="ic"><use href="#i-qr"/></svg>누군가 1단계 정보를 열었어요</h2>
+      <dl><dt>시각</dt><dd>오늘 오후 3:12</dd><dt>기기</dt><dd>Android · Chrome</dd><dt>IP</dt><dd>211.36.***.***</dd><dt>본 정보</dt><dd>알레르기·약 정보</dd></dl>
+    </div>
+    <p class="cap">위치 정보는 모으지 않아요. 대리 보호자 이민수 님에게도 같은 알림이 갔어요.</p>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>모르는 열람이면 QR을 새로 발급하세요. 이전 QR은 바로 쓸 수 없게 돼요.</span></p>
+  </div>
+  <div class="bt col"><a class="btn btn-t full" href="#/A1">확인</a><a class="btn btn-d full" href="#/A8" aria-disabled="true">QR 새로 발급</a></div>
+</section>
+
+<!-- A8b 2단계 열람 요청 알림 -->
+<section class="scr" id="A8b" data-g="A. 보호자" data-t="열람 알림 · 2단계 요청" data-d data-time="15:13">
   <header class="ab"><span class="l"><svg class="ic" style="color:var(--p-d)"><use href="#i-bell"/></svg></span><h1>승인 요청</h1><span></span></header>
   <div class="ct tight">
     <div class="card req" style="padding:16px 18px">
       <h2 class="h2">김순자 님 QR<br>전체 보기 요청</h2>
-      <dl><dt>사유</dt><dd>돌봄 공백</dd><dt>요청한 분</dt><dd>010-****-5678</dd><dt>인증</dt><dd>문자 인증 완료</dd><dt>요청 시각</dt><dd>오늘 오후 3:12</dd></dl>
+      <dl><dt>사유</dt><dd>돌봄 공백</dd><dt>요청한 분</dt><dd>돌봄 인력</dd><dt>기기·IP</dt><dd>Android · 211.36.***</dd><dt>요청 시각</dt><dd>오늘 오후 3:13</dd></dl>
     </div>
-    <div class="timer"><b>8:42</b><p>10분 안에 응답이 없으면 긴급 요약만 열려요.</p></div>
-    <div><a class="btn btn-p full" href="#/B1"><svg class="ic"><use href="#i-check"/></svg>승인</a><p class="cap" style="text-align:center;margin-top:4px">승인 전에 문자 인증을 한 번 더 해요</p></div>
+    <div class="timer"><b>8:42</b><p>10분 안에 승인하지 않으면 요청이 만료돼요.</p></div>
+    <div><a class="btn btn-p full" href="#/B3"><svg class="ic"><use href="#i-check"/></svg>승인</a><p class="cap" style="text-align:center;margin-top:4px">승인 전에 문자 인증을 한 번 더 해요</p></div>
     <a class="btn btn-t full" href="#/A8" aria-disabled="true"><svg class="ic"><use href="#i-x"/></svg>거절</a>
   </div>
   <div class="bt"><a class="btn btn-d full" href="#/A8" aria-disabled="true">이 QR 폐기하고 새로 발급</a></div>
@@ -511,100 +557,96 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
   <div class="qhead"><p><svg class="ic"><use href="#i-qr"/></svg>이음수첩 · 긴급 돌봄 정보 1단계</p><h1>돌봄이 필요한<br>가족이 있어요</h1></div>
   <div class="ct tight">
     <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
+    <div class="info"><span>복용 중인 약</span><b>도네페질, 와파린, 아모디핀</b></div>
     <div class="info"><span>주의가 필요한 약 종류</span><b>혈액희석제 복용 중</b></div>
-    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
     <a class="btn btn-t full call" href="#/Q1" aria-disabled="true"><span class="row"><svg class="ic"><use href="#i-phone"/></svg>보호자에게 전화</span><small>번호는 가려져요</small></a>
-    <p class="cap" style="text-align:center">이 화면을 연 기록이 남아요</p>
+    <p class="cap" style="text-align:center">알레르기와 약 정보만 보여요 · 연 기록이 보호자에게 가요</p>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/B0"><svg class="ic"><use href="#i-lock"/></svg>전체 보기 요청</a></div>
+  <div class="bt"><a class="btn btn-p full" href="#/B0">자세히 보기</a></div>
 </section>
 
-<!-- B0 전체 보기 요청 -->
-<section class="scr" id="B0" data-g="B. 긴급 돌봄자" data-t="전체 보기 요청" data-d data-time="15:12">
-  <header class="ab"><a class="l" href="#/Q1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>전체 보기 요청</h1><span></span></header>
+<!-- B0 로그·IP 제공 동의 -->
+<section class="scr" id="B0" data-g="B. 긴급 돌봄자" data-t="로그·IP 제공 동의" data-d data-time="15:12">
+  <header class="ab"><a class="l" href="#/Q1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>열람 전 안내</h1><span></span></header>
+  <div class="ct mid" style="gap:18px">
+    <svg class="ic" style="width:64px;height:64px;color:var(--p-d);stroke-width:1.6"><use href="#i-shield"/></svg>
+    <h2 class="h2">보호자에게 열람 기록이 전달돼요</h2>
+    <div class="card" style="width:100%;text-align:left;padding:4px 16px">
+      <div class="li"><div><b>전달하는 것</b><span>열람 시각, 기기 정보, IP</span></div><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg></div>
+      <div class="li" style="border-bottom:0"><div><b>모으지 않는 것</b><span>위치 정보, 이름, 전화번호</span></div><svg class="ic" style="color:var(--red)"><use href="#i-x"/></svg></div>
+    </div>
+    <p class="cap">보호자와 대리 보호자가 누가 봤는지 바로 알 수 있게 하기 위해서예요.</p>
+  </div>
+  <div class="bt col"><a class="btn btn-p full" href="#/B1"><svg class="ic"><use href="#i-check"/></svg>동의하고 보기</a><a class="btn btn-t full" href="#/Q1">돌아가기</a></div>
+</section>
+
+<!-- B1 1단계 기본 열람 확인 -->
+<section class="scr" id="B1" data-g="B. 긴급 돌봄자" data-t="1단계 기본 열람 확인" data-d data-time="15:12">
+  <header class="ab"><span></span><h1>1단계 정보</h1><span></span></header>
   <div class="ct tight">
-    <p class="lbl">기관 인증 · 바로 열려요</p>
-    <a class="btn btn-t full" style="justify-content:flex-start" href="#/B1"><svg class="ic" style="color:var(--p-d)"><use href="#i-shield"/></svg>돌봄SOS 1회용 코드 입력</a>
-    <a class="btn btn-t full" style="justify-content:flex-start" href="#/B1"><svg class="ic" style="color:var(--p-d)"><use href="#i-shield"/></svg>구급대원 업무용 번호 인증</a>
-    <p class="div">코드가 없으면 문자 인증으로 요청</p>
-    <div class="row"><span class="inp grow">010-1234-5678</span><a class="btn btn-s" style="padding:0 12px;font-size:17px" href="#/B0" aria-disabled="true">인증번호 받기</a></div>
-    <span class="inp ok">482913<span class="ok"><svg class="ic" style="width:18px;height:18px"><use href="#i-check"/></svg>확인됨</span></span>
-    <p class="lbl" id="l-why">열람 사유</p>
-    <div class="opts three" role="radiogroup" aria-labelledby="l-why"><span class="opt" role="radio" aria-checked="false">구급 출동</span><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 공백</span><span class="opt" role="radio" aria-checked="false">기타</span></div>
-    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>승인자가 허락하면 열려요. 10분 안에 응답이 없으면 긴급 요약만 열려요.</span></p>
+    <p class="scope"><svg class="ic" style="color:var(--p-d)"><use href="#i-bell"/></svg>보호자에게 열람 알림이 갔어요</p>
+    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
+    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>주의가 필요한 약</h3><ul><li>혈액희석제(와파린)를 먹어요</li></ul></div>
+    <div class="blk"><span>복용 중인 약</span><b>도네페질 5mg · 저녁 식후</b><b>와파린 2mg · 아침 식후</b><b>아모디핀 5mg · 아침 식후</b></div>
+    <p class="note"><svg class="ic"><use href="#i-lock"/></svg><span>일과·진정법·연락처는 2단계예요. 보호자가 허락하면 열려요.</span></p>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/B0w">승인 요청 보내기</a></div>
+  <div class="bt"><a class="btn btn-p grow" href="#/B2"><svg class="ic"><use href="#i-lock"/></svg>2단계 열람 요청</a><a class="btn btn-t" href="#/B1" aria-disabled="true" aria-label="보호자 전화"><svg class="ic"><use href="#i-phone"/></svg></a></div>
 </section>
 
-<!-- B0w 승인 대기 -->
-<section class="scr" id="B0w" data-g="B. 긴급 돌봄자" data-t="승인 대기" data-d data-time="15:13">
+<!-- B2 2단계 열람 요청 -->
+<section class="scr" id="B2" data-g="B. 긴급 돌봄자" data-t="2단계 열람 요청" data-d data-time="15:13">
+  <header class="ab"><a class="l" href="#/B1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>2단계 열람 요청</h1><span></span></header>
+  <div class="ct tight">
+    <p class="lbl" id="l-who">어떤 분이세요?</p>
+    <div class="opts three" role="radiogroup" aria-labelledby="l-who"><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 인력</span><span class="opt" role="radio" aria-checked="false">가족·이웃</span><span class="opt" role="radio" aria-checked="false">기타</span></div>
+    <p class="lbl" id="l-why">열람 사유</p>
+    <div class="opts three" role="radiogroup" aria-labelledby="l-why"><span class="opt on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 공백</span><span class="opt" role="radio" aria-checked="false">병원 동행</span><span class="opt" role="radio" aria-checked="false">기타</span></div>
+    <span class="inp area">보호자가 입원해 오늘부터 돌봄SOS로 왔어요.</span>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>보호자와 대리 보호자에게 요청이 가요. 10분 안에 보호자가 인증하면 열려요.</span></p>
+  </div>
+  <div class="bt"><a class="btn btn-p full" href="#/B2b">승인 요청 보내기</a></div>
+</section>
+
+<!-- B2b 승인 대기 -->
+<section class="scr" id="B2b" data-g="B. 긴급 돌봄자" data-t="승인 대기" data-d data-time="15:13">
   <header class="ab"><span></span><h1>승인 대기</h1><span></span></header>
   <div class="ct mid" style="gap:16px">
     <div class="ring" role="img" aria-label="남은 시간 9분 12초"><svg viewBox="0 0 176 176" aria-hidden="true"><circle cx="88" cy="88" r="76" fill="none" stroke="#E6E8EA" stroke-width="12"/><circle cx="88" cy="88" r="76" fill="none" stroke="#256EF4" stroke-width="12" stroke-dasharray="477.5" stroke-dashoffset="38.2"/></svg><div><b>9:12</b><span>남은 시간</span></div></div>
-    <h2 class="h2">승인자에게 요청을 보냈어요</h2>
+    <h2 class="h2">보호자에게 요청을 보냈어요</h2>
     <p>승인되면 바로 열려요.</p>
-    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>10분 안에 응답이 없으면 긴급 요약만 열려요.</span></p>
-    <a class="btn btn-t full" href="#/Q1">1단계 정보 다시 보기</a>
-    <a class="btn btn-x full" href="#/B1s"><span class="row"><svg class="ic"><use href="#i-clock"/></svg>시간 경과</span><small>시연용 · 시연 때만 보여요</small></a>
+    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>10분 안에 보호자가 인증하지 않으면 요청이 만료돼요. 1단계 정보는 계속 볼 수 있어요.</span></p>
+    <a class="btn btn-t full" href="#/B1">1단계 정보 다시 보기</a>
+    <a class="btn btn-x full" href="#/B1"><span class="row"><svg class="ic"><use href="#i-clock"/></svg>시간 경과</span><small>시연용 · 시연 때만 보여요</small></a>
   </div>
 </section>
 
-<!-- B1 긴급 요약 (승인·기관 인증) -->
-<section class="scr" id="B1" data-g="B. 긴급 돌봄자" data-t="긴급 요약" data-d data-time="15:15">
-  <header class="ab"><span></span><h1>긴급 요약</h1><span></span></header>
-  <div class="ct tight">
-    <p class="scope"><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg>2단계 전체 열림 · 11월 21일 만료</p>
-    <div class="seg" role="radiogroup" aria-label="보는 순서"><span class="on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 인력 순서</span><span role="radio" aria-checked="false">구급대원 순서</span></div>
-    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
-    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
-    <div class="blk"><span>일과 · 지금</span><b>오후 3시 간식, 4시 산책</b></div>
-    <div class="blk"><span>의사소통·진정법</span><b>손을 비비면 불안하다는 뜻이에요. 트로트를 틀어 드려요.</b></div>
-    <a class="btn btn-s full" href="#/B2">상세 보기 (복약·식사·연락처)</a>
-  </div>
-  <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드 보여주기</a><a class="btn btn-p" href="#/B1" aria-disabled="true"><svg class="ic"><use href="#i-phone"/></svg>보호자 전화</a></div>
-</section>
-
-<!-- B1s 긴급 요약만 (10분 무응답) -->
-<section class="scr" id="B1s" data-g="B. 긴급 돌봄자" data-t="긴급 요약 (10분 무응답)" data-d data-time="15:23">
-  <header class="ab"><span></span><h1>긴급 요약</h1><span></span></header>
-  <div class="ct tight">
-    <p class="scope"><svg class="ic" style="color:var(--amb)"><use href="#i-lock"/></svg>승인 없음 · 긴급 요약만 열렸어요</p>
-    <div class="seg" role="radiogroup" aria-label="보는 순서"><span class="on" role="radio" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>돌봄 인력 순서</span><span role="radio" aria-checked="false">구급대원 순서</span></div>
-    <div class="info"><span>알레르기</span><b>페니실린(항생제), 복숭아</b></div>
-    <div class="must"><h3><svg class="ic"><use href="#i-alert"/></svg>꼭 알아야 해요</h3><ul><li>혈액희석제(와파린)를 먹어요</li><li>밤에 혼자 밖으로 나가려 해요</li><li>음식은 잘게 잘라 주세요</li></ul></div>
-    <div class="blk"><span>일과 · 지금</span><b>오후 3시 간식, 4시 산책</b></div>
-    <div class="blk"><span>의사소통·진정법</span><b>손을 비비면 불안하다는 뜻이에요. 트로트를 틀어 드려요.</b></div>
-    <p class="note"><svg class="ic"><use href="#i-lock"/></svg><span>상세(복약·식사·연락처)는 승인되거나 기관 인증을 해야 열려요.</span></p>
-  </div>
-  <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드 보여주기</a><a class="btn btn-p" href="#/B1s" aria-disabled="true"><svg class="ic"><use href="#i-phone"/></svg>보호자 전화</a></div>
-</section>
-
-<!-- B2 상세 -->
-<section class="scr" id="B2" data-g="B. 긴급 돌봄자" data-t="상세" data-time="15:15">
+<!-- B3 상세 -->
+<section class="scr" id="B3" data-g="B. 긴급 돌봄자" data-t="상세 (2단계)" data-time="15:15">
   <header class="ab"><a class="l" href="#/B1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>상세</h1><span></span></header>
   <div class="ct tight">
+    <p class="scope"><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg>보호자 승인으로 열림 · 11월 21일 만료</p>
     <div class="tabs" role="tablist" aria-label="항목"><span class="on" role="tab" aria-selected="true"><svg class="ic"><use href="#i-check"/></svg>복약</span><span role="tab" aria-selected="false">식사</span><span role="tab" aria-selected="false">소통</span><span role="tab" aria-selected="false">진정법</span><span role="tab" aria-selected="false">일과</span><span role="tab" aria-selected="false">연락처</span></div>
     <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>아침 8:00 · 식후</p><div>와파린정 2mg<span>1정</span></div><div>아모디핀정 5mg<span>1정</span></div></div>
     <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>저녁 6:30 · 식후</p><div>도네페질정 5mg<span>1정</span></div></div>
     <p class="cap">마지막 확인 11월 18일 · 보호자가 확인함</p>
     <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>약 이름은 돌봄자 화면에만 보여요. 당사자 화면에는 “선생님과 약 먹기”로 나와요.</span></p>
   </div>
-  <div class="bt"><a class="btn btn-s full" href="#/B3"><svg class="ic"><use href="#i-pen"/></svg>기록 남기기</a></div>
+  <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드</a><a class="btn btn-s grow" href="#/B4"><svg class="ic"><use href="#i-pen"/></svg>기록 남기기</a></div>
 </section>
 
-<!-- B3 기록 남기기 -->
-<section class="scr" id="B3" data-g="B. 긴급 돌봄자" data-t="기록 남기기" data-m data-time="15:15">
-  <header class="ab"><a class="l" href="#/B2" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>기록 남기기</h1><span></span></header>
+<!-- B4 기록 남기기 -->
+<section class="scr" id="B4" data-g="B. 긴급 돌봄자" data-t="기록 남기기" data-m data-time="15:15">
+  <header class="ab"><a class="l" href="#/B3" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>기록 남기기</h1><span></span></header>
   <div class="ct">
     <p class="lbl">식사</p>
     <div class="row"><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>아침</span><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>점심</span><span class="ck" role="checkbox" aria-checked="false">저녁</span></div>
     <p class="lbl">복약</p>
     <div class="row"><span class="ck on" role="checkbox" aria-checked="true"><svg class="ic"><use href="#i-check"/></svg>아침 약</span><span class="ck" role="checkbox" aria-checked="false">저녁 약</span></div>
     <p class="lbl">다음 사람에게 넘길 한 줄</p>
-    <span class="inp area">오후에 손을 자주 비비셔서 트로트를 틀어 드렸어요.</span>
+    <span class="inp area">밤에 혼자 나가려 한 적이 있어요.</span>
     <p class="cap">이 기록은 보호자가 돌아오면 확인해요.</p>
   </div>
-  <div class="bt"><a class="btn btn-p full" href="#/B1">저장</a></div>
+  <div class="bt"><a class="btn btn-p full" href="#/B3">저장</a></div>
 </section>
 
 <!-- C1 일과표 (발달장애인용) -->
@@ -658,12 +700,11 @@ for (const s of scrs) {
   nav.insertAdjacentHTML('beforeend', `<a href="#/${s.id}" data-id="${s.id}"><b>${s.id}</b>${s.dataset.t}${tag}</a>`);
 }
 const sbar = document.getElementById('sbar'), sbt = document.getElementById('sbt');
-let lastB = 'B1';  // 당사자 화면에서 돌아갈 때 열람 범위(B1 전체 / B1s 요약만)를 그대로 유지
+let lastB = 'B3';  // 당사자 화면에서 돌아갈 때 상세 화면으로
 function show() {
   const id = location.hash.replace(/^#\/?/, '') || 'A1';
   const cur = scrs.find(s => s.id === id) || scrs.find(s => s.id === 'A1');
   scrs.forEach(s => s.classList.toggle('on', s === cur));
-  if (cur.id === 'B1' || cur.id === 'B1s') lastB = cur.id;
   document.querySelectorAll('[data-back]').forEach(a => a.setAttribute('href', '#/' + lastB));
   nav.querySelectorAll('a[data-id]').forEach(a => a.dataset.id === cur.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   sbar.classList.toggle('dark', 'dark' in cur.dataset);
@@ -671,6 +712,16 @@ function show() {
   sbt.textContent = cur.dataset.time || '9:41';
   document.title = `${cur.id} ${cur.dataset.t} · 이음수첩 프로토타입`;
 }
+// 예시 QR 무늬 (실제로 찍히는 코드는 아님)
+(() => {
+  const g = document.getElementById('qrA4'), n = 29, q = 2, m = 25;
+  let s = 20261121; const rnd = () => (s = (s * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const finder = (x, y) => x < 8 && y < 8 || x >= m - 8 && y < 8 || x < 8 && y >= m - 8;
+  let d = '';
+  for (let y = 0; y < m; y++) for (let x = 0; x < m; x++) if (!finder(x, y) && rnd() > .5) d += `M${x + q} ${y + q}h1v1h-1z`;
+  const eye = (x, y) => `<rect x="${x + q}" y="${y + q}" width="7" height="7"/><rect x="${x + q + 1}" y="${y + q + 1}" width="5" height="5" fill="#fff"/><rect x="${x + q + 2}" y="${y + q + 2}" width="3" height="3"/>`;
+  g.innerHTML = `<rect width="${n}" height="${n}" fill="#fff"/><g fill="#13294B">${eye(0, 0)}${eye(m - 7, 0)}${eye(0, m - 7)}<path d="${d}"/></g>`;
+})();
 addEventListener('hashchange', show);
 // 시연용으로만 있는 버튼은 눌러도 이동하지 않음
 document.addEventListener('click', e => { if (e.target.closest('[aria-disabled="true"]')) e.preventDefault(); });
