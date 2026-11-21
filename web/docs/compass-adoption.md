@@ -102,3 +102,13 @@ npx shadcn@latest add https://compass.designcompass.org/r/1.0.17/foundations.jso
 6. 첫 화면의 `/record/photo`, `/record/voice`, `/handover`와 하단 탭 대상 화면은 아직 없다.
 7. 가이드라인은 Pretendard GOV가 작게 보여 기본 본문 17px, 글자 두께 400/500/700을 권한다. COMPASS는 16px과 600, 720 두께를 쓰며, 전체 컴포넌트에 영향이 있어 아직 바꾸지 않았다.
 8. `image-gallery`는 `next/image`를 사용하므로 외부 이미지 주소를 쓰려면 `next.config.ts`에 `images.remotePatterns`가 필요하다.
+
+## 보호자 홈 모션 (2026-11-21)
+
+- 참조: [DesignBookmark Motion](https://designbookmark.com/motion)의 [Step progress](https://designbookmark.com/motion-src/step-progress/), [Tab pill](https://designbookmark.com/motion-src/tab-pill/). 단계 강조와 선택 표시 이동 방식을 참고해 제품에 맞는 강도로 구현했다.
+- `app/home-motion.module.css`를 홈에서만 불러온다. COMPASS 원본 컴포넌트와 의존성은 유지한다.
+- 그림 게이지는 완료된 칸만 94%에서 100%로 240ms 동안 한 번 강조한다. 칸별 지연은 24ms이며 텍스트와 완료 상태는 처음부터 표시한다.
+- 촬영과 음성 기록 카드는 마우스 호버 시 안쪽 면이 2px 올라가고, 누르면 98.5%로 줄어든다. 링크의 클릭 영역은 고정한다. 인수인계서 링크의 화살표는 호버와 키보드 초점에서 2px 이동한다.
+- 홈의 COMPASS 버튼 누름 배율은 80%에서 98%로 완화한다. 하단 GlassTabBar의 기존 선택 표시는 240ms 동안 이동하며 드래그 중에는 80ms로 줄인다.
+- `prefers-reduced-motion: reduce`에서는 새 애니메이션, 호버 이동과 누름 축소를 끈다. 하단 선택 표시는 최종 위치로 즉시 이동한다. OS 설정 변경도 새로고침 없이 반영한다.
+- 검증: lint 오류 0(기존 경고 5), TypeScript와 프로덕션 빌드 통과. 라이트/다크 × 모바일/데스크톱 × 일반/움직임 줄이기의 8가지 조합에서 모션, 키보드 탐색과 고정 클릭 영역을 확인했다. 기본 4가지 화면의 axe 위반과 텍스트 대비 기준 미달은 0건이다.

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>이음수첩 프로토타입</title>
+<link rel="stylesheet" href="understanding.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
 <style>
 :root{
@@ -273,6 +274,7 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
   <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
   <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.5 8.5 0 018 8v.5z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
@@ -621,15 +623,16 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
 </section>
 
 <!-- B3 상세 -->
-<section class="scr" id="B3" data-g="B. 긴급 돌봄자" data-t="상세 (2단계)" data-time="15:15">
+<section class="scr" id="B3" data-g="B. 긴급 돌봄자" data-t="상세 (2단계)" data-d data-time="15:15">
   <header class="ab"><a class="l" href="#/B1" aria-label="뒤로"><svg class="ic"><use href="#i-back"/></svg></a><h1>상세</h1><span></span></header>
   <div class="ct tight">
-    <p class="scope"><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg>보호자 승인으로 열림 · 11월 21일 만료</p>
+    <p class="scope"><svg class="ic" style="color:var(--grn)"><use href="#i-check"/></svg>보호자 승인 예시 / 11월 21일 만료</p>
+    <a class="understanding-entry" href="#/B5"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg><span><b>인수인계 함께 확인</b><small>생활 안내를 읽고 내 말로 설명해요</small></span><svg class="ic" aria-hidden="true"><use href="#i-next"/></svg></a>
     <div class="tabs" role="tablist" aria-label="항목"><span class="on" role="tab" aria-selected="true"><svg class="ic"><use href="#i-check"/></svg>복약</span><span role="tab" aria-selected="false">식사</span><span role="tab" aria-selected="false">소통</span><span role="tab" aria-selected="false">진정법</span><span role="tab" aria-selected="false">일과</span><span role="tab" aria-selected="false">연락처</span></div>
     <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>아침 8:00 · 식후</p><div>와파린정 2mg<span>1정</span></div><div>아모디핀정 5mg<span>1정</span></div></div>
     <div class="slot"><p><svg class="ic"><use href="#i-clock"/></svg>저녁 6:30 · 식후</p><div>도네페질정 5mg<span>1정</span></div></div>
     <p class="cap">마지막 확인 11월 18일 · 보호자가 확인함</p>
-    <p class="note"><svg class="ic"><use href="#i-info"/></svg><span>약 이름은 돌봄자 화면에만 보여요. 당사자 화면에는 “선생님과 약 먹기”로 나와요.</span></p>
+    <p class="cap">약 이름은 돌봄자 화면에만 보여요.</p>
   </div>
   <div class="bt"><a class="btn btn-t grow" href="#/C2" style="font-size:17px">당사자 카드</a><a class="btn btn-s grow" href="#/B4"><svg class="ic"><use href="#i-pen"/></svg>기록 남기기</a></div>
 </section>
@@ -647,6 +650,26 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
     <p class="cap">이 기록은 보호자가 돌아오면 확인해요.</p>
   </div>
   <div class="bt"><a class="btn btn-p full" href="#/B3">저장</a></div>
+</section>
+
+<!-- B5 이해 확인: 모두 가상 데이터, AI/서버 연결 없는 UI 체험 -->
+<section class="scr understanding" id="B5" data-g="B. 긴급 돌봄자" data-t="인수인계 함께 확인" data-d data-time="15:16">
+  <header class="ab"><a class="l" href="#/B3" aria-label="2단계 상세로"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계 함께 확인</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
+</section>
+<section class="scr understanding" id="B5a" data-g="B. 긴급 돌봄자" data-t="이해 확인 / 안내 읽기" data-d data-time="15:16">
+  <header class="ab"><a class="l" href="#/B5" aria-label="이해 확인 시작으로"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계 함께 확인</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
+</section>
+<section class="scr understanding" id="B5b" data-g="B. 긴급 돌봄자" data-t="이해 확인 / 내 말로 설명" data-d data-time="15:16">
+  <header class="ab"><a class="l" href="#/B5a" aria-label="안내 다시 읽기"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계 함께 확인</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
+</section>
+<section class="scr understanding" id="B5c" data-g="B. 긴급 돌봄자" data-t="이해 확인 / 원문 재안내" data-d data-time="15:16">
+  <header class="ab"><a class="l" href="#/B5b" aria-label="내 설명 수정하기"><svg class="ic"><use href="#i-back"/></svg></a><h1>인수인계 함께 확인</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
+</section>
+<section class="scr understanding" id="B5d" data-g="B. 긴급 돌봄자" data-t="이해 확인 / 결과" data-d data-time="15:17">
+  <header class="ab"><a class="l" href="#/B3" aria-label="2단계 상세로"><svg class="ic"><use href="#i-back"/></svg></a><h1>함께 확인한 내용</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
+</section>
+<section class="scr understanding" id="B5e" data-g="B. 긴급 돌봄자" data-t="이해 확인 / 열람 만료" data-d data-time="15:18">
+  <header class="ab"><a class="l" href="#/B1" aria-label="1단계 정보로"><svg class="ic"><use href="#i-back"/></svg></a><h1>열람 만료</h1><span class="r">체험</span></header><div class="ct"></div><div class="bt"></div>
 </section>
 
 <!-- C1 일과표 (발달장애인용) -->
@@ -688,6 +711,7 @@ mark{background:#FFE89A;color:inherit;text-decoration:underline 2px;text-underli
 </main>
 </div>
 
+<script src="understanding.js"></script>
 <script>
 // 장식용 아이콘은 화면낭독기가 읽지 않게
 document.querySelectorAll('svg.ic, .logo svg, .sbar svg').forEach(s => { s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false'); });
@@ -699,11 +723,14 @@ for (const s of scrs) {
   const tag = 'd' in s.dataset ? '<i class="d">시연</i>' : 'm' in s.dataset ? '<i class="m">목업</i>' : '';
   nav.insertAdjacentHTML('beforeend', `<a href="#/${s.id}" data-id="${s.id}"><b>${s.id}</b>${s.dataset.t}${tag}</a>`);
 }
+nav.insertAdjacentHTML('beforeend', '<button type="button" class="tb-demo-tool" data-understanding-action="expire">시연 도구: 2단계 열람 만료</button>');
 const sbar = document.getElementById('sbar'), sbt = document.getElementById('sbt');
 let lastB = 'B3';  // 당사자 화면에서 돌아갈 때 상세 화면으로
 function show() {
   const id = location.hash.replace(/^#\/?/, '') || 'A1';
   const cur = scrs.find(s => s.id === id) || scrs.find(s => s.id === 'A1');
+  if (cur.id === 'B3') window.ieumUnderstanding.enterApprovedExample();
+  window.ieumUnderstanding.render(cur.id);
   scrs.forEach(s => s.classList.toggle('on', s === cur));
   document.querySelectorAll('[data-back]').forEach(a => a.setAttribute('href', '#/' + lastB));
   nav.querySelectorAll('a[data-id]').forEach(a => a.dataset.id === cur.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));

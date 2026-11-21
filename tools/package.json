@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "capture": "node capture.mjs"
+    "capture": "node capture.mjs",
+    "verify:understanding": "node verify-understanding.mjs"
   },
   "dependencies": {
     "puppeteer-core": "^24.0.0"

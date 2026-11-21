@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   Camera,
+  ClipboardCheck,
   ChevronDown,
   ChevronRight,
   Clock,
@@ -26,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MobileAppShell, MobileListCard } from "@/components/ui/mobile-app-shell";
 import { cn } from "@/lib/utils";
+import styles from "./home-motion.module.css";
 
 // 프로토타입 A1(보호자 홈) 기준. 데이터는 아직 서버 없이 화면 확인용 고정값이다.
 const tabs = [
@@ -60,10 +62,11 @@ export default function Home() {
         items: tabs,
         value: tab,
         onValueChange: setTab,
+        className: styles.navigation,
         "aria-label": "하단 메뉴",
       }}
     >
-      <div id="main-content" tabIndex={-1} className="flex flex-col gap-4 break-keep outline-none">
+      <div id="main-content" tabIndex={-1} className={cn("flex flex-col gap-4 break-keep outline-none", styles.home)}>
         <header className="flex items-center justify-between gap-3">
           <h1 className="text-xl">
             <Logo />
@@ -84,11 +87,14 @@ export default function Home() {
               aria-label={`${sections.length}개 항목 중 ${doneCount}개를 채웠어요`}
               className="grid grid-cols-7 gap-1.5"
             >
-              {sections.map(({ label, icon: Icon, done }) => (
+              {sections.map(({ label, icon: Icon, done }, index) => (
                 <span
                   key={label}
+                  data-complete={done}
+                  style={{ "--step-delay": `${Math.min(index, 6) * 24}ms` } as CSSProperties}
                   className={cn(
                     "grid aspect-square place-items-center rounded-lg",
+                    styles.step,
                     done
                       ? "bg-primary text-primary-foreground"
                       : "border-2 border-dashed border-muted-foreground text-muted-foreground",
@@ -119,8 +125,8 @@ export default function Home() {
 
         <div className="grid grid-cols-2 gap-3">
           {quickActions.map(({ href, icon: Icon, title, note, tone }) => (
-            <a key={href} href={href} className="block rounded-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-              <Card className={cn("h-full gap-2 text-primary-foreground ring-0", tone)}>
+            <a key={href} href={href} className={cn("block rounded-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring", styles.action)}>
+              <Card className={cn("h-full gap-2 text-primary-foreground ring-0", tone, styles.actionSurface)}>
                 <CardContent className="flex flex-col gap-2">
                   <Icon className="size-8" aria-hidden="true" />
                   <span className="text-lg leading-snug font-bold">
@@ -135,10 +141,20 @@ export default function Home() {
           ))}
         </div>
 
-        <MobileListCard href="/handover">
+        <MobileListCard href="/handover" className={styles.listAction}>
           <span className="flex flex-col">
             <span className="font-bold">인수인계서 확인</span>
             <span className="text-muted-foreground">최근 저장 11월 18일</span>
+          </span>
+        </MobileListCard>
+
+        <MobileListCard href="/care/understanding" className={styles.listAction}>
+          <span className="flex items-start gap-3">
+            <ClipboardCheck className="mt-1 size-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="flex flex-col gap-1">
+              <span className="font-bold">인수인계 함께 확인</span>
+              <span className="text-sm text-muted-foreground">임시 보호자 화면 체험</span>
+            </span>
           </span>
         </MobileListCard>
 
